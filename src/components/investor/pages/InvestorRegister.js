@@ -11,12 +11,14 @@ const InvestorRegister = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   // Handle registration form submission
   const handleRegister = async (e) => {
     e.preventDefault();
     setError(null);
     setSuccess(null);
+    setLoading(true);
 
     try {
       const response = await registerUser({
@@ -33,6 +35,8 @@ const InvestorRegister = () => {
       }
     } catch (error) {
       setError('An error occurred during registration: ' + error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -83,7 +87,9 @@ const InvestorRegister = () => {
               required
             />
 
-            <button type="submit" className="button">Register</button>
+            <button type="submit" className="button" disabled={loading}>
+              {loading ? 'Registering...' : 'Register'}
+            </button>
 
             {/* Display error and success messages */}
             {error && <p style={{ color: 'red' }}>{error}</p>}
