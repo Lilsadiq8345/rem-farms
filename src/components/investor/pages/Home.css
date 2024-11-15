@@ -1,0 +1,86 @@
+
+
+.hero h1,
+.hero p,
+.hero h2 {
+  font-family: 'Lora', serif;
+}
+
+.hero h1 {
+  font-style: italic;
+  font-weight: 700;
+}
+
+.hero p {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.hero h2 {
+  font-style: italic;
+  font-weight: 600;
+}
+
+.hero h1 {
+  font-size: 2.5rem; /* Adjust based on your design preference */
+  line-height: 1.2;
+}
+
+.hero p {
+  font-size: 1.25rem;
+  line-height: 1.6;
+}
+
+.hero h2 {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+}
+
+/* Keyframe animation for pop-up */
+@keyframes pop-up {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Initial elements (Welcome text and description) pop-up animation */
+.animate-pop-up-initial {
+  animation: pop-up 0.8s ease-out forwards;
+}
+
+/* Delayed pop-up for rotating text */
+.animate-pop-up-delayed {
+  animation: pop-up 0.8s ease-out forwards;
+  animation-delay: 1s; /* Adjust delay as needed */
+}
+
+/* Position text container on the left */
+.hero .text-container {
+  position: absolute;
+  left: 5%;
+  top: 25%;
+  color: white;
+}
+
+/* Responsive adjustments */
+@media (min-width: 640px) {
+  .hero .text-container {
+    left: 10%;
+    top: 30%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero .text-container {
+    left: 15%;
+    top: 35%;
+  }
+}
+.font-chalkduster {
+    font-family: 'Chalkduster', sans-serif;
+  }
