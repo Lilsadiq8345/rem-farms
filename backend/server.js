@@ -1,4 +1,4 @@
-require('dotenv').config({ path: './backend/.env' });
+
 const express = require('express');
 const http = require('http');
 const mysql = require('mysql2/promise');
@@ -10,6 +10,17 @@ const fs = require('fs');
 const path = require('path');
 const nodemailer = require('nodemailer');
 const Paystack = require('paystack-node');
+
+// Environment variables
+const DB_HOST = 'localhost';
+const DB_USER = 'root';
+const DB_PASSWORD = 'lilsadiq8345';
+const DB_NAME = 'rem_farms';
+const JWT_SECRET = 'BTh7ckdEi97Tkzkhdn0PHA/Q1VsoDid837z96QArotA=';
+const EMAIL_USER = 'abubakarabdulrazak242@gmail.com';
+const EMAIL_PASS = 'oxht xcfi vvix czdu   ##ennj zqgi zotq idya';
+
+
 
 const app = express();
 const server = http.createServer(app);
@@ -31,8 +42,7 @@ const db = mysql.createPool({
     connectionLimit: 10,
 });
 
-// JWT Secret
-const JWT_SECRET = process.env.JWT_SECRET || 'BTh7ckdEi97Tkzkhdn0PHA/Q1VsoDid837z96QArotA=';
+
 
 // Configure Nodemailer for email verification
 const transporter = nodemailer.createTransport({
