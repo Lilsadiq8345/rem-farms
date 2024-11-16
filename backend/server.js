@@ -26,7 +26,7 @@ const paystack = new Paystack(process.env.PAYSTACK_SECRET_KEY, true);
 const db = mysql.createPool({
     host: 'localhost',
     user: 'root',
-    password: '',
+    password: 'lilsadiq8345',
     database: 'rem_farms',
     connectionLimit: 10,
 });
