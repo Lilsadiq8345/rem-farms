@@ -12,15 +12,17 @@ const path = require('path');
 const nodemailer = require('nodemailer');
 const Paystack = require('paystack-node');
 
+
 // Environment Variables
-const DB_HOST = 'localhost';
-const DB_USER = 'root';
-const DB_PASSWORD = 'lilsadiq8345';
-const DB_NAME = 'rem_farms';
-const JWT_SECRET = 'BTh7ckdEi97Tkzkhdn0PHA/Q1VsoDid837z96QArotA=';
-const EMAIL_USER = 'abubakarabdulrazak242@gmail.com';  // Change this to your email address
-const EMAIL_PASS = 'oxht xcfi vvix czdu';  // Change this to your email password
-const PORT = 5000;  // Optional: Set the port for your server
+const DB_HOST = process.env.DB_HOST;
+const DB_USER = process.env.DB_USER;
+const DB_PASSWORD = process.env.DB_PASSWORD;
+const DB_NAME = process.env.DB_NAME;
+const JWT_SECRET = process.env.JWT_SECRET;
+const EMAIL_USER = process.env.EMAIL_USER;  // The email should be stored in an environment variable
+const EMAIL_PASS = process.env.EMAIL_PASS;  // The email password should also be stored in an environment variable
+const PORT = process.env.PORT || 5000;  // Default to 5000 if not set
+
 
 const app = express();
 const server = http.createServer(app);
