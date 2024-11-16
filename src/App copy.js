@@ -30,7 +30,6 @@ import AdminDashboard from './components/admin/pages/AdminDashboard';
 import AdminLogin from './components/admin/pages/AdminLogin';
 import AdminRegister from './components/admin/pages/AdminRegister';
 
-
 const App = () => {
   // Scroll to section function
   const handleNavigation = (sectionId) => {
