@@ -10,7 +10,7 @@ const CommodityList = () => {
   useEffect(() => {
     const fetchCommodities = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/commodities');
+        const response = await axios.get('https://rem-farms.onrender.com/api/commodities');
         console.log(response.data);
         setCommodities(response.data.commodities || response.data);
         setLoading(false);

@@ -16,7 +16,7 @@ const Login = ({ onLogin }) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', {
+      const response = await axios.post('https://rem-farms.onrender.com/api/auth/login', {
         email,
         password,
       });
