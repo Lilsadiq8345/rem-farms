@@ -1,3 +1,4 @@
+// server.js
 
 const express = require('express');
 const http = require('http');
@@ -11,16 +12,15 @@ const path = require('path');
 const nodemailer = require('nodemailer');
 const Paystack = require('paystack-node');
 
-// Environment variables
+// Environment Variables
 const DB_HOST = 'localhost';
 const DB_USER = 'root';
 const DB_PASSWORD = 'lilsadiq8345';
 const DB_NAME = 'rem_farms';
 const JWT_SECRET = 'BTh7ckdEi97Tkzkhdn0PHA/Q1VsoDid837z96QArotA=';
-const EMAIL_USER = 'abubakarabdulrazak242@gmail.com';
-const EMAIL_PASS = 'oxht xcfi vvix czdu   ##ennj zqgi zotq idya';
-
-
+const EMAIL_USER = 'abubakarabdulrazak242@gmail.com';  // Change this to your email address
+const EMAIL_PASS = 'oxht xcfi vvix czdu';  // Change this to your email password
+const PORT = 5000;  // Optional: Set the port for your server
 
 const app = express();
 const server = http.createServer(app);
@@ -31,25 +31,24 @@ const io = new Server(server, {
     },
 });
 
+// Paystack initialization (ensure PAYSTACK_SECRET_KEY is defined somewhere in your environment)
 const paystack = new Paystack(process.env.PAYSTACK_SECRET_KEY, true);
 
 // Configure MySQL
 const db = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    password: 'lilsadiq8345',
-    database: 'rem_farms',
+    host: DB_HOST,
+    user: DB_USER,
+    password: DB_PASSWORD,
+    database: DB_NAME,
     connectionLimit: 10,
 });
-
-
 
 // Configure Nodemailer for email verification
 const transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+        user: EMAIL_USER,
+        pass: EMAIL_PASS,
     },
 });
 
@@ -107,11 +106,11 @@ app.post('/api/auth/register', async (req, res) => {
             [username, email, hashedPassword, userType]
         );
 
-        const verificationLink = `http://localhost:5000/api/auth/verify/${verificationToken}`;
+        const verificationLink = `http://localhost:${PORT}/api/auth/verify/${verificationToken}`;
 
         // Send verification email
         await transporter.sendMail({
-            from: process.env.EMAIL_USER,
+            from: EMAIL_USER,
             to: email,
             subject: 'Account Verification',
             text: `Please verify your account by clicking the following link: ${verificationLink}`,
@@ -123,7 +122,6 @@ app.post('/api/auth/register', async (req, res) => {
         res.status(500).json({ message: 'Database error', error: err.message });
     }
 });
-
 
 // User Login
 app.post('/api/auth/login', async (req, res) => {
@@ -232,6 +230,7 @@ app.get("/api/verify/:reference", async (req, res) => {
     }
 });
 
+// Account Verification
 app.get('/api/auth/verify/:token', async (req, res) => {
     try {
         const token = req.params.token;
@@ -245,9 +244,6 @@ app.get('/api/auth/verify/:token', async (req, res) => {
     }
 });
 
-
-
-
 // Fetch all services (active and inactive) for all users
 app.get('/api/services', async (req, res) => {
     try {
@@ -259,7 +255,6 @@ app.get('/api/services', async (req, res) => {
 });
 
 // Start Server
-const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
