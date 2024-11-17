@@ -2,6 +2,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faTwitter, faInstagram, faLinkedin } from '@fortawesome/free-brands-svg-icons';
+import { Link } from 'react-router-dom'; // Import the Link component from React Router
 
 const Footer = () => {
   const handleHomeClick = (e) => {
@@ -12,13 +13,13 @@ const Footer = () => {
   return (
     <footer className="bg-green-900 text-white py-10">
       <div className="max-w-7xl mx-auto px-4 md:px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-        
+
         {/* Logo and Contact Info */}
         <div id="contact">
-          <img 
-            src="./REM-FARM-LOGO.png" 
-            alt="Rem-Farms-Logo" 
-            className="mb-12 h-12 bg-white shadow-ld rounded" 
+          <img
+            src="./REM-FARM-LOGO.png"
+            alt="Rem-Farms-Logo"
+            className="mb-12 h-12 bg-white shadow-ld rounded"
           />
           <p className="mb-2">UK, United Kingdom</p>
           <p className="mb-2">📞 123-456-7890</p>
@@ -44,15 +45,19 @@ const Footer = () => {
           <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
           <ul className="space-y-2">
             <li>
-              <a 
-                href="/#home" 
-                onClick={handleHomeClick} 
+              <Link
+                to="/home"
+                onClick={handleHomeClick}
                 className="hover:text-gray-300 cursor-pointer"
               >
                 Home
-              </a>
+              </Link>
             </li>
-            <li><a href="/faq" className="hover:text-gray-300">About Company</a></li>
+            <li>
+              <Link to="/about" className="hover:text-gray-300">
+                About Company
+              </Link>
+            </li>
           </ul>
         </div>
 
@@ -60,9 +65,21 @@ const Footer = () => {
         <div>
           <h4 className="text-lg font-semibold mb-4">Our Mission</h4>
           <ul className="space-y-2">
-            <li><a href="/contact" className="hover:text-gray-300">Contacts</a></li>
-            <li><a href="/privacy-policy" className="hover:text-gray-300">Privacy Policy</a></li>
-            <li><a href="/faq" className="hover:text-gray-300">FAQ Pages</a></li>
+            <li>
+              <Link to="/contact" className="hover:text-gray-300">
+                Contacts
+              </Link>
+            </li>
+            <li>
+              <Link to="/privacy-policy" className="hover:text-gray-300">
+                Privacy Policy
+              </Link>
+            </li>
+            <li>
+              <Link to="/faq" className="hover:text-gray-300">
+                FAQ Pages
+              </Link>
+            </li>
           </ul>
         </div>
 
