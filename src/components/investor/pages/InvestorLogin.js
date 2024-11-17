@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Login.css';
-import Navbar from '../../investor/ui/Navbar';
-import Footer from '../../investor/ui/Footer';
+import Navbar from '../ui/Navbar';
+import Footer from '../ui/Footer';
 
-const Login = ({ onLogin }) => {
+const InvestorLogin = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(''); // State to manage error messages
@@ -81,4 +81,4 @@ const Login = ({ onLogin }) => {
   );
 };
 
-export default Login;
+export default InvestorLogin;

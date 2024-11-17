@@ -1,9 +1,8 @@
-// src/App.js
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './components/investor/pages/Home';
 import InvestorDashboard from './components/investor/pages/InvestorDashboard';
-import Login from './components/investor/pages/Login';
+import InvestorLogin from './components/investor/pages/InvestorLogin';
 import InvestorRegister from './components/investor/pages/InvestorRegister';
 import ScrollToTop from './components/investor/ui/ScrollToTop';
 import Settings from './components/investor/pages/Settings';
@@ -59,7 +58,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/investor-dashboard" element={<InvestorDashboard />} />
-        <Route path="/investor-login" element={<Login />} />
+        <Route path="/investor-login" element={<InvestorLogin />} />
         <Route path="/investor-register" element={<InvestorRegister />} />
         <Route path="/about" element={<About />} />
         <Route path="/faq" element={<Faq />} />
@@ -76,15 +75,30 @@ const App = () => {
         {/* Scrollable Sections */}
         <Route
           path="/home"
-          element={<ScrollHandler sectionId="home" />}
+          element={
+            <>
+              <Home />
+              <ScrollHandler sectionId="home" />
+            </>
+          }
         />
         <Route
           path="/about"
-          element={<ScrollHandler sectionId="about" />}
+          element={
+            <>
+              <About />
+              <ScrollHandler sectionId="about" />
+            </>
+          }
         />
         <Route
           path="/contact"
-          element={<ScrollHandler sectionId="contact" />}
+          element={
+            <>
+              <ContactSection />
+              <ScrollHandler sectionId="contact" />
+            </>
+          }
         />
 
         {/* Staff Routes */}
