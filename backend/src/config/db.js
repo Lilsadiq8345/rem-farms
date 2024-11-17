@@ -2,10 +2,10 @@
 const mysql = require('mysql2/promise');  // Using the promise version
 
 const db = mysql.createPool({
-    host: process.env.DB_HOST || 'rem-farms-db.db.render.com',
-    user: process.env.DB_USER || 'root',
-    password: process.env.DB_PASSWORD || '',
-    database: process.env.DB_NAME || 'rem_farms',
+    host: process.env.DB_HOST || 'sql8.freesqldatabase.com',
+    user: process.env.DB_USER || 'sql8745399',
+    password: process.env.DB_PASSWORD || 'yqSUAaRcGP',
+    database: process.env.DB_NAME || 'sql8745399',
 });
 
 // Test the database connection using async/await

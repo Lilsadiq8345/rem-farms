@@ -1,7 +1,3 @@
--- Create Database
-CREATE DATABASE IF NOT EXISTS REM_FARMS;
-USE REM_FARMS;
-
 -- Users Table (Base table for all user types)
 CREATE TABLE USERS (
     USER_ID INT PRIMARY KEY AUTO_INCREMENT,
@@ -10,7 +6,6 @@ CREATE TABLE USERS (
     PASSWORD_HASH VARCHAR(255) NOT NULL,
     USER_TYPE ENUM('investor', 'staff', 'admin', 'super_admin') NOT NULL,
     VERIFIED BOOLEAN DEFAULT FALSE,
-    CREATED_AT TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     UPDATED_AT TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
@@ -35,7 +30,6 @@ CREATE TABLE TOKENS (
     TOKEN VARCHAR(255) NOT NULL,
     EXPIRATION TIMESTAMP NOT NULL,
     TOKEN_TYPE ENUM('verification', 'password_reset') NOT NULL,
-    CREATED_AT TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (USER_ID) REFERENCES USERS(USER_ID) ON DELETE CASCADE
 );
 
@@ -79,7 +73,6 @@ CREATE TABLE COMMODITIES (
     STAFF_ID INT,
     IMAGE_URL VARCHAR(255),
     STATUS ENUM('available', 'sold', 'in_progress') DEFAULT 'available',
-    CREATED_AT TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (STAFF_ID) REFERENCES USERS(USER_ID) ON DELETE SET NULL
 );
 
@@ -168,41 +161,206 @@ CREATE TABLE NOTIFICATIONS (
     MESSAGE TEXT NOT NULL,
     TYPE ENUM('info', 'success', 'warning', 'error') DEFAULT 'info',
     READ_STATUS BOOLEAN DEFAULT FALSE,
-    CREATED_AT TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (USER_ID) REFERENCES USERS(USER_ID) ON DELETE CASCADE
 );
 
 -- Insert Sample Users
-INSERT INTO USERS (USERNAME, EMAIL, PASSWORD_HASH, USER_TYPE) VALUES 
-('investor1', 'investor1@example.com', 'hashed_password_1', 'investor'),
-('staff1', 'staff1@example.com', 'hashed_password_2', 'staff'),
-('admin', 'admin@example.com', 'hashed_password_3', 'admin');
+INSERT INTO USERS (
+    USERNAME,
+    EMAIL,
+    PASSWORD_HASH,
+    USER_TYPE
+) VALUES (
+    'investor1',
+    'investor1@example.com',
+    'hashed_password_1',
+    'investor'
+),
+(
+    'staff1',
+    'staff1@example.com',
+    'hashed_password_2',
+    'staff'
+),
+(
+    'admin',
+    'admin@example.com',
+    'hashed_password_3',
+    'admin'
+);
 
 -- Insert Sample Portfolios
-INSERT INTO PORTFOLIOS (USER_ID, TOTAL_INVESTMENT, CURRENT_VALUE, RETURNS) VALUES 
-(1, 10000.00, 15000.00, 50.00);
+INSERT INTO PORTFOLIOS (
+    USER_ID,
+    TOTAL_INVESTMENT,
+    CURRENT_VALUE,
+    RETURNS
+) VALUES (
+    1,
+    10000.00,
+    15000.00,
+    50.00
+);
 
 -- Insert Sample Assets
-INSERT INTO ASSETS (PORTFOLIO_ID, NAME, QUANTITY, UNIT) VALUES 
-(1, 'Asset 1', 200, 'shares'),
-(1, 'Asset 2', 150, 'shares'),
-(1, 'Asset 3', 300, 'units');
+INSERT INTO ASSETS (
+    PORTFOLIO_ID,
+    NAME,
+    QUANTITY,
+    UNIT
+) VALUES (
+    1,
+    'Asset 1',
+    200,
+    'shares'
+),
+(
+    1,
+    'Asset 2',
+    150,
+    'shares'
+),
+(
+    1,
+    'Asset 3',
+    300,
+    'units'
+);
 
 -- Insert Sample Asset Distribution
-INSERT INTO ASSET_DISTRIBUTION (PORTFOLIO_ID, TYPE, PERCENTAGE) VALUES 
-(1, 'Stocks', 60.00),
-(1, 'Real Estate', 30.00),
-(1, 'Commodities', 10.00);
+INSERT INTO ASSET_DISTRIBUTION (
+    PORTFOLIO_ID,
+    TYPE,
+    PERCENTAGE
+) VALUES (
+    1,
+    'Stocks',
+    60.00
+),
+(
+    1,
+    'Real Estate',
+    30.00
+),
+(
+    1,
+    'Commodities',
+    10.00
+);
 
 -- Insert Sample Commodities
-INSERT INTO COMMODITIES (NAME, CATEGORY, DESCRIPTION, PRICE, QUANTITY, STAFF_ID, IMAGE_URL, STATUS) VALUES 
-('Organic Corn', 'short_term', 'High-quality organic corn.', 100.00, 500, 2, '/images/maize.jpeg', 'available'),
-('Wheat Grain', 'mid_term', 'Premium wheat grain for milling.', 250.00, 300, 2, '/images/wheat-grain.jpeg', 'available'),
-('Fresh Tomatoes', 'short_term', 'Pesticide-free ripe tomatoes.', 50.00, 1500, 2, '/images/fresh-tomatoes.jpeg', 'available');
+INSERT INTO COMMODITIES (
+    NAME,
+    CATEGORY,
+    DESCRIPTION,
+    PRICE,
+    QUANTITY,
+    STAFF_ID,
+    IMAGE_URL,
+    STATUS
+) VALUES (
+    'Organic Corn',
+    'short_term',
+    'High-quality organic corn.',
+    100.00,
+    500,
+    2,
+    '/images/maize.jpeg',
+    'available'
+),
+(
+    'Wheat Grain',
+    'mid_term',
+    'Premium wheat grain for milling.',
+    250.00,
+    300,
+    2,
+    '/images/wheat-grain.jpeg',
+    'available'
+),
+(
+    'Fresh Tomatoes',
+    'short_term',
+    'Pesticide-free ripe tomatoes.',
+    50.00,
+    1500,
+    2,
+    '/images/fresh-tomatoes.jpeg',
+    'available'
+);
 
 -- Insert Sample Services
-INSERT INTO SERVICES (NAME, DESCRIPTION, PRICE, DURATION, USER_ID, IMAGE_URL, STATUS) VALUES 
-('Financial Planning Consultation', 'One-on-one session to discuss financial planning and investment strategies.', 200.00, 60, 2, '/images/financial-planning.jpg', 'active'),
-('Portfolio Review and Analysis', 'Comprehensive review of investment portfolio with recommendations.', 150.00, 45, 2, '/images/portfolio-review.jpg', 'active'),
-('Investment Risk Assessment', 'Service to assess risk tolerance and provide suitable investment options.', 100.00, 30, 2, '/images/risk-assessment.jpg', 'active'),
-('Commodity Market Insights', 'Detailed insights and analysis on commodity markets.', 250.00, 60, 2, '/images/market-insights.jpg', 'inactive');
+INSERT INTO SERVICES (
+    NAME,
+    DESCRIPTION,
+    PRICE,
+    DURATION,
+    USER_ID,
+    IMAGE_URL,
+    STATUS
+) VALUES (
+    'Agriculture Consultation',
+    'Expert advice on farming and crop management.',
+    500.00,
+    60,
+    2,
+    '/images/agri-consultation.jpeg',
+    'active'
+);
+
+-- Insert Sample Transactions
+INSERT INTO TRANSACTIONS (
+    BUYER_ID,
+    SELLER_ID,
+    COMMODITY_ID,
+    QUANTITY,
+    TOTAL_AMOUNT,
+    STATUS
+) VALUES (
+    1,
+    2,
+    1,
+    50,
+    5000.00,
+    'completed'
+),
+(
+    1,
+    2,
+    2,
+    100,
+    25000.00,
+    'pending'
+);
+
+-- Insert Sample Service Subscriptions
+INSERT INTO SERVICE_SUBSCRIPTIONS (
+    SERVICE_ID,
+    USER_ID,
+    START_DATE,
+    END_DATE,
+    STATUS
+) VALUES (
+    1,
+    1,
+    '2024-01-01',
+    '2025-01-01',
+    'active'
+);
+
+-- Insert Sample Live Sessions
+INSERT INTO LIVE_SESSIONS (
+    STAFF_ID,
+    INVESTOR_ID,
+    COMMODITY_ID,
+    SCHEDULED_TIME,
+    STATUS,
+    VIDEO_URL
+) VALUES (
+    2,
+    1,
+    1,
+    '2024-12-01 10:00:00',
+    'scheduled',
+    '/videos/agri-session1.mp4'
+);
