@@ -1,6 +1,6 @@
 // src/App.js
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Home from './components/investor/pages/Home';
 import InvestorDashboard from './components/investor/pages/InvestorDashboard';
 import Login from './components/investor/pages/Login';
@@ -18,7 +18,6 @@ import Faq from './components/investor/ui/Faq';
 import ContactSection from './components/investor/ui/ContactSection';
 import Products from './components/common/Products';
 
-
 // Import Staff Components
 import StaffDashboard from './components/staff/pages/StaffDashboard';
 import StaffLogin from './components/staff/pages/StaffLogin';
@@ -30,17 +29,29 @@ import AdminDashboard from './components/admin/pages/AdminDashboard';
 import AdminLogin from './components/admin/pages/AdminLogin';
 import AdminRegister from './components/admin/pages/AdminRegister';
 
+// Scroll utility function
+const scrollToSection = (sectionId) => {
+  const section = document.getElementById(sectionId);
+  if (section) {
+    section.scrollIntoView({ behavior: 'smooth' });
+  }
+};
+
+// Scroll handler component
+const ScrollHandler = ({ sectionId }) => {
+  React.useEffect(() => {
+    if (sectionId) {
+      scrollToSection(sectionId);
+    }
+  }, [sectionId]);
+
+  return null;
+};
 
 const App = () => {
-  // Scroll to section function
-  const handleNavigation = (sectionId) => {
-    setTimeout(() => {
-      document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
-    }, 0);
-  };
-
   return (
     <Router>
+      {/* Scroll to top on route change */}
       <ScrollToTop />
 
       <Routes>
@@ -52,7 +63,7 @@ const App = () => {
         <Route path="/investor-register" element={<InvestorRegister />} />
         <Route path="/about" element={<About />} />
         <Route path="/faq" element={<Faq />} />
-        <Route path="/contact" element={<ContactSection />} /> {/* Corrected route */}
+        <Route path="/contact" element={<ContactSection />} />
         <Route path="/products" element={<Products />} />
         <Route path="/commodities" element={<CommodityList />} />
         <Route path="/services" element={<Services />} />
@@ -60,25 +71,23 @@ const App = () => {
         <Route path="/live-view" element={<LiveView />} />
         <Route path="/transactions" element={<Transactions />} />
         <Route path="/saved-calls" element={<SavedCalls />} />
-        <Route path="/settings" component={Settings} />
+        <Route path="/settings" element={<Settings />} />
 
         {/* Scrollable Sections */}
         <Route
           path="/home"
-          element={<div onLoad={() => handleNavigation('home')}></div>}
+          element={<ScrollHandler sectionId="home" />}
         />
         <Route
           path="/about"
-          element={<div onLoad={() => handleNavigation('about')}></div>}
+          element={<ScrollHandler sectionId="about" />}
         />
         <Route
           path="/contact"
-          element={<div onLoad={() => handleNavigation('contact')}></div>}
+          element={<ScrollHandler sectionId="contact" />}
         />
 
         {/* Staff Routes */}
-        <Route path="/" element={<Home />} />
-        <Route path="/home" element={<Home />} />
         <Route path="/staff-dashboard" element={<StaffDashboard />} />
         <Route path="/staff-login" element={<StaffLogin />} />
         <Route path="/staff-register" element={<StaffRegister />} />
