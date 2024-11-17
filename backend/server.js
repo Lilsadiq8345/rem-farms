@@ -28,7 +28,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: 'http://localhost:3000',
+        origin: 'https://rem-farms-1.onrender.com',
         methods: ['GET', 'POST'],
     },
 });
@@ -56,7 +56,7 @@ const transporter = nodemailer.createTransport({
 
 // Middleware
 app.use(express.json());
-app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors({ origin: 'https://rem-farms-1.onrender.com' }));
 app.use('/recordings', express.static(path.join(__dirname, 'recordings')));
 
 // Check Database Connection
@@ -108,7 +108,8 @@ app.post('/api/auth/register', async (req, res) => {
             [username, email, hashedPassword, userType]
         );
 
-        const verificationLink = `http://localhost:${PORT}/api/auth/verify/${verificationToken}`;
+        const verificationLink = `https://rem-farms-1.onrender.com/api/auth/verify/${verificationToken}`;
+
 
         // Send verification email
         await transporter.sendMail({
@@ -207,7 +208,7 @@ app.post("/api/checkout", verifyToken, async (req, res) => {
         const transaction = await paystack.initializeTransaction({
             email: user[0].EMAIL,
             amount: amount * 100,
-            callback_url: "http://localhost:3000/payment-callback"
+            callback_url: "https://rem-farms-1.onrender.com/payment-callback"
         });
 
         await db.query(
@@ -240,7 +241,7 @@ app.get('/api/auth/verify/:token', async (req, res) => {
         const email = decoded.email;
 
         await db.query('UPDATE USERS SET VERIFIED = 1 WHERE EMAIL = ?', [email]);
-        res.redirect('http://localhost:3000/investor-login'); // Redirect to login page after verification
+        res.redirect('https://rem-farms-1.onrender.com/investor-login'); // Redirect to login page after verification
     } catch (err) {
         res.status(500).json({ message: 'Error verifying account', error: err });
     }

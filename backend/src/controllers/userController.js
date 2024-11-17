@@ -13,7 +13,7 @@ exports.register = async (req, res) => {
     User.createUser(email, passwordHash, userType, verificationToken, (err) => {
         if (err) return res.status(500).json({ message: 'Database error' });
 
-        const verificationLink = `http://localhost:5000/api/users/verify/${verificationToken}`;
+        const verificationLink = `https://rem-farms.onrender.com/api/users/verify/${verificationToken}`;
         transporter.sendMail({
             from: process.env.EMAIL_USER,
             to: email,

@@ -42,7 +42,7 @@ router.post('/register', async (req, res) => {
             to: email,
             subject: 'Email Verification',
             text: `Please verify your email by clicking the following link:
-            http://localhost:5000/api/auth/verify/${verificationToken}`,
+            https://rem-farms.onrender.com/api/auth/verify/${verificationToken}`,
         };
 
         await transporter.sendMail(mailOptions);
@@ -69,7 +69,7 @@ router.get('/verify/:token', async (req, res) => {
         // Update verification status
         await db.query('UPDATE USERS SET VERIFICATION_STATUS = ? WHERE ID = ?', ['verified', decoded.userId]);
 
-        res.redirect('http://localhost:3000/investor-login');  // Redirect to the login page
+        res.redirect('https://rem-farms-1.onrender.com/investor-login');  // Redirect to the login page
     } catch (error) {
         res.status(400).json({ message: 'Invalid or expired verification link' });
     }
