@@ -9,7 +9,6 @@ const cors = require('cors');
 const { Server } = require('socket.io');
 const fs = require('fs');
 const path = require('path');
-const path = require('path');
 const nodemailer = require('nodemailer');
 const Paystack = require('paystack-node');
 
@@ -59,10 +58,6 @@ const transporter = nodemailer.createTransport({
 app.use(express.json());
 app.use(cors({ origin: 'https://rem-farms-1.onrender.com' }));
 app.use('/recordings', express.static(path.join(__dirname, 'recordings')));
-// Fallback route to serve index.html for all other routes (React Router paths)
-app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
-});
 
 // Check Database Connection
 db.getConnection()
