@@ -12,7 +12,6 @@ const path = require('path');
 const nodemailer = require('nodemailer');
 const Paystack = require('paystack-node');
 
-
 // Environment Variables
 const DB_HOST = process.env.DB_HOST;
 const DB_USER = process.env.DB_USER;
@@ -23,12 +22,11 @@ const EMAIL_USER = process.env.EMAIL_USER;  // The email should be stored in an 
 const EMAIL_PASS = process.env.EMAIL_PASS;  // The email password should also be stored in an environment variable
 const PORT = process.env.PORT || 5000;  // Default to 5000 if not set
 
-
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: 'https://rem-farms-1.onrender.com',
+        origin: 'https://rem-farms-1.onrender.com',  // Change to your front-end URL
         methods: ['GET', 'POST'],
     },
 });
@@ -56,7 +54,7 @@ const transporter = nodemailer.createTransport({
 
 // Middleware
 app.use(express.json());
-app.use(cors({ origin: 'https://rem-farms-1.onrender.com' }));
+app.use(cors({ origin: 'https://rem-farms-1.onrender.com' }));  // Add your React frontend URL here
 app.use('/recordings', express.static(path.join(__dirname, 'recordings')));
 
 // Check Database Connection
@@ -77,7 +75,8 @@ const verifyToken = (req, res, next) => {
 
 // Socket.IO Events
 io.on('connection', (socket) => {
-    // Handle video start and stop events
+    console.log('User connected:', socket.id);
+
     socket.on('video-start', () => io.emit('video-start'));
     socket.on('video-stop', () => io.emit('video-stop'));
 
@@ -109,7 +108,6 @@ app.post('/api/auth/register', async (req, res) => {
         );
 
         const verificationLink = `https://rem-farms-1.onrender.com/api/auth/verify/${verificationToken}`;
-
 
         // Send verification email
         await transporter.sendMail({
@@ -207,7 +205,7 @@ app.post("/api/checkout", verifyToken, async (req, res) => {
 
         const transaction = await paystack.initializeTransaction({
             email: user[0].EMAIL,
-            amount: amount * 100,
+            amount: amount * 100,  // Paystack expects amount in kobo
             callback_url: "https://rem-farms-1.onrender.com/payment-callback"
         });
 
@@ -218,46 +216,49 @@ app.post("/api/checkout", verifyToken, async (req, res) => {
 
         res.json({ authorization_url: transaction.data.authorization_url });
     } catch (error) {
-        res.status(500).json({ message: "Error initializing payment", error });
+        res.status(500).json({ message: 'Error initializing payment', error: error.message });
     }
 });
 
-// Verify Payment
-app.get("/api/verify/:reference", async (req, res) => {
+// Payment Callback
+app.get("/payment-callback", async (req, res) => {
+    const { reference } = req.query;
     try {
-        const response = await paystack.verifyTransaction(req.params.reference);
-        const status = response.data.status;
-        res.json({ status, message: status === 'success' ? 'Payment successful' : 'Payment failed' });
+        const verification = await paystack.verifyTransaction(reference);
+        if (verification.data.status === 'success') {
+            await db.query(
+                "UPDATE TRANSACTIONS SET STATUS = ? WHERE TRANSACTION_REFERENCE = ?",
+                ['completed', reference]
+            );
+            res.json({ success: true, message: "Payment successful" });
+        } else {
+            res.status(400).json({ message: "Payment failed" });
+        }
     } catch (error) {
-        res.status(500).json({ message: "Error verifying payment", error });
+        res.status(500).json({ message: 'Error verifying payment', error: error.message });
     }
 });
 
-// Account Verification
-app.get('/api/auth/verify/:token', async (req, res) => {
-    try {
-        const token = req.params.token;
-        const decoded = jwt.verify(token, JWT_SECRET);
-        const email = decoded.email;
+// Email Verification
+app.get('/api/auth/verify/:token', (req, res) => {
+    const { token } = req.params;
+    jwt.verify(token, JWT_SECRET, async (err, decoded) => {
+        if (err) return res.status(400).json({ message: 'Invalid or expired verification token' });
 
-        await db.query('UPDATE USERS SET VERIFIED = 1 WHERE EMAIL = ?', [email]);
-        res.redirect('https://rem-farms-1.onrender.com/investor-login'); // Redirect to login page after verification
-    } catch (err) {
-        res.status(500).json({ message: 'Error verifying account', error: err });
-    }
+        const { email } = decoded;
+        try {
+            const [results] = await db.query('SELECT * FROM USERS WHERE EMAIL = ?', [email]);
+            if (results.length === 0) return res.status(404).json({ message: 'User not found' });
+
+            await db.query('UPDATE USERS SET VERIFIED = 1 WHERE EMAIL = ?', [email]);
+            res.json({ success: true, message: 'Email successfully verified' });
+        } catch (err) {
+            res.status(500).json({ message: 'Database error', error: err });
+        }
+    });
 });
 
-// Fetch all services (active and inactive) for all users
-app.get('/api/services', async (req, res) => {
-    try {
-        const [services] = await db.query('SELECT * FROM SERVICES');
-        res.json({ success: true, services });
-    } catch (err) {
-        res.status(500).json({ message: 'Database error', error: err.message });
-    }
-});
-
-// Start Server
+// Start the server
 server.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+    console.log(`Server running on http://localhost:${PORT}`);
 });
