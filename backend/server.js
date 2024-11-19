@@ -89,31 +89,89 @@ io.on('connection', (socket) => {
 });
 
 
-// User Registration (No email verification)
+// User Registration with Email Verification
 app.post('/api/auth/register', async (req, res) => {
     const { username, email, password, userType } = req.body;
+
+    // Check if the userType is valid
     if (!userType || !['investor', 'staff', 'admin', 'super_admin'].includes(userType)) {
         return res.status(400).json({ message: 'Invalid or missing user type' });
     }
 
     try {
+        // Check if the email already exists in the database
         const [results] = await db.query('SELECT * FROM USERS WHERE EMAIL = ?', [email]);
         if (results.length > 0) return res.status(400).json({ message: 'Email already registered' });
 
+        // Hash the password before storing it
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Insert user without email verification
+        // Insert user into the database without marking them as verified
         const [result] = await db.query(
-            'INSERT INTO USERS (USERNAME, EMAIL, PASSWORD_HASH, USER_TYPE) VALUES (?, ?, ?, ?)',
-            [username, email, hashedPassword, userType]
+            'INSERT INTO USERS (USERNAME, EMAIL, PASSWORD_HASH, USER_TYPE, VERIFIED) VALUES (?, ?, ?, ?, ?)',
+            [username, email, hashedPassword, userType, 0]  // Set VERIFIED to 0 initially
         );
 
-        res.status(201).json({ success: true, message: 'Registration successful! You can now log in.' });
+        // Generate a verification token (JWT)
+        const verificationToken = jwt.sign({ email }, JWT_SECRET, { expiresIn: '1h' });
+
+        // Create verification link
+        const verificationLink = `https://rem-farms.onrender.com/api/auth/verify/${verificationToken}`;
+
+        // Send verification email
+        await transporter.sendMail({
+            from: EMAIL_USER,
+            to: email,
+            subject: 'Account Verification',
+            text: `Please verify your account by clicking the following link: ${verificationLink}`,
+        });
+
+        // Respond with a success message
+        res.status(201).json({
+            success: true,
+            message: 'Registration successful! Please check your email for verification.',
+        });
+
     } catch (err) {
         console.error('Error during registration:', err);  // Improved logging
         res.status(500).json({ message: 'Database error', error: err.message });
     }
 });
+
+// Email Verification Endpoint
+app.get('/api/auth/verify/:token', async (req, res) => {
+    const { token } = req.params;
+
+    // Verify the token
+    jwt.verify(token, JWT_SECRET, async (err, decoded) => {
+        if (err) {
+            return res.status(400).json({ message: 'Invalid or expired verification token' });
+        }
+
+        const { email } = decoded;
+
+        try {
+            // Check if the user exists in the database
+            const [results] = await db.query('SELECT * FROM USERS WHERE EMAIL = ?', [email]);
+            if (results.length === 0) {
+                return res.status(404).json({ message: 'User not found' });
+            }
+
+            // Update the user's verification status to 1
+            const updateResult = await db.query('UPDATE USERS SET VERIFIED = 1 WHERE EMAIL = ?', [email]);
+
+            if (updateResult.affectedRows > 0) {
+                res.json({ success: true, message: 'Email successfully verified' });
+            } else {
+                res.status(500).json({ message: 'Failed to update verification status' });
+            }
+        } catch (err) {
+            console.error('Error during verification process:', err);
+            res.status(500).json({ message: 'Database error', error: err.message });
+        }
+    });
+});
+
 
 // User Login
 app.post('/api/auth/login', async (req, res) => {
@@ -231,44 +289,7 @@ app.get("/payment-callback", async (req, res) => {
     }
 });
 
-// Email Verification
-app.get('/api/auth/verify/:token', (req, res) => {
-    const { token } = req.params;
-    console.log('Verification token received:', token);  // Log the token for debugging
 
-    jwt.verify(token, JWT_SECRET, async (err, decoded) => {
-        if (err) {
-            console.error('Token verification failed:', err);
-            return res.status(400).json({ message: 'Invalid or expired verification token' });
-        }
-
-        const { email } = decoded;
-        console.log('Decoded token:', decoded);  // Log the decoded token to check if the email is present
-
-        try {
-            const [results] = await db.query('SELECT * FROM USERS WHERE EMAIL = ?', [email]);
-            if (results.length === 0) {
-                console.error('User not found with email:', email);
-                return res.status(404).json({ message: 'User not found' });
-            }
-
-            console.log('User found:', results[0]);
-
-            const updateResult = await db.query('UPDATE USERS SET VERIFIED = 1 WHERE EMAIL = ?', [email]);
-            console.log('Update result:', updateResult);  // Log the result of the update operation
-
-            if (updateResult.affectedRows > 0) {
-                res.json({ success: true, message: 'Email successfully verified' });
-            } else {
-                console.error('Failed to update verification status for email:', email);
-                res.status(500).json({ message: 'Failed to update verification status' });
-            }
-        } catch (err) {
-            console.error('Error during verification process:', err);
-            res.status(500).json({ message: 'Database error', error: err });
-        }
-    });
-});
 
 
 // Start the server
