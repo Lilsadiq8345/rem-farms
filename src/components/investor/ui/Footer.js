@@ -1,19 +1,20 @@
-// src/components/Footer.js
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faTwitter, faInstagram, faLinkedin } from '@fortawesome/free-brands-svg-icons';
-import { Link } from 'react-router-dom'; // Import the Link component from React Router
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
-  const handleHomeClick = (e) => {
-    e.preventDefault(); // Prevent default anchor behavior
-    window.scrollTo({ top: 0, behavior: 'smooth' }); // Smooth scroll to top
+  // Smooth scroll function
+  const handleScroll = () => {
+    window.scrollTo({
+      top: 0, // Scroll to the top of the page
+      behavior: 'smooth',
+    });
   };
 
   return (
     <footer className="bg-green-900 text-white py-10">
       <div className="max-w-7xl mx-auto px-4 md:px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-
         {/* Logo and Contact Info */}
         <div id="contact">
           <img
@@ -47,7 +48,7 @@ const Footer = () => {
             <li>
               <Link
                 to="/home"
-                onClick={handleHomeClick}
+                onClick={handleScroll}  // Trigger scroll to top
                 className="hover:text-gray-300 cursor-pointer"
               >
                 Home
@@ -71,7 +72,11 @@ const Footer = () => {
               </Link>
             </li>
             <li>
-              <Link to="/faq" className="hover:text-gray-300">
+              <Link
+                to="/faq"
+                className="hover:text-gray-300"
+                onClick={handleScroll}  // Trigger scroll to top
+              >
                 FAQ Pages
               </Link>
             </li>

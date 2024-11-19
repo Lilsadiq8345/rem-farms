@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Footer from '../ui/Footer';
 import Navbar from '../ui/Navbar';
 
 const Faq = () => {
+  // Scroll to the top of the page when the component is mounted
+  useEffect(() => {
+    window.scrollTo({
+      top: 0, // Scroll to the top of the page
+      behavior: 'smooth', // Smooth scrolling
+    });
+  }, []);
+
   return (
     <div>
       <section
@@ -10,7 +18,9 @@ const Faq = () => {
         className="mt-40 mb-40 p-6 max-w-6xl mx-auto text-left bg-white text-gray-900 rounded-xl shadow-lg"
       >
         <Navbar />
-        <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 text-center">Frequently Asked Questions</h3>
+        <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 text-center">
+          Frequently Asked Questions
+        </h3>
         <div className="space-y-6">
 
           {/* General FAQ Item */}
