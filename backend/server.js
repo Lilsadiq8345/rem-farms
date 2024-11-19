@@ -231,44 +231,18 @@ app.get("/payment-callback", async (req, res) => {
     }
 });
 
-// Email Verification
-app.get('/api/auth/verify/:token', (req, res) => {
-    const { token } = req.params;
-    console.log('Verification token received:', token);  // Log the token for debugging
-
-    jwt.verify(token, JWT_SECRET, async (err, decoded) => {
-        if (err) {
-            console.error('Token verification failed:', err);
-            return res.status(400).json({ message: 'Invalid or expired verification token' });
-        }
-
-        const { email } = decoded;
-        console.log('Decoded token:', decoded);  // Log the decoded token to check if the email is present
-
-        try {
-            const [results] = await db.query('SELECT * FROM USERS WHERE EMAIL = ?', [email]);
-            if (results.length === 0) {
-                console.error('User not found with email:', email);
-                return res.status(404).json({ message: 'User not found' });
-            }
-
-            console.log('User found:', results[0]);
-
-            const updateResult = await db.query('UPDATE USERS SET VERIFIED = 1 WHERE EMAIL = ?', [email]);
-            console.log('Update result:', updateResult);  // Log the result of the update operation
-
-            if (updateResult.affectedRows > 0) {
-                res.json({ success: true, message: 'Email successfully verified' });
-            } else {
-                console.error('Failed to update verification status for email:', email);
-                res.status(500).json({ message: 'Failed to update verification status' });
-            }
-        } catch (err) {
-            console.error('Error during verification process:', err);
-            res.status(500).json({ message: 'Database error', error: err });
-        }
-    });
+// Fetch All Services
+app.get('/api/services', async (req, res) => {
+    try {
+        // Query to fetch all available services
+        const [services] = await db.query('SELECT * FROM SERVICES WHERE STATUS = "available"');
+        res.json({ success: true, services });
+    } catch (err) {
+        console.error('Error fetching services:', err);
+        res.status(500).json({ message: 'Database error', error: err.message });
+    }
 });
+
 
 
 // Start the server

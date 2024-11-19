@@ -9,9 +9,11 @@ const Services = () => {
         const fetchServices = async () => {
             setLoading(true);
             try {
-                // Replace with your actual API endpoint
+                // Make a GET request to the backend endpoint to fetch services
                 const response = await axios.get('/api/services');
-                setServices(response.data);
+
+                // Use the 'services' field from the response
+                setServices(response.data.services);
             } catch (error) {
                 console.error('Error fetching services:', error);
             } finally {
