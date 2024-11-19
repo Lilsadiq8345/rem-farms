@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';  // Import useNavigate hook
+import { useNavigate, Link } from 'react-router-dom';  // Import useNavigate hook
 import { registerUser } from '../../../utils/api';
 import Navbar from '../../investor/ui/Navbar';
 import Footer from '../../investor/ui/Footer';
