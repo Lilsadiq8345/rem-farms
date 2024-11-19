@@ -27,13 +27,12 @@ const StaffDashboard = () => {
     <div className="flex h-screen bg-gray-100">
       {/* Sidebar */}
       <aside
-        className={`${
-          isSidebarOpen ? 'w-64' : 'w-20'
-        } bg-green-800 text-white transition-all duration-300 flex flex-col`}
+        className={`${isSidebarOpen ? 'w-64' : 'w-20'
+          } bg-green-800 text-white transition-all duration-300 flex flex-col`}
       >
-         {/* Sidebar Header */}
-         <div className="py-6 px-4 flex items-center justify-between">
-          <img src="/REM-FARM-LOGO.png" alt="Rem Farms" className="h-10 w-10" />
+        {/* Sidebar Header */}
+        <div className="py-6 px-4 flex items-center justify-between">
+          <img src="/REM-FARM-LOGO.png" alt="Rem Farms" className="h-10 w-10 bg-white shadow-ld rounded" />
           {isSidebarOpen && (
             <h1 className="text-xl font-bold">Staff Dashboard</h1>
           )}
