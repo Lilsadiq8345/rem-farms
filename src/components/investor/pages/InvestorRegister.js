@@ -31,7 +31,7 @@ const InvestorRegister = () => {
       });
 
       if (response.success) {
-        setSuccess('Registration successful! Please check your email for verification.');
+        setSuccess('Registration successful!');
         setTimeout(() => {
           // Redirect to the login page after 2 seconds
           navigate('/investor-login');
