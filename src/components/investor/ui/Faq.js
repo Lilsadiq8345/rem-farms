@@ -1,16 +1,18 @@
 import React from 'react';
 import Footer from '../ui/Footer';
+import Navbar from '../ui/Navbar';
 
 const Faq = () => {
   return (
-    <div> 
-      <section 
-        id="faq" 
+    <div>
+      <section
+        id="faq"
         className="mt-40 mb-40 p-6 max-w-6xl mx-auto text-left bg-white text-gray-900 rounded-xl shadow-lg"
       >
+        <Navbar />
         <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 text-center">Frequently Asked Questions</h3>
         <div className="space-y-6">
-          
+
           {/* General FAQ Item */}
           <details className="p-4 border rounded-xl group">
             <summary className="flex items-center font-semibold cursor-pointer hover:text-green-600">
