@@ -1,18 +1,20 @@
-// src/components/Footer.js
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faTwitter, faInstagram, faLinkedin } from '@fortawesome/free-brands-svg-icons';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
-  const handleHomeClick = (e) => {
-    e.preventDefault(); // Prevent default anchor behavior
-    window.scrollTo({ top: 0, behavior: 'smooth' }); // Smooth scroll to top
+  // Smooth scroll function
+  const handleScroll = () => {
+    window.scrollTo({
+      top: 0, // Scroll to the top of the page
+      behavior: 'smooth',
+    });
   };
 
   return (
     <footer className="bg-green-900 text-white py-10">
       <div className="max-w-7xl mx-auto px-4 md:px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-
         {/* Logo and Contact Info */}
         <div id="contact">
           <img
@@ -44,15 +46,14 @@ const Footer = () => {
           <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
           <ul className="space-y-2">
             <li>
-              <a
-                href="/#home"
-                onClick={handleHomeClick}
+              <Link
+                to="/home"
+                onClick={handleScroll}  // Trigger scroll to top
                 className="hover:text-gray-300 cursor-pointer"
               >
                 Home
-              </a>
+              </Link>
             </li>
-            <li><a href="/faq" className="hover:text-gray-300">About Company</a></li>
           </ul>
         </div>
 
@@ -60,9 +61,25 @@ const Footer = () => {
         <div>
           <h4 className="text-lg font-semibold mb-4">Our Mission</h4>
           <ul className="space-y-2">
-            <li><a href="/contact" className="hover:text-gray-300">Contacts</a></li>
-            <li><a href="/privacy-policy" className="hover:text-gray-300">Privacy Policy</a></li>
-            <li><a href="/faq" className="hover:text-gray-300">FAQ Pages</a></li>
+            <li>
+              <Link to="/contact" className="hover:text-gray-300">
+                Contacts
+              </Link>
+            </li>
+            <li>
+              <Link to="/privacy-policy" className="hover:text-gray-300">
+                Privacy Policy
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/faq"
+                className="hover:text-gray-300"
+                onClick={handleScroll}  // Trigger scroll to top
+              >
+                FAQ Pages
+              </Link>
+            </li>
           </ul>
         </div>
 

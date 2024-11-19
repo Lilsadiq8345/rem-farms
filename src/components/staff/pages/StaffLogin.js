@@ -1,22 +1,32 @@
-// src/components/staff/pages/StaffLogin.js
-import React, { useState } from 'react';
+// src/components/staff/pages/Login.js
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Login.css';
-import StaffNavbar from '../../staff/ui/StaffNavbar';
-import StaffFooter from '../../staff/ui/StaffFooter';
+import Navbar from '../ui/Navbar';
+import Footer from '../ui/Footer';
 
 const StaffLogin = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(''); // State to manage error messages
+  const [loading, setLoading] = useState(false); // Loading state
   const navigate = useNavigate(); // Initialize useNavigate
+
+  // Scroll to the top of the page when the component is mounted
+  useEffect(() => {
+    window.scrollTo({
+      top: 0, // Scroll to the top of the page
+      behavior: 'smooth', // Smooth scrolling
+    });
+  }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true); // Start loading when login attempt begins
 
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', {
+      const response = await axios.post('https://rem-farms.onrender.com/api/auth/login', {
         email,
         password,
       });
@@ -28,12 +38,14 @@ const StaffLogin = ({ onLogin }) => {
       }
     } catch (error) {
       setError(error.response ? error.response.data.message : 'An error occurred');
+    } finally {
+      setLoading(false); // Stop loading when login attempt ends
     }
   };
 
   return (
     <div className="">
-      <StaffNavbar />
+      <Navbar />
       <div
         id="staff-login"
         className="flex items-center justify-center min-h-screen"
@@ -46,7 +58,7 @@ const StaffLogin = ({ onLogin }) => {
       >
         <div className="overlay" />
         <div className="form-container">
-          <h2 className="title">StaffLogin</h2>
+          <h2 className="title">Login</h2>
           {error && <p className="error-text">{error}</p>} {/* Display error message */}
           <form onSubmit={handleLogin}>
             <label className="label">Email</label>
@@ -69,14 +81,16 @@ const StaffLogin = ({ onLogin }) => {
               required
             />
 
-            <button type="submit" className="button">StaffLogin</button>
+            <button type="submit" className="button" disabled={loading}>
+              {loading ? 'Logging in...' : 'Login'}
+            </button>
           </form>
           <p className="footer-text">
             Don't have an account? <Link to="/staff-register" className="link">Register</Link>
           </p>
         </div>
       </div>
-      <StaffFooter />
+      <Footer />
     </div>
   );
 };

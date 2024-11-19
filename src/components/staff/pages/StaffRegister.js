@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';  // Import useNavigate hook
 import { registerUser } from '../../../utils/api';
-import { Link } from 'react-router-dom';
-import Navbar from '../../staff/ui/StaffNavbar';
-import Footer from '../../staff/ui/StaffFooter';
+import Navbar from '../../staff/ui/Navbar';
+import Footer from '../../staff/ui/Footer';
 import './Register.css';
 
 const StaffRegister = () => {
@@ -11,12 +11,24 @@ const StaffRegister = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  // Scroll to the top of the page when the component is mounted
+  useEffect(() => {
+    window.scrollTo({
+      top: 0, // Scroll to the top of the page
+      behavior: 'smooth', // Smooth scrolling
+    });
+  }, []);
+
+  const navigate = useNavigate();  // Initialize navigate function
 
   // Handle registration form submission
   const handleRegister = async (e) => {
     e.preventDefault();
     setError(null);
     setSuccess(null);
+    setLoading(true);
 
     try {
       const response = await registerUser({
@@ -27,19 +39,25 @@ const StaffRegister = () => {
       });
 
       if (response.success) {
-        setSuccess('Registration successful! Please check your email for verification.');
+        setSuccess('Registration successful!');
+        setTimeout(() => {
+          // Redirect to the login page after 2 seconds
+          navigate('/staff-login');
+        }, 2000);  // Adjust time for user to see success message
       } else {
         setError('An error occurred during registration. Please try again.');
       }
     } catch (error) {
       setError('An error occurred during registration: ' + error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="">
       <div
-        id="Staff-register"
+        id="staff-register"
         className="flex items-center justify-center min-h-screen mt-20"
         style={{
           backgroundImage: `url('./REM-FARM-LOGO.png')`,
@@ -83,7 +101,9 @@ const StaffRegister = () => {
               required
             />
 
-            <button type="submit" className="button">Register</button>
+            <button type="submit" className="button" disabled={loading}>
+              {loading ? 'Registering...' : 'Register'}
+            </button>
 
             {/* Display error and success messages */}
             {error && <p style={{ color: 'red' }}>{error}</p>}
@@ -91,7 +111,7 @@ const StaffRegister = () => {
           </form>
 
           <p className="footer-text">
-            Already have an account? <Link to="/Staff-login" className="link">Login</Link>
+            Already have an account? <Link to="/staff-login" className="link">Login</Link>
           </p>
         </div>
       </div>
