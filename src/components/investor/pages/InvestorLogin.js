@@ -10,10 +10,12 @@ const InvestorLogin = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(''); // State to manage error messages
+  const [loading, setLoading] = useState(false); // Loading state
   const navigate = useNavigate(); // Initialize useNavigate
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true); // Start loading when login attempt begins
 
     try {
       const response = await axios.post('https://rem-farms.onrender.com/api/auth/login', {
@@ -28,6 +30,8 @@ const InvestorLogin = ({ onLogin }) => {
       }
     } catch (error) {
       setError(error.response ? error.response.data.message : 'An error occurred');
+    } finally {
+      setLoading(false); // Stop loading when login attempt ends
     }
   };
 
@@ -69,7 +73,9 @@ const InvestorLogin = ({ onLogin }) => {
               required
             />
 
-            <button type="submit" className="button">Login</button>
+            <button type="submit" className="button" disabled={loading}>
+              {loading ? 'Logging in...' : 'Login'}
+            </button>
           </form>
           <p className="footer-text">
             Don't have an account? <Link to="/investor-register" className="link">Register</Link>

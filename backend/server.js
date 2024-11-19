@@ -88,7 +88,8 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => console.log('User disconnected:', socket.id));
 });
 
-// User Registration with Email Verification
+
+// User Registration (No email verification)
 app.post('/api/auth/register', async (req, res) => {
     const { username, email, password, userType } = req.body;
     if (!userType || !['investor', 'staff', 'admin', 'super_admin'].includes(userType)) {
@@ -100,24 +101,14 @@ app.post('/api/auth/register', async (req, res) => {
         if (results.length > 0) return res.status(400).json({ message: 'Email already registered' });
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        const verificationToken = jwt.sign({ email }, JWT_SECRET, { expiresIn: '1h' });
 
+        // Insert user without email verification
         const [result] = await db.query(
             'INSERT INTO USERS (USERNAME, EMAIL, PASSWORD_HASH, USER_TYPE) VALUES (?, ?, ?, ?)',
             [username, email, hashedPassword, userType]
         );
 
-        const verificationLink = `https://rem-farms-1.onrender.com/api/auth/verify/${verificationToken}`;
-
-        // Send verification email
-        await transporter.sendMail({
-            from: EMAIL_USER,
-            to: email,
-            subject: 'Account Verification',
-            text: `Please verify your account by clicking the following link: ${verificationLink}`,
-        });
-
-        res.status(201).json({ success: true, message: 'Registration successful! Please check your email for verification.' });
+        res.status(201).json({ success: true, message: 'Registration successful! You can now log in.' });
     } catch (err) {
         console.error('Error during registration:', err);  // Improved logging
         res.status(500).json({ message: 'Database error', error: err.message });
@@ -133,8 +124,8 @@ app.post('/api/auth/login', async (req, res) => {
         if (results.length === 0) return res.status(400).json({ message: 'Invalid email or password' });
 
         const user = results[0];
-        if (user.VERIFIED === 0) return res.status(403).json({ message: 'Please verify your email before logging in' });
 
+        // No need to check email verification anymore
         const isValidPassword = await bcrypt.compare(password, user.PASSWORD_HASH);
         if (!isValidPassword) return res.status(400).json({ message: 'Invalid email or password' });
 
@@ -144,6 +135,7 @@ app.post('/api/auth/login', async (req, res) => {
         res.status(500).json({ message: 'Database error', error: err });
     }
 });
+
 
 // Fetch User Profile
 app.get('/api/users/profile', verifyToken, async (req, res) => {
