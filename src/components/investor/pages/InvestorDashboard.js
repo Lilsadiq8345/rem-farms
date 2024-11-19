@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
-import { FaHome, FaChartLine, FaVideo, FaFileAlt, FaComments, FaHistory, FaDownload, FaBars, FaBell, FaShoppingCart, FaUserCircle } from "react-icons/fa";
-import CommodityList from '../../common/CommodityList'; // Ensure this exists
+import { Link, useNavigate } from "react-router-dom";
+import {
+  FaHome, FaChartLine, FaVideo, FaFileAlt, FaComments,
+  FaHistory, FaDownload, FaBars, FaBell, FaShoppingCart,
+  FaUserCircle
+} from "react-icons/fa";
+import CommodityList from '../../common/CommodityList';
 import Services from '../../common/Services';
 import LiveView from '../../common/LiveView';
 import Transactions from '../../common/Transactions';
@@ -10,7 +14,7 @@ import Messages from '../../common/Messages';
 import Footer from '../ui/Footer';
 
 const InvestorDashboard = () => {
-  const navigate = useNavigate();  // Use navigate hook for redirection
+  const navigate = useNavigate();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selectedSection, setSelectedSection] = useState('home');
@@ -54,9 +58,7 @@ const InvestorDashboard = () => {
             <SidebarItem to="#" icon={<FaHome />} text="Home" isSidebarOpen={isSidebarOpen} onClick={() => setSelectedSection("home")} />
             <SidebarItem to="#" icon={<FaChartLine />} text="My Commodities" isSidebarOpen={isSidebarOpen} onClick={() => setSelectedSection("commodities")} />
             <SidebarItem to="#" icon={<FaFileAlt />} text="Services" isSidebarOpen={isSidebarOpen} onClick={() => setSelectedSection("services")} />
-            {/* Dashboard Section */}
             <div>
-
               {isSidebarOpen && (
                 <>
                   <SidebarItem to="#" icon={<FaVideo />} text="Live View" isSidebarOpen={isSidebarOpen} onClick={() => setSelectedSection("live-view")} />
@@ -123,14 +125,12 @@ const InvestorDashboard = () => {
                       </Link>
                     </li>
                     <li>
-                      {/* Sign out link that triggers handleLogout */}
-                      <Link
-                        to="#"
-                        onClick={handleLogout}  // Call the logout function here
-                        className="block px-4 py-2 hover:bg-gray-100"
+                      <button
+                        onClick={handleLogout}
+                        className="block w-full text-left px-4 py-2 hover:bg-gray-100"
                       >
                         Sign out
-                      </Link>
+                      </button>
                     </li>
                   </ul>
                 )}
@@ -143,8 +143,7 @@ const InvestorDashboard = () => {
             {selectedSection === 'home' && (
               <div className="p-6 bg-white rounded-lg shadow-md">
                 <h2 className="text-2xl font-semibold">Welcome to your Dashboard</h2>
-                <DashboardCard
-                />
+                <DashboardCard />
               </div>
             )}
 
@@ -162,7 +161,6 @@ const InvestorDashboard = () => {
                 <LiveView />
               </div>
             )}
-
 
             {selectedSection === 'services' && (
               <div className="p-6 bg-white rounded-lg shadow-md">
@@ -211,10 +209,14 @@ const SidebarItem = ({ to, icon, text, isSidebarOpen, onClick }) => (
 
 // Reusable Dashboard Card Component
 const DashboardCard = ({ title, description, link, icon }) => (
-  <Link to={link} className="p-4 bg-white shadow rounded hover:shadow-lg transition-all flex flex-col items-center text-center">
-    {icon}
-    <h3 className="text-lg font-semibold mt-4">{title}</h3>
-    <p className="text-sm text-gray-500 mt-2">{description}</p>
+  <Link to={link} className="p-4 bg-white shadow rounded hover:shadow-lg transition-shadow">
+    <div className="flex items-center justify-between">
+      <div>
+        <h3 className="text-lg font-semibold">{title}</h3>
+        <p className="text-sm">{description}</p>
+      </div>
+      <div className="text-2xl text-green-600">{icon}</div>
+    </div>
   </Link>
 );
 
