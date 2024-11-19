@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';  // Import useNavigate hook
 import { registerUser } from '../../../utils/api';
-import { Link } from 'react-router-dom';
 import Navbar from '../../investor/ui/Navbar';
 import Footer from '../../investor/ui/Footer';
 import './Register.css';
@@ -12,6 +12,8 @@ const InvestorRegister = () => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();  // Initialize navigate function
 
   // Handle registration form submission
   const handleRegister = async (e) => {
@@ -30,6 +32,10 @@ const InvestorRegister = () => {
 
       if (response.success) {
         setSuccess('Registration successful! Please check your email for verification.');
+        setTimeout(() => {
+          // Redirect to the login page after 2 seconds
+          navigate('/investor-login');
+        }, 2000);  // Adjust time for user to see success message
       } else {
         setError('An error occurred during registration. Please try again.');
       }
