@@ -1,5 +1,5 @@
 // src/components/investor/pages/Login.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Login.css';
@@ -12,6 +12,14 @@ const InvestorLogin = ({ onLogin }) => {
   const [error, setError] = useState(''); // State to manage error messages
   const [loading, setLoading] = useState(false); // Loading state
   const navigate = useNavigate(); // Initialize useNavigate
+
+  // Scroll to the top of the page when the component is mounted
+  useEffect(() => {
+    window.scrollTo({
+      top: 0, // Scroll to the top of the page
+      behavior: 'smooth', // Smooth scrolling
+    });
+  }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();

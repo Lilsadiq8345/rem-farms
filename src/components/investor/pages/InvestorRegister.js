@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';  // Import useNavigate hook
 import { registerUser } from '../../../utils/api';
 import Navbar from '../../investor/ui/Navbar';
@@ -12,6 +12,14 @@ const InvestorRegister = () => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  // Scroll to the top of the page when the component is mounted
+  useEffect(() => {
+    window.scrollTo({
+      top: 0, // Scroll to the top of the page
+      behavior: 'smooth', // Smooth scrolling
+    });
+  }, []);
 
   const navigate = useNavigate();  // Initialize navigate function
 
