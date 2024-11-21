@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   FaHome, FaChartLine, FaVideo, FaFileAlt, FaComments,
   FaHistory, FaDownload, FaBars, FaBell, FaShoppingCart,
   FaUserCircle
 } from "react-icons/fa";
+import axios from "axios";
 import CommodityList from './CommodityList';
 import Services from './Services';
 import LiveView from './LiveView';
@@ -20,31 +21,32 @@ const InvestorDashboard = () => {
   const [selectedSection, setSelectedSection] = useState('home');
   const [notificationCount, setNotificationCount] = useState(0);
   const [cartCount, setCartCount] = useState(0);
-  // Example states for cart and notifications
-  const [cartItems, setCartItems] = useState([]);
   const [notifications, setNotifications] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
 
-  // Simulating adding items to cart
-  const addToCart = (item) => {
-    setCartItems([...cartItems, item]);
-    setCartCount(cartItems.length + 1);
-  };
-
-  // Simulating receiving notifications
-  const addNotification = (message) => {
-    setNotifications([...notifications, message]);
-    setNotificationCount(notifications.length + 1);
-  };
+  const userId = 1; // Get the logged-in user's ID (from session/localStorage)
 
   useEffect(() => {
-    // Simulate adding a notification and an item to the cart every 5 seconds
-    const interval = setInterval(() => {
-      addNotification("New update on your investment!");
-      addToCart("New commodity added to your cart.");
-    }, 5000);
+    // Fetch cart count
+    axios.get(`/api/cart/count/${userId}`).then((response) => {
+      setCartCount(response.data);  // Set the cart count from the database
+    });
 
-    return () => clearInterval(interval);
-  }, [notifications, cartItems]);
+    // Fetch notifications count
+    axios.get(`/api/notifications/count/${userId}`).then((response) => {
+      setNotificationCount(response.data);  // Set the notification count from the database
+    });
+
+    // Fetch notifications
+    axios.get(`/api/notifications/${userId}`).then((response) => {
+      setNotifications(response.data);  // Set the notifications data from the database
+    });
+
+    // Fetch cart items
+    axios.get(`/api/cart/${userId}`).then((response) => {
+      setCartItems(response.data);  // Set the cart items from the database
+    });
+  }, [userId]);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -54,13 +56,8 @@ const InvestorDashboard = () => {
     setDropdownOpen(!dropdownOpen);
   };
 
-
-  // Logout function to clear session data and redirect to homepage
   const handleLogout = () => {
-    // Clear session data or token here (e.g., localStorage or sessionStorage)
-    localStorage.removeItem('userToken');  // Example for removing token from localStorage
-
-    // Redirect to homepage
+    localStorage.removeItem('userToken');
     navigate('/');
   };
 
@@ -78,13 +75,11 @@ const InvestorDashboard = () => {
             <SidebarItem to="#" icon={<FaHome />} text="Home" isSidebarOpen={isSidebarOpen} onClick={() => setSelectedSection("home")} />
             <SidebarItem to="#" icon={<FaChartLine />} text="My Commodities" isSidebarOpen={isSidebarOpen} onClick={() => setSelectedSection("commodities")} />
             <SidebarItem to="#" icon={<FaFileAlt />} text="Services" isSidebarOpen={isSidebarOpen} onClick={() => setSelectedSection("services")} />
-            <div>
-              {isSidebarOpen && (
-                <>
-                  <SidebarItem to="#" icon={<FaVideo />} text="Live View" isSidebarOpen={isSidebarOpen} onClick={() => setSelectedSection("live-view")} />
-                </>
-              )}
-            </div>
+            {isSidebarOpen && (
+              <>
+                <SidebarItem to="#" icon={<FaVideo />} text="Live View" isSidebarOpen={isSidebarOpen} onClick={() => setSelectedSection("live-view")} />
+              </>
+            )}
             <SidebarItem to="#" icon={<FaComments />} text="Messages" isSidebarOpen={isSidebarOpen} onClick={() => setSelectedSection("messages")} />
             <SidebarItem to="#" icon={<FaHistory />} text="Transaction History" isSidebarOpen={isSidebarOpen} onClick={() => setSelectedSection("transactions")} />
             <SidebarItem to="#" icon={<FaDownload />} text="Saved Live Calls" isSidebarOpen={isSidebarOpen} onClick={() => setSelectedSection("saved-calls")} />
@@ -163,7 +158,7 @@ const InvestorDashboard = () => {
             {selectedSection === 'home' && (
               <div className="p-6 bg-white rounded-lg shadow-md">
                 <h2 className="text-2xl font-semibold">Welcome to your Dashboard</h2>
-                <DashboardCard />
+                <DashboardCard title="Your Investment Overview" description="View your investment performance" link="#" icon={<FaChartLine />} />
               </div>
             )}
 
@@ -177,7 +172,6 @@ const InvestorDashboard = () => {
             {selectedSection === 'live-view' && (
               <div className="p-6 bg-white rounded-lg shadow-md">
                 <h2 className="text-2xl font-semibold">Live View</h2>
-                <p>Watch the latest live sessions related to your investments.</p>
                 <LiveView />
               </div>
             )}
@@ -185,7 +179,6 @@ const InvestorDashboard = () => {
             {selectedSection === 'services' && (
               <div className="p-6 bg-white rounded-lg shadow-md">
                 <h2 className="text-2xl font-semibold">Services</h2>
-                <p>Explore the various services we offer to enhance your investment journey.</p>
                 <Services />
               </div>
             )}
@@ -193,7 +186,6 @@ const InvestorDashboard = () => {
             {selectedSection === 'messages' && (
               <div className="p-6 bg-white rounded-lg shadow-md">
                 <h2 className="text-2xl font-semibold">Messages</h2>
-                <p>Check your inbox for messages from other investors or our support team.</p>
                 <Messages />
               </div>
             )}
@@ -219,25 +211,26 @@ const InvestorDashboard = () => {
   );
 };
 
-// Reusable Sidebar Item Component
-const SidebarItem = ({ to, icon, text, isSidebarOpen, onClick }) => (
-  <Link to={to} className="flex items-center gap-4 p-2 hover:bg-gray-700 text-white" onClick={onClick}>
-    <span className="text-xl">{icon}</span>
+// SidebarItem Component
+const SidebarItem = ({ to, icon, text, onClick, isSidebarOpen }) => (
+  <Link to={to} onClick={onClick} className="flex items-center gap-4 text-white p-2 rounded-md hover:bg-green-700">
+    {icon}
     {isSidebarOpen && <span>{text}</span>}
   </Link>
 );
 
-// Reusable Dashboard Card Component
+// DashboardCard Component
 const DashboardCard = ({ title, description, link, icon }) => (
-  <Link to={link} className="p-4 bg-white shadow rounded hover:shadow-lg transition-shadow">
-    <div className="flex items-center justify-between">
+  <div className="p-4 bg-green-100 rounded-lg shadow-md">
+    <div className="flex gap-4 items-center">
+      {icon}
       <div>
-        <h3 className="text-lg font-semibold">{title}</h3>
-        <p className="text-sm">{description}</p>
+        <h3 className="text-xl font-semibold">{title}</h3>
+        <p>{description}</p>
       </div>
-      <div className="text-2xl text-green-600">{icon}</div>
     </div>
-  </Link>
+    <Link to={link} className="text-green-700 hover:underline mt-4 inline-block">Go to {title}</Link>
+  </div>
 );
 
 export default InvestorDashboard;

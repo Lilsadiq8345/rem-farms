@@ -166,7 +166,7 @@ CREATE TABLE NOTIFICATIONS (
     FOREIGN KEY (USER_ID) REFERENCES USERS(USER_ID) ON DELETE CASCADE
 );
 
--- Insert Sample Users
+-- Sample data for USERS table
 INSERT INTO USERS (
     USERNAME,
     EMAIL,
@@ -191,7 +191,59 @@ INSERT INTO USERS (
     'admin'
 );
 
--- Insert Sample Portfolios
+-- Sample data for USER_PROFILES table
+INSERT INTO USER_PROFILES (
+    USER_ID,
+    FIRST_NAME,
+    LAST_NAME,
+    PHONE_NUMBER,
+    ADDRESS,
+    VERIFICATION_STATUS
+) VALUES (
+    1,
+    'John',
+    'Doe',
+    '+1234567890',
+    '123 Main St',
+    'verified'
+),
+(
+    2,
+    'Jane',
+    'Smith',
+    '+0987654321',
+    '456 Oak St',
+    'pending'
+),
+(
+    3,
+    'Admin',
+    'User',
+    '+1122334455',
+    '789 Pine St',
+    'verified'
+);
+
+-- Sample data for TOKENS table
+INSERT INTO TOKENS (
+    USER_ID,
+    TOKEN,
+    EXPIRATION,
+    TOKEN_TYPE
+) VALUES (
+    1,
+    'token123',
+    '2024-12-31 23:59:59',
+    'verification'
+),
+(
+    2,
+    'token456',
+    '2024-12-31 23:59:59',
+    'password_reset'
+);
+
+-- Sample data for PORTFOLIOS table
 INSERT INTO PORTFOLIOS (
     USER_ID,
     TOTAL_INVESTMENT,
@@ -202,9 +254,15 @@ INSERT INTO PORTFOLIOS (
     10000.00,
     15000.00,
     50.00
+),
+(
+    2,
+    20000.00,
+    22000.00,
+    10.00
 );
 
--- Insert Sample Assets
+-- Sample data for ASSETS table
 INSERT INTO ASSETS (
     PORTFOLIO_ID,
     NAME,
@@ -212,24 +270,24 @@ INSERT INTO ASSETS (
     UNIT
 ) VALUES (
     1,
-    'Asset 1',
-    200,
+    'Asset A',
+    100,
     'shares'
 ),
 (
     1,
-    'Asset 2',
+    'Asset B',
+    200,
+    'units'
+),
+(
+    2,
+    'Asset C',
     150,
     'shares'
-),
-(
-    1,
-    'Asset 3',
-    300,
-    'units'
 );
 
--- Insert Sample Asset Distribution
+-- Sample data for ASSET_DISTRIBUTION table
 INSERT INTO ASSET_DISTRIBUTION (
     PORTFOLIO_ID,
     TYPE,
@@ -250,7 +308,7 @@ INSERT INTO ASSET_DISTRIBUTION (
     10.00
 );
 
--- Insert Sample Commodities
+-- Sample data for COMMODITIES table
 INSERT INTO COMMODITIES (
     NAME,
     CATEGORY,
@@ -295,9 +353,7 @@ INSERT INTO COMMODITIES (
     1
 );
 
--- Purchased by investor1
-
--- Insert Sample Services
+-- Sample data for SERVICES table
 INSERT INTO SERVICES (
     NAME,
     DESCRIPTION,
@@ -316,7 +372,7 @@ INSERT INTO SERVICES (
     'active'
 );
 
--- Insert Sample Transactions
+-- Sample data for TRANSACTIONS table
 INSERT INTO TRANSACTIONS (
     BUYER_ID,
     SELLER_ID,
@@ -341,7 +397,7 @@ INSERT INTO TRANSACTIONS (
     'pending'
 );
 
--- Insert Sample Service Subscriptions
+-- Sample data for SERVICE_SUBSCRIPTIONS table
 INSERT INTO SERVICE_SUBSCRIPTIONS (
     SERVICE_ID,
     USER_ID,
@@ -356,7 +412,7 @@ INSERT INTO SERVICE_SUBSCRIPTIONS (
     'active'
 );
 
--- Insert Sample Live Sessions
+-- Sample data for LIVE_SESSIONS table
 INSERT INTO LIVE_SESSIONS (
     STAFF_ID,
     INVESTOR_ID,
@@ -371,4 +427,64 @@ INSERT INTO LIVE_SESSIONS (
     '2024-12-01 10:00:00',
     'scheduled',
     '/videos/agri-session1.mp4'
+);
+
+-- Sample data for MESSAGES table
+INSERT INTO MESSAGES (
+    SENDER_ID,
+    RECEIVER_ID,
+    MESSAGE_TEXT,
+    SENT_AT
+) VALUES (
+    1,
+    2,
+    'Hello, I am interested in your commodities.',
+    CURRENT_TIMESTAMP
+),
+(
+    2,
+    1,
+    'Sure, let me know how I can assist.',
+    CURRENT_TIMESTAMP
+);
+
+-- Sample data for CART_ITEMS table
+INSERT INTO CART_ITEMS (
+    USER_ID,
+    COMMODITY_ID,
+    QUANTITY,
+    ADDED_AT
+) VALUES (
+    1,
+    1,
+    5,
+    CURRENT_TIMESTAMP
+),
+(
+    1,
+    2,
+    10,
+    CURRENT_TIMESTAMP
+);
+
+-- Sample data for NOTIFICATIONS table
+INSERT INTO NOTIFICATIONS (
+    USER_ID,
+    TITLE,
+    MESSAGE,
+    TYPE,
+    READ_STATUS
+) VALUES (
+    1,
+    'New Commodity Added',
+    'A new commodity is now available.',
+    'info',
+    FALSE
+),
+(
+    2,
+    'Portfolio Update',
+    'Your portfolio value has increased.',
+    'success',
+    TRUE
 );
