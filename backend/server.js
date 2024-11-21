@@ -194,6 +194,27 @@ app.post("/api/cart", verifyToken, async (req, res) => {
     }
 });
 
+// Fetch User Cart
+app.get('/api/cart', verifyToken, async (req, res) => {
+    try {
+        const [cartItems] = await db.query(
+            'SELECT c.CART_ID, c.COMMODITY_ID, c.QUANTITY, co.NAME, co.PRICE ' +
+            'FROM CART_ITEMS c ' +
+            'JOIN COMMODITIES co ON c.COMMODITY_ID = co.COMMODITY_ID ' +
+            'WHERE c.USER_ID = ?',
+            [req.userId]
+        );
+
+        if (cartItems.length === 0) {
+            return res.status(404).json({ message: 'No items in cart' });
+        }
+
+        res.json({ success: true, cartItems });
+    } catch (err) {
+        res.status(500).json({ message: 'Database error', error: err });
+    }
+});
+
 // Fetch All Services
 app.get('/api/services', async (req, res) => {
     try {
@@ -245,6 +266,24 @@ app.get("/payment-callback", async (req, res) => {
         }
     } catch (err) {
         res.status(500).json({ message: 'Error verifying payment', error: err.message });
+    }
+});
+
+// Fetch User Notifications
+app.get('/api/notifications', verifyToken, async (req, res) => {
+    try {
+        const [notifications] = await db.query(
+            'SELECT * FROM NOTIFICATIONS WHERE USER_ID = ? ORDER BY CREATED_AT DESC',
+            [req.userId]
+        );
+
+        if (notifications.length === 0) {
+            return res.status(404).json({ message: 'No notifications found' });
+        }
+
+        res.json({ success: true, notifications });
+    } catch (err) {
+        res.status(500).json({ message: 'Database error', error: err });
     }
 });
 
