@@ -38,7 +38,7 @@ const Services = () => {
 
             // Post request to add the selected service to the cart
             await axios.post('https://rem-farms.onrender.com/api/cart', {
-                commodityId: service.id,  // Make sure this matches the backend requirement
+                commodityId: service.SERVICE_ID,  // Use SERVICE_ID from schema
                 quantity: 1, // Assuming adding 1 to the cart; you can adjust this
             }, {
                 headers: {
@@ -62,8 +62,8 @@ const Services = () => {
 
             // Initiate a payment for the service
             const response = await axios.post('https://rem-farms.onrender.com/api/checkout', {
-                serviceId: service.id,  // Service ID should be sent
-                amount: service.price,  // Assuming service.price holds the amount
+                serviceId: service.SERVICE_ID,  // Use SERVICE_ID from schema
+                amount: service.PRICE,  // Ensure that service.PRICE holds the correct amount
             }, {
                 headers: {
                     Authorization: `Bearer ${token}`, // Send JWT for authentication
@@ -89,16 +89,16 @@ const Services = () => {
                         <p>No services available.</p>
                     ) : (
                         services.map((service) => (
-                            <div key={service.id} className="p-4 bg-gray-100 rounded-lg shadow-md">
+                            <div key={service.SERVICE_ID} className="p-4 bg-gray-100 rounded-lg shadow-md">
                                 <img
-                                    src={service.image_url || '/fallback-image.png'}  // Ensure valid fallback
-                                    alt={service.name}
+                                    src={service.IMAGE_URL || '/fallback-image.png'}  // Use IMAGE_URL from schema
+                                    alt={service.NAME}
                                     className="w-full h-32 object-cover rounded"
                                 />
-                                <h3 className="text-lg font-semibold mt-4">{service.name}</h3>
-                                <p>{service.description}</p>
+                                <h3 className="text-lg font-semibold mt-4">{service.NAME}</h3>
+                                <p>{service.DESCRIPTION}</p>
                                 <div className="flex justify-between items-center mt-4">
-                                    <span className="font-semibold">₦{service.price.toFixed(2)}</span>
+                                    <span className="font-semibold">₦{service.PRICE.toFixed(2)}</span>
                                     <div className="flex gap-2">
                                         <button
                                             onClick={() => handleAddToCart(service)}
