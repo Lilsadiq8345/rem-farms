@@ -6,16 +6,16 @@ import InvestorLogin from './components/investor/pages/InvestorLogin';
 import InvestorRegister from './components/investor/pages/InvestorRegister';
 import ScrollToTop from './components/investor/ui/ScrollToTop';
 import Settings from './components/investor/pages/Settings';
-import CommodityList from './components/common/CommodityList';
-import Services from './components/common/Services';
-import LiveView from './components/common/LiveView';
-import Messages from './components/common/Messages';
-import Transactions from './components/common/Transactions';
-import SavedCalls from './components/common/SavedCalls';
+import CommodityList from './components/investor/pages/CommodityList';
+import Services from './components/investor/pages/Services';
+import LiveView from './components/investor/pages/LiveView';
+import Messages from './components/investor/pages/Messages';
+import Transactions from './components/investor/pages/Transactions';
+import SavedCalls from './components/investor/pages/SavedCalls';
 import About from './components/investor/ui/About';
 import Faq from './components/investor/ui/Faq';
 import ContactSection from './components/investor/ui/ContactSection';
-import Products from './components/common/Products';
+import Products from './components/investor/pages/Products';
 
 // Import Staff Components
 import StaffDashboard from './components/staff/pages/StaffDashboard';

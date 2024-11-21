@@ -5,12 +5,12 @@ import {
   FaHistory, FaDownload, FaBars, FaBell, FaShoppingCart,
   FaUserCircle
 } from "react-icons/fa";
-import CommodityList from '../../common/CommodityList';
-import Services from '../../common/Services';
-import LiveView from '../../common/LiveView';
-import Transactions from '../../common/Transactions';
-import SavedCalls from '../../common/SavedCalls';
-import Messages from '../../common/Messages';
+import CommodityList from './CommodityList';
+import Services from './Services';
+import LiveView from './LiveView';
+import Transactions from './Transactions';
+import SavedCalls from './SavedCalls';
+import Messages from './Messages';
 import Footer from '../ui/Footer';
 
 const InvestorDashboard = () => {

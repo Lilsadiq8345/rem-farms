@@ -1,21 +1,27 @@
-// src/components/investor/pages/Portfolio.js
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const Portfolio = () => {
-    const [portfolioData, setPortfolioData] = useState(null);
+    const [portfolio, setPortfolio] = useState(null);
+    const [assets, setAssets] = useState([]);
+    const [assetDistribution, setAssetDistribution] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
 
-    // Fetch portfolio data
+    // Fetch portfolio data on component mount
     useEffect(() => {
         const fetchPortfolioData = async () => {
             try {
-                const response = await axios.get('/api/investor/portfolio'); // API endpoint to fetch portfolio data
-                setPortfolioData(response.data);
-            } catch (err) {
-                setError('Failed to load portfolio data');
-            } finally {
+                // Replace with actual API endpoint
+                const portfolioResponse = await axios.get('/api/portfolio');
+                const assetsResponse = await axios.get('/api/assets');
+                const assetDistributionResponse = await axios.get('/api/asset-distribution');
+
+                setPortfolio(portfolioResponse.data);
+                setAssets(assetsResponse.data);
+                setAssetDistribution(assetDistributionResponse.data);
+                setLoading(false);
+            } catch (error) {
+                console.error('Error fetching portfolio data:', error);
                 setLoading(false);
             }
         };
@@ -23,35 +29,73 @@ const Portfolio = () => {
         fetchPortfolioData();
     }, []);
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>{error}</p>;
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    if (!portfolio) {
+        return <div>No portfolio data available.</div>;
+    }
 
     return (
-        <div className="portfolio-page">
-            <h1>My Portfolio</h1>
-            <div className="portfolio-summary">
-                <h2>Portfolio Summary</h2>
-                <p>Total Investment: ${portfolioData.totalInvestment}</p>
-                <p>Current Value: ${portfolioData.currentValue}</p>
-                <p>Returns: {portfolioData.returns}%</p>
+        <div className="portfolio-container">
+            <h1 className="text-xl font-semibold mb-4">Investor Portfolio</h1>
+
+            <div className="portfolio-summary mb-6">
+                <div className="total-investment">
+                    <h2>Total Investment</h2>
+                    <p>${portfolio.TOTAL_INVESTMENT}</p>
+                </div>
+                <div className="current-value">
+                    <h2>Current Value</h2>
+                    <p>${portfolio.CURRENT_VALUE}</p>
+                </div>
+                <div className="returns">
+                    <h2>Returns</h2>
+                    <p>{portfolio.RETURNS}%</p>
+                </div>
             </div>
 
-            <div className="portfolio-assets">
-                <h2>My Assets</h2>
-                <ul>
-                    {portfolioData.assets.map((asset, index) => (
-                        <li key={index}>
-                            {asset.name}: {asset.quantity} {asset.unit}
-                        </li>
-                    ))}
-                </ul>
+            <div className="portfolio-assets mb-6">
+                <h2 className="text-lg font-semibold mb-2">Assets</h2>
+                <table className="w-full border-collapse border border-gray-300">
+                    <thead>
+                        <tr>
+                            <th className="border border-gray-300 px-4 py-2">Asset Name</th>
+                            <th className="border border-gray-300 px-4 py-2">Quantity</th>
+                            <th className="border border-gray-300 px-4 py-2">Unit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {assets.map((asset) => (
+                            <tr key={asset.ASSET_ID}>
+                                <td className="border border-gray-300 px-4 py-2">{asset.NAME}</td>
+                                <td className="border border-gray-300 px-4 py-2">{asset.QUANTITY}</td>
+                                <td className="border border-gray-300 px-4 py-2">{asset.UNIT}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </div>
 
             <div className="portfolio-distribution">
-                <h2>Asset Distribution</h2>
-                {portfolioData.distribution.map((dist, index) => (
-                    <p key={index}>{dist.type}: {dist.percentage}%</p>
-                ))}
+                <h2 className="text-lg font-semibold mb-2">Asset Distribution</h2>
+                <table className="w-full border-collapse border border-gray-300">
+                    <thead>
+                        <tr>
+                            <th className="border border-gray-300 px-4 py-2">Type</th>
+                            <th className="border border-gray-300 px-4 py-2">Percentage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {assetDistribution.map((distribution) => (
+                            <tr key={distribution.DISTRIBUTION_ID}>
+                                <td className="border border-gray-300 px-4 py-2">{distribution.TYPE}</td>
+                                <td className="border border-gray-300 px-4 py-2">{distribution.PERCENTAGE}%</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </div>
         </div>
     );
