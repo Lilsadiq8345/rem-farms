@@ -20,12 +20,31 @@ const InvestorDashboard = () => {
   const [selectedSection, setSelectedSection] = useState('home');
   const [notificationCount, setNotificationCount] = useState(0);
   const [cartCount, setCartCount] = useState(0);
+  // Example states for cart and notifications
+  const [cartItems, setCartItems] = useState([]);
+  const [notifications, setNotifications] = useState([]);
+
+  // Simulating adding items to cart
+  const addToCart = (item) => {
+    setCartItems([...cartItems, item]);
+    setCartCount(cartItems.length + 1);
+  };
+
+  // Simulating receiving notifications
+  const addNotification = (message) => {
+    setNotifications([...notifications, message]);
+    setNotificationCount(notifications.length + 1);
+  };
 
   useEffect(() => {
-    // Example logic for notification and cart count
-    setNotificationCount(3); // Example count of notifications
-    setCartCount(5); // Example count of items in the cart
-  }, []);
+    // Simulate adding a notification and an item to the cart every 5 seconds
+    const interval = setInterval(() => {
+      addNotification("New update on your investment!");
+      addToCart("New commodity added to your cart.");
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [notifications, cartItems]);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -34,6 +53,7 @@ const InvestorDashboard = () => {
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
+
 
   // Logout function to clear session data and redirect to homepage
   const handleLogout = () => {
