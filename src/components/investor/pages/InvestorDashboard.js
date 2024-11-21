@@ -23,28 +23,27 @@ const InvestorDashboard = () => {
   const [cartCount, setCartCount] = useState(0);
   const [notifications, setNotifications] = useState([]);
   const [cartItems, setCartItems] = useState([]);
+  const [isNotificationPanelOpen, setIsNotificationPanelOpen] = useState(false);
+  const [isCartPanelOpen, setIsCartPanelOpen] = useState(false);
 
   const userId = 1; // Get the logged-in user's ID (from session/localStorage)
 
   useEffect(() => {
-    // Fetch cart count
+    // Fetch cart and notification data
     axios.get(`/api/cart/count/${userId}`).then((response) => {
-      setCartCount(response.data);  // Set the cart count from the database
+      setCartCount(response.data);
     });
 
-    // Fetch notifications count
     axios.get(`/api/notifications/count/${userId}`).then((response) => {
-      setNotificationCount(response.data);  // Set the notification count from the database
+      setNotificationCount(response.data);
     });
 
-    // Fetch notifications
     axios.get(`/api/notifications/${userId}`).then((response) => {
-      setNotifications(response.data);  // Set the notifications data from the database
+      setNotifications(response.data);
     });
 
-    // Fetch cart items
     axios.get(`/api/cart/${userId}`).then((response) => {
-      setCartItems(response.data);  // Set the cart items from the database
+      setCartItems(response.data);
     });
   }, [userId]);
 
@@ -61,13 +60,23 @@ const InvestorDashboard = () => {
     navigate('/');
   };
 
+  const toggleNotificationPanel = () => {
+    setIsNotificationPanelOpen(!isNotificationPanelOpen);
+    setIsCartPanelOpen(false); // Close cart panel if open
+  };
+
+  const toggleCartPanel = () => {
+    setIsCartPanelOpen(!isCartPanelOpen);
+    setIsNotificationPanelOpen(false); // Close notification panel if open
+  };
+
   return (
     <>
       <div className="flex h-screen bg-gray-100">
         {/* Sidebar */}
         <aside className={`${isSidebarOpen ? 'w-64' : 'w-20'} bg-green-800 text-white transition-all duration-300 flex flex-col`}>
           <div className="py-4 px-2 flex items-center justify-between">
-            <img src="/REM-FARM-LOGO.png" alt="Rem Farms" className="h-10 w-10 bg-white shadow-ld rounded" />
+            <img src="/REM-FARM-LOGO.png" alt="Rem Farms" className="h-10 w-10 bg-white shadow-lg rounded" />
             {isSidebarOpen && <h1 className="text-xl font-bold hidden md:block">Investor Dashboard</h1>}
           </div>
 
@@ -76,9 +85,7 @@ const InvestorDashboard = () => {
             <SidebarItem to="#" icon={<FaChartLine />} text="My Commodities" isSidebarOpen={isSidebarOpen} onClick={() => setSelectedSection("commodities")} />
             <SidebarItem to="#" icon={<FaFileAlt />} text="Services" isSidebarOpen={isSidebarOpen} onClick={() => setSelectedSection("services")} />
             {isSidebarOpen && (
-              <>
-                <SidebarItem to="#" icon={<FaVideo />} text="Live View" isSidebarOpen={isSidebarOpen} onClick={() => setSelectedSection("live-view")} />
-              </>
+              <SidebarItem to="#" icon={<FaVideo />} text="Live View" isSidebarOpen={isSidebarOpen} onClick={() => setSelectedSection("live-view")} />
             )}
             <SidebarItem to="#" icon={<FaComments />} text="Messages" isSidebarOpen={isSidebarOpen} onClick={() => setSelectedSection("messages")} />
             <SidebarItem to="#" icon={<FaHistory />} text="Transaction History" isSidebarOpen={isSidebarOpen} onClick={() => setSelectedSection("transactions")} />
@@ -87,9 +94,9 @@ const InvestorDashboard = () => {
         </aside>
 
         {/* Main Content */}
-        <div className="flex-1 flex flex-col ">
+        <div className="flex-1 flex flex-col">
           {/* Top Navbar */}
-          <header className="bg-white shadow p-4 flex justify-between items-center ">
+          <header className="bg-white shadow p-4 flex justify-between items-center">
             <button onClick={toggleSidebar} className="text-green-800">
               <FaBars size={24} />
             </button>
@@ -97,22 +104,26 @@ const InvestorDashboard = () => {
             <div className="flex items-center gap-6">
               {/* Notification Icon */}
               <div className="relative">
-                <FaBell size={24} className="text-green-800 cursor-pointer" />
-                {notificationCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-1">
-                    {notificationCount}
-                  </span>
-                )}
+                <button onClick={toggleNotificationPanel} className="text-green-800">
+                  <FaBell size={24} />
+                  {notificationCount > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-1">
+                      {notificationCount}
+                    </span>
+                  )}
+                </button>
               </div>
 
               {/* Cart Icon */}
               <div className="relative">
-                <FaShoppingCart size={24} className="text-green-800 cursor-pointer" />
-                {cartCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-blue-500 text-white text-xs rounded-full px-1">
-                    {cartCount}
-                  </span>
-                )}
+                <button onClick={toggleCartPanel} className="text-green-800">
+                  <FaShoppingCart size={24} />
+                  {cartCount > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-blue-500 text-white text-xs rounded-full px-1">
+                      {cartCount}
+                    </span>
+                  )}
+                </button>
               </div>
 
               {/* Profile Dropdown */}
@@ -205,6 +216,37 @@ const InvestorDashboard = () => {
             )}
           </main>
         </div>
+
+        {/* Notification Panel */}
+        {isNotificationPanelOpen && (
+          <div className="fixed top-0 right-0 w-80 bg-white shadow-lg p-4 h-full overflow-y-auto">
+            <h2 className="text-xl font-semibold mb-4">Notifications</h2>
+            <ul>
+              {notifications.map((notification, index) => (
+                <li key={index} className="mb-2 p-2 bg-gray-100 rounded">
+                  {notification.message}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {/* Cart Panel */}
+        {isCartPanelOpen && (
+          <div className="fixed top-0 right-0 w-80 bg-white shadow-lg p-4 h-full overflow-y-auto">
+            <h2 className="text-xl font-semibold mb-4">Your Cart</h2>
+            <ul>
+              {cartItems.map((item, index) => (
+                <li key={index} className="mb-2 p-2 bg-gray-100 rounded">
+                  <div className="flex justify-between">
+                    <span>{item.name}</span>
+                    <span>${item.price}</span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
       <Footer />
     </>
