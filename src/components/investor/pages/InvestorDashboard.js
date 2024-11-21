@@ -30,19 +30,19 @@ const InvestorDashboard = () => {
 
   useEffect(() => {
     // Fetch cart and notification data
-    axios.get(`/api/cart/count/${userId}`).then((response) => {
+    axios.get(`https://rem-farms.onrender.com/api/cart/count/${userId}`).then((response) => {
       setCartCount(response.data);
     });
 
-    axios.get(`/api/notifications/count/${userId}`).then((response) => {
+    axios.get(`https://rem-farms.onrender.com/api/notifications/count/${userId}`).then((response) => {
       setNotificationCount(response.data);
     });
 
-    axios.get(`/api/notifications/${userId}`).then((response) => {
+    axios.get(`https://rem-farms.onrender.com/api/notifications/${userId}`).then((response) => {
       setNotifications(response.data);
     });
 
-    axios.get(`/api/cart/${userId}`).then((response) => {
+    axios.get(`https://rem-farms.onrender.com/api/cart/${userId}`).then((response) => {
       setCartItems(response.data);
     });
   }, [userId]);
