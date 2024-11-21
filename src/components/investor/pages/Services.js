@@ -9,7 +9,7 @@ const Services = () => {
         const fetchServices = async () => {
             setLoading(true);
             try {
-                // Make a GET request to the backend endpoint to fetch services
+                // Assuming backend is served from the same domain
                 const response = await axios.get('/api/services');
 
                 // Use the 'services' field from the response
@@ -24,14 +24,42 @@ const Services = () => {
         fetchServices();
     }, []);
 
-    const handleAddToCart = (service) => {
-        console.log('Adding to cart:', service);
-        // Handle add to cart logic here
+    const handleAddToCart = async (service) => {
+        try {
+            // Post request to add the selected service to the cart
+            await axios.post('/api/cart', {
+                commodityId: service.id,  // Make sure this matches the backend requirement
+                quantity: 1, // Assuming adding 1 to the cart; you can adjust this
+            }, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`, // Send JWT for authentication
+                },
+            });
+            alert('Service added to cart successfully!');
+        } catch (error) {
+            console.error('Error adding to cart:', error);
+            alert('Error adding to cart. Please try again.');
+        }
     };
 
-    const handleBuyNow = (service) => {
-        console.log('Buying now:', service);
-        // Handle buy now logic here
+    const handleBuyNow = async (service) => {
+        try {
+            // Initiate a payment for the service
+            const response = await axios.post('/api/checkout', {
+                serviceId: service.id,  // Service ID should be sent
+                amount: service.price,  // Assuming service.price holds the amount
+            }, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`, // Send JWT for authentication
+                },
+            });
+
+            // Redirect user to the payment URL
+            window.location.href = response.data.authorization_url;
+        } catch (error) {
+            console.error('Error during checkout:', error);
+            alert('Error during checkout. Please try again.');
+        }
     };
 
     return (
@@ -47,14 +75,14 @@ const Services = () => {
                         services.map((service) => (
                             <div key={service.id} className="p-4 bg-gray-100 rounded-lg shadow-md">
                                 <img
-                                    src={service.imageUrl || '/fallback-image.png'}
+                                    src={service.image_url || '/fallback-image.png'}  // Use the correct field from the database
                                     alt={service.name}
                                     className="w-full h-32 object-cover rounded"
                                 />
                                 <h3 className="text-lg font-semibold mt-4">{service.name}</h3>
                                 <p>{service.description}</p>
                                 <div className="flex justify-between items-center mt-4">
-                                    <span className="font-semibold">{service.price}</span>
+                                    <span className="font-semibold">₦{service.price.toFixed(2)}</span>
                                     <div className="flex gap-2">
                                         <button
                                             onClick={() => handleAddToCart(service)}
