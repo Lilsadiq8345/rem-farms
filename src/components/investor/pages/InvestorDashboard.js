@@ -38,6 +38,7 @@ const InvestorDashboard = () => {
       setNotificationCount(response.data);
     });
 
+    // Fetch detailed notifications and cart items
     axios.get(`https://rem-farms.onrender.com/api/notifications/${userId}`).then((response) => {
       setNotifications(response.data);
     });
@@ -46,6 +47,7 @@ const InvestorDashboard = () => {
       setCartItems(response.data);
     });
   }, [userId]);
+
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);

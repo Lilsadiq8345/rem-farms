@@ -194,22 +194,15 @@ app.post("/api/cart", verifyToken, async (req, res) => {
     }
 });
 
-// Fetch User Cart
-app.get('/api/cart', verifyToken, async (req, res) => {
+// Fetch Cart Count for User
+app.get('/api/cart/count/:userId', verifyToken, async (req, res) => {
+    const userId = req.params.userId;
     try {
         const [cartItems] = await db.query(
-            'SELECT c.CART_ID, c.COMMODITY_ID, c.QUANTITY, co.NAME, co.PRICE ' +
-            'FROM CART_ITEMS c ' +
-            'JOIN COMMODITIES co ON c.COMMODITY_ID = co.COMMODITY_ID ' +
-            'WHERE c.USER_ID = ?',
-            [req.userId]
+            'SELECT COUNT(*) AS count FROM CART_ITEMS WHERE USER_ID = ?',
+            [userId]
         );
-
-        if (cartItems.length === 0) {
-            return res.status(404).json({ message: 'No items in cart' });
-        }
-
-        res.json({ success: true, cartItems });
+        res.json(cartItems[0].count); // Return the count of cart items
     } catch (err) {
         res.status(500).json({ message: 'Database error', error: err });
     }
@@ -269,23 +262,21 @@ app.get("/payment-callback", async (req, res) => {
     }
 });
 
-// Fetch User Notifications
-app.get('/api/notifications', verifyToken, async (req, res) => {
+
+// Fetch Notification Count for User
+app.get('/api/notifications/count/:userId', verifyToken, async (req, res) => {
+    const userId = req.params.userId;
     try {
         const [notifications] = await db.query(
-            'SELECT * FROM NOTIFICATIONS WHERE USER_ID = ? ORDER BY CREATED_AT DESC',
-            [req.userId]
+            'SELECT COUNT(*) AS count FROM NOTIFICATIONS WHERE USER_ID = ?',
+            [userId]
         );
-
-        if (notifications.length === 0) {
-            return res.status(404).json({ message: 'No notifications found' });
-        }
-
-        res.json({ success: true, notifications });
+        res.json(notifications[0].count); // Return the count of notifications
     } catch (err) {
         res.status(500).json({ message: 'Database error', error: err });
     }
 });
+
 
 // File Upload for User Avatar
 app.post('/api/upload-avatar', verifyToken, (req, res) => {
