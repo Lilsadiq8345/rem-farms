@@ -234,7 +234,7 @@ const InvestorDashboard = () => {
       <Footer />
       {/* Notification Panel */}
       {isNotificationPanelOpen && (
-        <div className="fixed top-0 right-0 bottom-0 w-80 bg-white shadow-lg z-50">
+        <div className="fixed top-0 right-0 bottom-0 w-80 h-80 bg-white shadow-lg z-50">
           <div className="p-4 flex justify-between items-center border-b">
             <h2 className="text-lg font-semibold">Notifications</h2>
             <button onClick={toggleNotificationPanel}>
@@ -261,7 +261,7 @@ const InvestorDashboard = () => {
 
       {/* Cart Panel */}
       {isCartPanelOpen && (
-        <div className="fixed top-0 right-0 bottom-0 w-80 bg-white shadow-lg z-50">
+        <div className="fixed top-0 right-0 bottom-0 w-80 h-80 bg-white shadow-lg z-50">
           <div className="p-4 flex justify-between items-center border-b">
             <h2 className="text-lg font-semibold">Cart</h2>
             <button onClick={toggleCartPanel}>
