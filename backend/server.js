@@ -290,5 +290,20 @@ app.post('/api/upload-avatar', verifyToken, (req, res) => {
     });
 });
 
+app.post('/api/messages', verifyToken, async (req, res) => {
+    const { senderId, receiverId, messageText } = req.body;
+
+    try {
+        const [result] = await db.query(
+            'INSERT INTO MESSAGES (SENDER_ID, RECEIVER_ID, MESSAGE_TEXT) VALUES (?, ?, ?)',
+            [senderId, receiverId, messageText]
+        );
+        res.status(201).json({ success: true, message: 'Message sent successfully' });
+    } catch (err) {
+        res.status(500).json({ message: 'Database error', error: err });
+    }
+});
+
+
 // Start server
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
