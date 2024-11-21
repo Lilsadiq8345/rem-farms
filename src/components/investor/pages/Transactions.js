@@ -10,7 +10,7 @@ const Transactions = () => {
             setLoading(true);
             try {
                 // Replace with your actual API endpoint
-                const response = await axios.get('/api/transactions');
+                const response = await axios.get('https://rem-farms.onrender.com/api/transactions');
                 setTransactions(response.data);
             } catch (error) {
                 console.error('Error fetching transactions:', error);

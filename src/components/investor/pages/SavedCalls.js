@@ -10,7 +10,7 @@ const SavedCalls = () => {
             setLoading(true);
             try {
                 // Replace with your actual API endpoint
-                const response = await axios.get('/api/saved-calls');
+                const response = await axios.get('https://rem-farms.onrender.com/api/saved-calls');
                 setSavedCalls(response.data);
             } catch (error) {
                 console.error('Error fetching saved calls:', error);

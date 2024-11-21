@@ -12,9 +12,9 @@ const Portfolio = () => {
         const fetchPortfolioData = async () => {
             try {
                 // Replace with actual API endpoint
-                const portfolioResponse = await axios.get('/api/portfolio');
-                const assetsResponse = await axios.get('/api/assets');
-                const assetDistributionResponse = await axios.get('/api/asset-distribution');
+                const portfolioResponse = await axios.get('https://rem-farms.onrender.com/api/portfolio');
+                const assetsResponse = await axios.get('https://rem-farms.onrender.com/api/assets');
+                const assetDistributionResponse = await axios.get('https://rem-farms.onrender.com/api/asset-distribution');
 
                 setPortfolio(portfolioResponse.data);
                 setAssets(assetsResponse.data);
