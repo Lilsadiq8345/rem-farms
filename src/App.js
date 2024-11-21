@@ -15,7 +15,7 @@ import SavedCalls from './components/investor/pages/SavedCalls';
 import About from './components/investor/ui/About';
 import Faq from './components/investor/ui/Faq';
 import ContactSection from './components/investor/ui/ContactSection';
-import Products from './components/investor/pages/Products';
+import Products from './components/common/Products';
 
 // Import Staff Components
 import StaffDashboard from './components/staff/pages/StaffDashboard';
