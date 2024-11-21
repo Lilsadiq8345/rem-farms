@@ -1,8 +1,8 @@
 // src/components/Products.js
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Footer from '../ui/Footer';
-import Navbar from '../ui/Navbar';
+import Footer from '../investor/ui/Footer';
+import Navbar from '../investor/ui/Navbar';
 
 const Products = () => {
   return (
