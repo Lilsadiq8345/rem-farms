@@ -79,38 +79,38 @@ const Services = () => {
     };
 
     return (
-        <div className="p-6 bg-white rounded-lg shadow-md">
-            <h2 className="text-2xl font-semibold mb-4 text-center">Services</h2>
+        <div className="container mx-auto px-4 py-8">
+            <h2 className="text-2xl font-semibold mb-6 text-center">Services</h2>
             {loading ? (
                 <p className="text-center text-lg">Loading services...</p>
             ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6">
                     {services.length === 0 ? (
-                        <p className="text-center text-lg">No services available.</p>
+                        <p className="text-center text-lg col-span-full">No services available.</p>
                     ) : (
                         services.map((service) => (
                             <div key={service.SERVICE_ID} className="p-4 bg-gray-100 rounded-lg shadow-md flex flex-col items-center">
                                 <img
                                     src={`/images/${service.IMAGE_URL || 'default-image.jpg'}`}  // Fallback to default image
                                     alt={service.NAME}
-                                    className="w-full h-48 object-cover rounded"
+                                    className="w-full h-48 object-cover rounded mb-4"
                                 />
-                                <h3 className="text-lg font-semibold mt-4 text-center">{service.NAME}</h3>
-                                <p className="text-sm text-gray-600 text-center mt-2">{service.DESCRIPTION}</p>
-                                <div className="flex justify-between items-center w-full mt-4">
-                                    <span className="font-semibold text-lg">
+                                <h3 className="text-lg font-semibold text-center mb-2">{service.NAME}</h3>
+                                <p className="text-sm text-gray-600 text-center mb-4">{service.DESCRIPTION}</p>
+                                <div className="flex flex-col sm:flex-row justify-center gap-4 w-full">
+                                    <span className="font-semibold text-lg mb-2 sm:mb-0">
                                         ₦{typeof service.PRICE === 'number' ? service.PRICE.toFixed(2) : 'Invalid price'}
                                     </span>
-                                    <div className="flex gap-2">
+                                    <div className="flex gap-2 w-full sm:w-auto">
                                         <button
                                             onClick={() => handleAddToCart(service)}
-                                            className="bg-blue-600 text-white px-4 py-2 rounded text-sm w-full md:w-auto"
+                                            className="bg-blue-600 text-white px-4 py-2 rounded text-sm flex-1 sm:flex-none"
                                         >
                                             Add to Cart
                                         </button>
                                         <button
                                             onClick={() => handleBuyNow(service)}
-                                            className="bg-green-600 text-white px-4 py-2 rounded text-sm w-full md:w-auto"
+                                            className="bg-green-600 text-white px-4 py-2 rounded text-sm flex-1 sm:flex-none"
                                         >
                                             Buy Now
                                         </button>
