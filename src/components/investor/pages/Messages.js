@@ -8,6 +8,7 @@ const Messages = () => {
     const [newMessage, setNewMessage] = useState(''); // State to hold new message
     const [staffMembers, setStaffMembers] = useState([]); // List of staff members the investor can chat with
     const [loading, setLoading] = useState(false);
+    const [searchTerm, setSearchTerm] = useState(''); // State for search input
 
     // Fetch the staff members the investor is allowed to chat with
     useEffect(() => {
@@ -49,6 +50,12 @@ const Messages = () => {
         }
     };
 
+    // Filtered staff based on search term
+    const filteredStaff = staffMembers.filter(staff =>
+        staff.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        staff.role.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     return (
         <div className="p-6 bg-white rounded-lg shadow-md">
             <h2 className="text-2xl font-semibold mb-4">Messages</h2>
@@ -57,14 +64,24 @@ const Messages = () => {
                 {/* Sidebar with list of staff members */}
                 <div className="w-1/3 border-r-2 pr-4">
                     <h3 className="font-semibold mb-4">Conversations</h3>
+
+                    {/* Search Bar */}
+                    <input
+                        type="text"
+                        placeholder="Search by name or service"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="w-full p-2 border border-gray-300 rounded-lg mb-4"
+                    />
+
                     {loading ? (
                         <p>Loading staff members...</p>
                     ) : (
                         <ul>
-                            {staffMembers.length === 0 ? (
+                            {filteredStaff.length === 0 ? (
                                 <li>No staff available to chat with.</li>
                             ) : (
-                                staffMembers.map((staff) => (
+                                filteredStaff.map((staff) => (
                                     <li
                                         key={staff.id}
                                         className={`p-2 cursor-pointer hover:bg-gray-200 rounded ${currentThread?.id === staff.id ? 'bg-gray-300' : ''}`}
