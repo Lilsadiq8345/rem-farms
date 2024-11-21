@@ -21,11 +21,31 @@ const InvestorDashboard = () => {
   const [notificationCount, setNotificationCount] = useState(0);
   const [cartCount, setCartCount] = useState(0);
 
+  // Example states for cart and notifications
+  const [cartItems, setCartItems] = useState([]);
+  const [notifications, setNotifications] = useState([]);
+
+  // Simulating adding items to cart
+  const addToCart = (item) => {
+    setCartItems([...cartItems, item]);
+    setCartCount(cartItems.length + 1);
+  };
+
+  // Simulating receiving notifications
+  const addNotification = (message) => {
+    setNotifications([...notifications, message]);
+    setNotificationCount(notifications.length + 1);
+  };
+
   useEffect(() => {
-    // Example logic for notification and cart count
-    setNotificationCount(3); // Example count of notifications
-    setCartCount(5); // Example count of items in the cart
-  }, []);
+    // Simulate adding a notification and an item to the cart every 5 seconds
+    const interval = setInterval(() => {
+      addNotification("New update on your investment!");
+      addToCart("New commodity added to your cart.");
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [notifications, cartItems]);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -35,12 +55,8 @@ const InvestorDashboard = () => {
     setDropdownOpen(!dropdownOpen);
   };
 
-  // Logout function to clear session data and redirect to homepage
   const handleLogout = () => {
-    // Clear session data or token here (e.g., localStorage or sessionStorage)
-    localStorage.removeItem('userToken');  // Example for removing token from localStorage
-
-    // Redirect to homepage
+    localStorage.removeItem('userToken');  // Example of logging out
     navigate('/');
   };
 
@@ -48,7 +64,7 @@ const InvestorDashboard = () => {
     <>
       <div className="flex h-screen bg-gray-100">
         {/* Sidebar */}
-        <aside className={`${isSidebarOpen ? 'w-64' : 'w-20'} bg-green-800 text-white transition-all duration-300 flex flex-col`}>
+        <aside className={`transition-all duration-300 flex flex-col bg-green-800 text-white ${isSidebarOpen ? 'w-64' : 'w-20'}`}>
           <div className="py-4 px-2 flex items-center justify-between">
             <img src="/REM-FARM-LOGO.png" alt="Rem Farms" className="h-10 w-10 bg-white shadow-ld rounded" />
             {isSidebarOpen && <h1 className="text-xl font-bold hidden md:block">Investor Dashboard</h1>}
@@ -72,10 +88,10 @@ const InvestorDashboard = () => {
         </aside>
 
         {/* Main Content */}
-        <div className="flex-1 flex flex-col ">
+        <div className="flex-1 flex flex-col">
           {/* Top Navbar */}
-          <header className="bg-white shadow p-4 flex justify-between items-center ">
-            <button onClick={toggleSidebar} className="text-green-800">
+          <header className="bg-white shadow p-4 flex justify-between items-center">
+            <button onClick={toggleSidebar} className="text-green-800 md:hidden">
               <FaBars size={24} />
             </button>
 
