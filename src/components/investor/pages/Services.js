@@ -9,8 +9,8 @@ const Services = () => {
         const fetchServices = async () => {
             setLoading(true);
             try {
-                // Assuming backend is served from the same domain
-                const response = await axios.get('/api/services');
+                // Update the API URL to include the full backend URL
+                const response = await axios.get('https://rem-farms.onrender.com/api/services');
 
                 // Use the 'services' field from the response
                 setServices(response.data.services);
@@ -27,7 +27,7 @@ const Services = () => {
     const handleAddToCart = async (service) => {
         try {
             // Post request to add the selected service to the cart
-            await axios.post('/api/cart', {
+            await axios.post('https://rem-farms.onrender.com/api/cart', {
                 commodityId: service.id,  // Make sure this matches the backend requirement
                 quantity: 1, // Assuming adding 1 to the cart; you can adjust this
             }, {
@@ -45,7 +45,7 @@ const Services = () => {
     const handleBuyNow = async (service) => {
         try {
             // Initiate a payment for the service
-            const response = await axios.post('/api/checkout', {
+            const response = await axios.post('https://rem-farms.onrender.com/api/checkout', {
                 serviceId: service.id,  // Service ID should be sent
                 amount: service.price,  // Assuming service.price holds the amount
             }, {
