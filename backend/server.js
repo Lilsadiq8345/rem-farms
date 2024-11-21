@@ -11,30 +11,36 @@ const fs = require('fs');
 const path = require('path');
 const nodemailer = require('nodemailer');
 const Paystack = require('paystack-node');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 // Environment Variables
-const DB_HOST = process.env.DB_HOST;
-const DB_USER = process.env.DB_USER;
-const DB_PASSWORD = process.env.DB_PASSWORD;
-const DB_NAME = process.env.DB_NAME;
-const JWT_SECRET = process.env.JWT_SECRET;
-const EMAIL_USER = process.env.EMAIL_USER;  // The email should be stored in an environment variable
-const EMAIL_PASS = process.env.EMAIL_PASS;  // The email password should also be stored in an environment variable
-const PORT = process.env.PORT || 5000;  // Default to 5000 if not set
+const {
+    DB_HOST,
+    DB_USER,
+    DB_PASSWORD,
+    DB_NAME,
+    JWT_SECRET,
+    EMAIL_USER,
+    EMAIL_PASS,
+    PAYSTACK_SECRET_KEY,
+    PORT = 5000
+} = process.env;
 
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: 'https://rem-farms-1.onrender.com',  // Change to your front-end URL
+        origin: 'https://rem-farms-1.onrender.com',  // Update with your front-end URL
         methods: ['GET', 'POST'],
     },
 });
 
-// Paystack initialization (ensure PAYSTACK_SECRET_KEY is defined somewhere in your environment)
-const paystack = new Paystack(process.env.PAYSTACK_SECRET_KEY, true);
+// Paystack initialization
+const paystack = new Paystack(PAYSTACK_SECRET_KEY, true);
 
-// Configure MySQL
+// Configure MySQL connection pool
 const db = mysql.createPool({
     host: DB_HOST,
     user: DB_USER,
@@ -54,7 +60,7 @@ const transporter = nodemailer.createTransport({
 
 // Middleware
 app.use(express.json());
-app.use(cors({ origin: 'https://rem-farms-1.onrender.com' }));  // Add your React frontend URL here
+app.use(cors({ origin: 'https://rem-farms-1.onrender.com' }));  // Update to your React frontend URL
 app.use('/recordings', express.static(path.join(__dirname, 'recordings')));
 
 // Check Database Connection
@@ -66,9 +72,13 @@ db.getConnection()
 const verifyToken = (req, res, next) => {
     const token = req.headers["authorization"];
     if (!token) return res.status(403).json({ message: "No token provided" });
-    jwt.verify(token, JWT_SECRET, (err, decoded) => {
+
+    const cleanToken = token.startsWith('Bearer ') ? token.slice(7, token.length) : token;
+
+    jwt.verify(cleanToken, JWT_SECRET, (err, decoded) => {
         if (err) return res.status(401).json({ message: "Unauthorized" });
         req.userId = decoded.userId;
+        req.userType = decoded.userType;
         next();
     });
 };
@@ -88,8 +98,9 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => console.log('User disconnected:', socket.id));
 });
 
+// Routes
 
-// User Registration (No email verification)
+// User Registration
 app.post('/api/auth/register', async (req, res) => {
     const { username, email, password, userType } = req.body;
     if (!userType || !['investor', 'staff', 'admin', 'super_admin'].includes(userType)) {
@@ -102,7 +113,6 @@ app.post('/api/auth/register', async (req, res) => {
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Insert user without email verification
         const [result] = await db.query(
             'INSERT INTO USERS (USERNAME, EMAIL, PASSWORD_HASH, USER_TYPE) VALUES (?, ?, ?, ?)',
             [username, email, hashedPassword, userType]
@@ -110,7 +120,7 @@ app.post('/api/auth/register', async (req, res) => {
 
         res.status(201).json({ success: true, message: 'Registration successful! You can now log in.' });
     } catch (err) {
-        console.error('Error during registration:', err);  // Improved logging
+        console.error('Error during registration:', err);
         res.status(500).json({ message: 'Database error', error: err.message });
     }
 });
@@ -124,8 +134,6 @@ app.post('/api/auth/login', async (req, res) => {
         if (results.length === 0) return res.status(400).json({ message: 'Invalid email or password' });
 
         const user = results[0];
-
-        // No need to check email verification anymore
         const isValidPassword = await bcrypt.compare(password, user.PASSWORD_HASH);
         if (!isValidPassword) return res.status(400).json({ message: 'Invalid email or password' });
 
@@ -135,7 +143,6 @@ app.post('/api/auth/login', async (req, res) => {
         res.status(500).json({ message: 'Database error', error: err });
     }
 });
-
 
 // Fetch User Profile
 app.get('/api/users/profile', verifyToken, async (req, res) => {
@@ -187,6 +194,16 @@ app.post("/api/cart", verifyToken, async (req, res) => {
     }
 });
 
+// Fetch All Services
+app.get('/api/services', async (req, res) => {
+    try {
+        const [services] = await db.query('SELECT * FROM SERVICES WHERE STATUS = "active"');
+        res.json({ success: true, services });
+    } catch (err) {
+        res.status(500).json({ message: 'Database error', error: err.message });
+    }
+});
+
 // Initiate Payment
 app.post("/api/checkout", verifyToken, async (req, res) => {
     const { serviceId, amount } = req.body;
@@ -222,30 +239,26 @@ app.get("/payment-callback", async (req, res) => {
                 "UPDATE TRANSACTIONS SET STATUS = ? WHERE TRANSACTION_REFERENCE = ?",
                 ['completed', reference]
             );
-            res.json({ success: true, message: "Payment successful" });
+            res.json({ message: 'Payment successful!' });
         } else {
-            res.status(400).json({ message: "Payment failed" });
+            res.status(400).json({ message: 'Payment failed' });
         }
-    } catch (error) {
-        res.status(500).json({ message: 'Error verifying payment', error: error.message });
-    }
-});
-
-// Fetch All Services
-app.get('/api/services', async (req, res) => {
-    try {
-        // Query to fetch all available services
-        const [services] = await db.query('SELECT * FROM SERVICES WHERE STATUS = "available"');
-        res.json({ success: true, services });
     } catch (err) {
-        console.error('Error fetching services:', err);
-        res.status(500).json({ message: 'Database error', error: err.message });
+        res.status(500).json({ message: 'Error verifying payment', error: err.message });
     }
 });
 
+// File Upload for User Avatar
+app.post('/api/upload-avatar', verifyToken, (req, res) => {
+    const { image } = req.body;
+    const fileName = `avatar_${req.userId}.png`;
+    const filePath = path.join(__dirname, 'uploads', fileName);
 
-
-// Start the server
-server.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+    fs.writeFile(filePath, image, 'base64', (err) => {
+        if (err) return res.status(500).json({ message: 'Error saving avatar', error: err.message });
+        res.json({ success: true, message: 'Avatar uploaded successfully', filePath });
+    });
 });
+
+// Start server
+server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
