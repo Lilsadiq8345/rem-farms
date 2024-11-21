@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import {
   FaHome, FaChartLine, FaVideo, FaFileAlt, FaComments,
   FaHistory, FaDownload, FaBars, FaBell, FaShoppingCart,
-  FaUserCircle
+  FaUserCircle, FaTimes
 } from "react-icons/fa";
 import axios from "axios";
 import CommodityList from './CommodityList';
@@ -68,6 +68,16 @@ const InvestorDashboard = () => {
   const toggleCartPanel = () => {
     setIsCartPanelOpen(!isCartPanelOpen);
     setIsNotificationPanelOpen(false); // Close notification panel if open
+  };
+
+  const clearNotifications = () => {
+    setNotifications([]); // Clear all notifications
+    setNotificationCount(0); // Reset notification count
+  };
+
+  const clearCartItems = () => {
+    setCartItems([]); // Clear all cart items
+    setCartCount(0); // Reset cart count
   };
 
   return (
@@ -215,63 +225,87 @@ const InvestorDashboard = () => {
               </div>
             )}
           </main>
+
+
         </div>
 
-        {/* Notification Panel */}
-        {isNotificationPanelOpen && (
-          <div className="fixed top-0 right-0 w-80 bg-white shadow-lg p-4 h-full overflow-y-auto">
-            <h2 className="text-xl font-semibold mb-4">Notifications</h2>
-            <ul>
-              {notifications.map((notification, index) => (
-                <li key={index} className="mb-2 p-2 bg-gray-100 rounded">
-                  {notification.message}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        {/* Cart Panel */}
-        {isCartPanelOpen && (
-          <div className="fixed top-0 right-0 w-80 bg-white shadow-lg p-4 h-full overflow-y-auto">
-            <h2 className="text-xl font-semibold mb-4">Your Cart</h2>
-            <ul>
-              {cartItems.map((item, index) => (
-                <li key={index} className="mb-2 p-2 bg-gray-100 rounded">
-                  <div className="flex justify-between">
-                    <span>{item.name}</span>
-                    <span>${item.price}</span>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
       </div>
+      {/* Footer */}
       <Footer />
+      {/* Notification Panel */}
+      {isNotificationPanelOpen && (
+        <div className="fixed top-0 right-0 bottom-0 w-80 bg-white shadow-lg z-50">
+          <div className="p-4 flex justify-between items-center border-b">
+            <h2 className="text-lg font-semibold">Notifications</h2>
+            <button onClick={toggleNotificationPanel}>
+              <FaTimes />
+            </button>
+          </div>
+          <div className="p-4">
+            {notifications.length > 0 ? (
+              notifications.map((notification, index) => (
+                <div key={index} className="p-2 border-b">{notification.message}</div>
+              ))
+            ) : (
+              <p>No notifications available</p>
+            )}
+          </div>
+          <button
+            onClick={clearNotifications}
+            className="w-full py-2 bg-red-600 text-white hover:bg-red-700"
+          >
+            Clear All Notifications
+          </button>
+        </div>
+      )}
+
+      {/* Cart Panel */}
+      {isCartPanelOpen && (
+        <div className="fixed top-0 right-0 bottom-0 w-80 bg-white shadow-lg z-50">
+          <div className="p-4 flex justify-between items-center border-b">
+            <h2 className="text-lg font-semibold">Cart</h2>
+            <button onClick={toggleCartPanel}>
+              <FaTimes />
+            </button>
+          </div>
+          <div className="p-4">
+            {cartItems.length > 0 ? (
+              cartItems.map((item, index) => (
+                <div key={index} className="p-2 border-b">{item.name}</div>
+              ))
+            ) : (
+              <p>No items in cart</p>
+            )}
+          </div>
+          <button
+            onClick={clearCartItems}
+            className="w-full py-2 bg-blue-600 text-white hover:bg-blue-700"
+          >
+            Clear Cart
+          </button>
+        </div>
+      )}
     </>
   );
 };
 
-// SidebarItem Component
-const SidebarItem = ({ to, icon, text, onClick, isSidebarOpen }) => (
-  <Link to={to} onClick={onClick} className="flex items-center gap-4 text-white p-2 rounded-md hover:bg-green-700">
+// Reusable SidebarItem component
+const SidebarItem = ({ to, icon, text, isSidebarOpen, onClick }) => (
+  <Link to={to} onClick={onClick} className="flex items-center p-2 hover:bg-green-700 rounded">
     {icon}
-    {isSidebarOpen && <span>{text}</span>}
+    {isSidebarOpen && <span className="ml-2">{text}</span>}
   </Link>
 );
 
-// DashboardCard Component
+// Reusable DashboardCard component
 const DashboardCard = ({ title, description, link, icon }) => (
-  <div className="p-4 bg-green-100 rounded-lg shadow-md">
-    <div className="flex gap-4 items-center">
-      {icon}
-      <div>
-        <h3 className="text-xl font-semibold">{title}</h3>
-        <p>{description}</p>
-      </div>
+  <div className="flex items-center p-4 border rounded-lg shadow hover:shadow-md transition">
+    <div className="mr-4">{icon}</div>
+    <div>
+      <h3 className="text-xl font-semibold">{title}</h3>
+      <p className="text-gray-600">{description}</p>
+      <Link to={link} className="text-green-700 underline">View more</Link>
     </div>
-    <Link to={link} className="text-green-700 hover:underline mt-4 inline-block">Go to {title}</Link>
   </div>
 );
 
