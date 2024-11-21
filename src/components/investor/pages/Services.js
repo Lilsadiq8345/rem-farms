@@ -9,11 +9,15 @@ const Services = () => {
         const fetchServices = async () => {
             setLoading(true);
             try {
-                // Update the API URL to include the full backend URL
+                // Ensure backend API endpoint is correct
                 const response = await axios.get('https://rem-farms.onrender.com/api/services');
 
-                // Use the 'services' field from the response
-                setServices(response.data.services);
+                // Check response structure and update accordingly
+                if (response.data && response.data.services) {
+                    setServices(response.data.services);
+                } else {
+                    console.error('Unexpected response structure:', response.data);
+                }
             } catch (error) {
                 console.error('Error fetching services:', error);
             } finally {
@@ -26,13 +30,19 @@ const Services = () => {
 
     const handleAddToCart = async (service) => {
         try {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                alert('Please log in to add items to the cart.');
+                return;
+            }
+
             // Post request to add the selected service to the cart
             await axios.post('https://rem-farms.onrender.com/api/cart', {
                 commodityId: service.id,  // Make sure this matches the backend requirement
                 quantity: 1, // Assuming adding 1 to the cart; you can adjust this
             }, {
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`, // Send JWT for authentication
+                    Authorization: `Bearer ${token}`, // Send JWT for authentication
                 },
             });
             alert('Service added to cart successfully!');
@@ -44,13 +54,19 @@ const Services = () => {
 
     const handleBuyNow = async (service) => {
         try {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                alert('Please log in to proceed with the purchase.');
+                return;
+            }
+
             // Initiate a payment for the service
             const response = await axios.post('https://rem-farms.onrender.com/api/checkout', {
                 serviceId: service.id,  // Service ID should be sent
                 amount: service.price,  // Assuming service.price holds the amount
             }, {
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`, // Send JWT for authentication
+                    Authorization: `Bearer ${token}`, // Send JWT for authentication
                 },
             });
 
@@ -75,7 +91,7 @@ const Services = () => {
                         services.map((service) => (
                             <div key={service.id} className="p-4 bg-gray-100 rounded-lg shadow-md">
                                 <img
-                                    src={service.image_url || '/fallback-image.png'}  // Use the correct field from the database
+                                    src={service.image_url || '/fallback-image.png'}  // Ensure valid fallback
                                     alt={service.name}
                                     className="w-full h-32 object-cover rounded"
                                 />
