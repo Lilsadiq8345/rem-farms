@@ -15,7 +15,7 @@ const Messages = () => {
             setLoading(true);
             try {
                 // Example: replace with actual API request to get staff related to the investor
-                const response = await axios.get('/api/staff');
+                const response = await axios.get('https://rem-farms.onrender.com/api/staff');
                 setStaffMembers(response.data);
             } catch (error) {
                 console.error('Error fetching staff:', error);
