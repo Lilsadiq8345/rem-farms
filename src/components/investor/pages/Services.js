@@ -12,8 +12,8 @@ const Services = () => {
                 // Ensure backend API endpoint is correct
                 const response = await axios.get('https://rem-farms.onrender.com/api/services');
 
-                // Check response structure and update accordingly
-                if (response.data && response.data.services) {
+                // Check if the response structure is valid
+                if (response.data && Array.isArray(response.data.services)) {
                     setServices(response.data.services);
                 } else {
                     console.error('Unexpected response structure:', response.data);
@@ -48,7 +48,7 @@ const Services = () => {
             alert('Service added to cart successfully!');
         } catch (error) {
             console.error('Error adding to cart:', error);
-            alert('Error adding to cart. Please try again.');
+            alert(`Error adding to cart: ${error.response?.data?.message || error.message}`);
         }
     };
 
@@ -74,7 +74,7 @@ const Services = () => {
             window.location.href = response.data.authorization_url;
         } catch (error) {
             console.error('Error during checkout:', error);
-            alert('Error during checkout. Please try again.');
+            alert(`Error during checkout: ${error.response?.data?.message || error.message}`);
         }
     };
 
@@ -91,14 +91,16 @@ const Services = () => {
                         services.map((service) => (
                             <div key={service.SERVICE_ID} className="p-4 bg-gray-100 rounded-lg shadow-md flex flex-col items-center">
                                 <img
-                                    src={`/images/${service.IMAGE_URL}`}  // Path from the public/images folder
+                                    src={`/images/${service.IMAGE_URL || 'default-image.jpg'}`}  // Fallback to default image
                                     alt={service.NAME}
                                     className="w-full h-48 object-cover rounded"
                                 />
                                 <h3 className="text-lg font-semibold mt-4 text-center">{service.NAME}</h3>
                                 <p className="text-sm text-gray-600 text-center mt-2">{service.DESCRIPTION}</p>
                                 <div className="flex justify-between items-center w-full mt-4">
-                                    <span className="font-semibold text-lg">₦{service.PRICE.toFixed(2)}</span>
+                                    <span className="font-semibold text-lg">
+                                        ₦{typeof service.PRICE === 'number' ? service.PRICE.toFixed(2) : 'Invalid price'}
+                                    </span>
                                     <div className="flex gap-2">
                                         <button
                                             onClick={() => handleAddToCart(service)}
