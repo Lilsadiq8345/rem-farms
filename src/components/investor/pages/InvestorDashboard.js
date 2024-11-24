@@ -208,7 +208,6 @@ const InvestorDashboard = () => {
 
             {selectedSection === 'messages' && (
               <div className="p-6 bg-white rounded-lg shadow-md">
-                <h2 className="text-2xl font-semibold">Messages</h2>
                 <Messages />
               </div>
             )}

@@ -51,7 +51,7 @@ const ScrollHandler = ({ sectionId }) => {
 
 const App = () => {
   return (
-    <Router>
+    <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       {/* Scroll to top on route change */}
       <ScrollToTop />
 
