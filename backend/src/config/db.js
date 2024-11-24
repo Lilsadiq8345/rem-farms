@@ -3,9 +3,9 @@ const mysql = require('mysql2/promise');  // Using the promise version
 
 const db = mysql.createPool({
     host: process.env.DB_HOST || 'sql8.freesqldatabase.com',
-    user: process.env.DB_USER || 'sql8745399',
-    password: process.env.DB_PASSWORD || 'yqSUAaRcGP',
-    database: process.env.DB_NAME || 'sql8745399',
+    user: process.env.DB_USER || 'sql8747082',
+    password: process.env.DB_PASSWORD || 'lLlLASfBlt',
+    database: process.env.DB_NAME || 'sql8747082',
 });
 
 // Test the database connection using async/await

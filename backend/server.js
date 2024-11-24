@@ -290,17 +290,56 @@ app.post('/api/upload-avatar', verifyToken, (req, res) => {
     });
 });
 
+// Send or reply to a message (Investor <-> Staff)
 app.post('/api/messages', verifyToken, async (req, res) => {
-    const { senderId, receiverId, messageText } = req.body;
+    const { receiverId, messageText, parentMessageId } = req.body;
+
+    // Validate input
+    if (!messageText || !receiverId) {
+        return res.status(400).json({ message: 'Receiver ID and message text are required' });
+    }
 
     try {
+        // Ensure the sender is either an investor or a staff member
+        const [sender] = await db.query('SELECT * FROM USERS WHERE USER_ID = ?', [req.userId]);
+        if (sender.length === 0) {
+            return res.status(400).json({ message: 'Sender not found' });
+        }
+
+        // Ensure the receiver is either an investor or staff
+        const [receiver] = await db.query('SELECT * FROM USERS WHERE USER_ID = ?', [receiverId]);
+        if (receiver.length === 0) {
+            return res.status(400).json({ message: 'Receiver not found' });
+        }
+
+        // Insert the message into the database
+        // If it's a reply, include the parent_message_id
         const [result] = await db.query(
-            'INSERT INTO MESSAGES (SENDER_ID, RECEIVER_ID, MESSAGE_TEXT) VALUES (?, ?, ?)',
-            [senderId, receiverId, messageText]
+            'INSERT INTO MESSAGES (SENDER_ID, RECEIVER_ID, MESSAGE_TEXT, PARENT_MESSAGE_ID) VALUES (?, ?, ?, ?)',
+            [req.userId, receiverId, messageText, parentMessageId || null]  // Use null for non-replies
         );
+
         res.status(201).json({ success: true, message: 'Message sent successfully' });
     } catch (err) {
-        res.status(500).json({ message: 'Database error', error: err });
+        console.error('Error sending message:', err);
+        res.status(500).json({ message: 'Database error', error: err.message });
+    }
+});
+
+// Fetch all messages for a user (both sent and received)
+app.get('/api/messages', verifyToken, async (req, res) => {
+    try {
+        const [messages] = await db.query(`
+            SELECT m.MESSAGE_ID, m.SENDER_ID, m.RECEIVER_ID, m.MESSAGE_TEXT, m.PARENT_MESSAGE_ID, m.CREATED_AT
+            FROM MESSAGES m
+            WHERE m.SENDER_ID = ? OR m.RECEIVER_ID = ?
+            ORDER BY m.CREATED_AT DESC
+        `, [req.userId, req.userId]);
+
+        res.json({ success: true, messages });
+    } catch (err) {
+        console.error('Error fetching messages:', err);
+        res.status(500).json({ message: 'Database error', error: err.message });
     }
 });
 

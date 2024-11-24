@@ -140,8 +140,10 @@ CREATE TABLE MESSAGES (
     MESSAGE_TEXT TEXT NOT NULL,
     SENT_AT TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     READ_STATUS BOOLEAN DEFAULT FALSE,
+    PARENT_MESSAGE_ID INT,
     FOREIGN KEY (SENDER_ID) REFERENCES USERS(USER_ID) ON DELETE CASCADE,
-    FOREIGN KEY (RECEIVER_ID) REFERENCES USERS(USER_ID) ON DELETE CASCADE
+    FOREIGN KEY (RECEIVER_ID) REFERENCES USERS(USER_ID) ON DELETE CASCADE,
+    FOREIGN KEY (PARENT_MESSAGE_ID) REFERENCES MESSAGES(MESSAGE_ID) ON DELETE CASCADE
 );
 
 -- Cart Items Table
@@ -429,24 +431,74 @@ INSERT INTO LIVE_SESSIONS (
     '/videos/agri-session1.mp4'
 );
 
--- Sample data for MESSAGES table
+-- Insert sample messages into MESSAGES table
+
+-- Investor (ID 1) sends a message to Staff (ID 2)
 INSERT INTO MESSAGES (
     SENDER_ID,
     RECEIVER_ID,
     MESSAGE_TEXT,
-    SENT_AT
+    READ_STATUS,
+    PARENT_MESSAGE_ID
 ) VALUES (
     1,
     2,
-    'Hello, I am interested in your commodities.',
-    CURRENT_TIMESTAMP
-),
-(
+    'Hello Sarah, I need assistance with my account.',
+    FALSE,
+    NULL
+);
+
+-- Staff (ID 2) replies to Investor (ID 1)
+INSERT INTO MESSAGES (
+    SENDER_ID,
+    RECEIVER_ID,
+    MESSAGE_TEXT,
+    READ_STATUS,
+    PARENT_MESSAGE_ID
+) VALUES (
     2,
     1,
-    'Sure, let me know how I can assist.',
-    CURRENT_TIMESTAMP
+    'Hello John, I am happy to help. What seems to be the issue?',
+    FALSE,
+    1
 );
+
+-- Investor (ID 1) replies to Staff (ID 2)
+INSERT INTO MESSAGES (
+    SENDER_ID,
+    RECEIVER_ID,
+    MESSAGE_TEXT,
+    READ_STATUS,
+    PARENT_MESSAGE_ID
+) VALUES (
+    1,
+    2,
+    'I cannot access my transaction history, could you check for me?',
+    FALSE,
+    1
+);
+
+-- Staff (ID 2) replies to Investor (ID 1)
+INSERT INTO MESSAGES (
+    SENDER_ID,
+    RECEIVER_ID,
+    MESSAGE_TEXT,
+    READ_STATUS,
+    PARENT_MESSAGE_ID
+) VALUES (
+    2,
+    1,
+    'I will check that for you and get back to you shortly.',
+    FALSE,
+    1
+);
+
+-- Investor (ID 1) marks message as read
+UPDATE MESSAGES
+SET
+    READ_STATUS = TRUE
+WHERE
+    MESSAGE_ID = 4;
 
 -- Sample data for CART_ITEMS table
 INSERT INTO CART_ITEMS (
