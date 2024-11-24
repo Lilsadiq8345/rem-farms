@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { FaPaperPlane } from 'react-icons/fa';
 import axios from 'axios';
 
-// Main Chat Component
 const Messages = ({ userType }) => {
     const [messages, setMessages] = useState([]); // State to hold messages
     const [currentThread, setCurrentThread] = useState(null); // Current selected conversation
@@ -10,24 +9,32 @@ const Messages = ({ userType }) => {
     const [userList, setUserList] = useState([]); // List of staff or investors the user can chat with
     const [loading, setLoading] = useState(false);
     const [searchTerm, setSearchTerm] = useState(''); // State for search input
+    const [error, setError] = useState(null); // Error state for debugging
 
     // Fetch the list of users (staff for investors, investors for staff)
     useEffect(() => {
         const fetchUsers = async () => {
             setLoading(true);
+            setError(null); // Reset error before fetching
             try {
-                const endpoint = userType === 'investor' ? '/api/staff' : '/api/investors';
+                const endpoint = userType === 'investor' ? 'https://rem-farms.onrender.com/api/staff' : 'https://rem-farms.onrender.com/api/investors';
                 const token = localStorage.getItem('token');
+
+                // Fetch user list based on user type
                 const response = await axios.get(`https://rem-farms.onrender.com${endpoint}`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
                 });
 
+                // Debugging: Check response structure
+                console.log('User List Response:', response.data);
+
                 // Set user list based on user type
                 setUserList(userType === 'investor' ? response.data.staff : response.data.investors);
             } catch (error) {
                 console.error('Error fetching users:', error);
+                setError('Failed to fetch user list. Please try again.');
             } finally {
                 setLoading(false);
             }
@@ -38,25 +45,28 @@ const Messages = ({ userType }) => {
 
     // Fetch messages for the current thread
     useEffect(() => {
-        if (currentThread) {
-            // Simulate fetching messages from an API
-            const fetchMessages = async () => {
-                try {
-                    const token = localStorage.getItem('token');
-                    const response = await axios.get(`https://rem-farms.onrender.com/api/messages/${currentThread.USER_ID}`, {
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                        },
-                    });
+        const fetchMessages = async () => {
+            if (!currentThread) return; // Exit if no thread selected
+            setError(null); // Reset error before fetching
+            try {
+                const token = localStorage.getItem('token');
+                const response = await axios.get(`https://rem-farms.onrender.com/api/messages/${currentThread.USER_ID}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
 
-                    setMessages(response.data.messages || []);
-                } catch (error) {
-                    console.error('Error fetching messages:', error);
-                }
-            };
+                // Debugging: Check response structure
+                console.log('Messages Response:', response.data);
 
-            fetchMessages();
-        }
+                setMessages(response.data.messages || []);
+            } catch (error) {
+                console.error('Error fetching messages:', error);
+                setError('Failed to load messages. Please try again.');
+            }
+        };
+
+        fetchMessages();
     }, [currentThread]);
 
     // Send a message
@@ -77,6 +87,9 @@ const Messages = ({ userType }) => {
                     }
                 );
 
+                // Debugging: Check response structure
+                console.log('Send Message Response:', response.data);
+
                 if (response.data.success) {
                     // Update local state with the new message
                     setMessages([
@@ -84,9 +97,12 @@ const Messages = ({ userType }) => {
                         { SENDER_ID: 'you', MESSAGE_TEXT: newMessage, CREATED_AT: new Date().toISOString() },
                     ]);
                     setNewMessage(''); // Clear input after sending
+                } else {
+                    setError('Failed to send message. Please try again.');
                 }
             } catch (error) {
                 console.error('Error sending message:', error);
+                setError('Failed to send message. Please try again.');
             }
         }
     };
@@ -100,6 +116,9 @@ const Messages = ({ userType }) => {
     return (
         <div className="p-6 bg-white rounded-lg shadow-md">
             <h2 className="text-2xl font-semibold mb-4">Messages</h2>
+
+            {/* Display error if any */}
+            {error && <div className="text-red-500 mb-4">{error}</div>}
 
             <div className="flex">
                 {/* Sidebar with list of users */}
