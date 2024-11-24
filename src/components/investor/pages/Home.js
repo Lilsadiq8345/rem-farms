@@ -53,7 +53,7 @@ const Home = ({ setCartItems }) => {
       <header className="fixed top-0 left-0 right-0 flex items-center justify-between px-6 py-4 bg-white shadow-md z-50">
         <Link to="/home" onClick={handleHomeClick}>
           <div className="flex items-center">
-            <img src="/REM-FARM-LOGO.png" alt="REM Farms brand" className="w-10 h-10 md:w-20 md:h-20" />
+            <img src="/REM FARM LOGO.png" alt="REM Farms brand" className="w-10 h-10 md:w-20 md:h-20" />
             <h1 className="text-xl md:text-3xl font-bold ml-2 text-green-800">Rem-Farms</h1>
           </div>
         </Link>
@@ -67,7 +67,7 @@ const Home = ({ setCartItems }) => {
           >
             Home
           </a>
-          <Link to="/products" className="hover:text-green-700 text-green-800">Products</Link>
+          <Link to="/products" className="hover:text-green-700 text-green-800">Markets</Link>
           <Link to="/about" className="hover:text-green-700 text-green-800">About Us</Link>
           <Link to="/contact" className="hover:text-green-700 text-green-800">Contact</Link>
         </nav>
@@ -130,7 +130,7 @@ const Home = ({ setCartItems }) => {
               Home
             </a>
             <Link to="/products" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-              Products
+              Market Place
             </Link>
             <Link to="/about" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
               About Us
@@ -202,9 +202,9 @@ const Home = ({ setCartItems }) => {
           </button>
         </div>
       </section>
-      {/* Bloom of the Day Section */}
+      {/* Market Place Section */}
       <section className="bloom-of-the-day my-12 mx-auto text-center max-w-5xl" id="products">
-        <h2 className="text-4xl font-semibold text-black mb-4">Bloom Of The Day</h2>
+        <h2 className="text-4xl font-semibold text-black mb-4">Market Place</h2>
         <p className="text-gray-600 mb-8 max-w-3xl mx-auto">
           There are many variations of passages of Lorem available but the majority have suffered alteration by
           injected humour or randomised words which don't look even slightly believable.
