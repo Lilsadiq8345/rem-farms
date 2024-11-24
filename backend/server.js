@@ -208,15 +208,20 @@ app.get('/api/cart/count/:userId', verifyToken, async (req, res) => {
     }
 });
 
-// Fetch All Services
-app.get('/api/services', async (req, res) => {
-    try {
-        const [services] = await db.query('SELECT * FROM SERVICES WHERE STATUS = "active"');
-        res.json({ success: true, services });
-    } catch (err) {
-        res.status(500).json({ message: 'Database error', error: err.message });
-    }
-});
+// Fetch All Servicesapp.get('/api/services', async (req, res) => {
+try {
+    const [services] = await db.query('SELECT * FROM SERVICES WHERE STATUS = "active"');
+
+    // Ensure PRICE is a number
+    const formattedServices = services.map(service => ({
+        ...service,
+        PRICE: parseFloat(service.PRICE) // Force PRICE to be a number
+    }));
+
+    res.json({ success: true, services: formattedServices });
+} catch (err) {
+    res.status(500).json({ message: 'Database error', error: err.message });
+}
 
 // Initiate Payment
 app.post("/api/checkout", verifyToken, async (req, res) => {

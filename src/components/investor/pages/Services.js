@@ -99,7 +99,7 @@ const Services = () => {
                                 <p className="text-sm text-gray-600 text-center mb-4">{service.DESCRIPTION}</p>
                                 <div className="flex flex-col sm:flex-row justify-center gap-4 w-full">
                                     <span className="font-semibold text-lg mb-2 sm:mb-0">
-                                        ₦{typeof service.PRICE === 'number' ? service.PRICE.toFixed(2) : 'Invalid price'}
+                                        ₦{!isNaN(Number(service.PRICE)) ? Number(service.PRICE).toFixed(2) : 'Invalid price'}
                                     </span>
                                     <div className="flex gap-2 w-full sm:w-auto">
                                         <button
