@@ -17,7 +17,7 @@ const Messages = ({ userType }) => {
             setLoading(true);
             setError(null); // Reset error before fetching
             try {
-                const endpoint = userType === 'investor' ? 'https://rem-farms.onrender.com/api/staff' : 'https://rem-farms.onrender.com/api/investors';
+                const endpoint = userType === 'investor' ? '/api/staff' : 'api/investors';
                 const token = localStorage.getItem('token');
 
                 // Fetch user list based on user type
