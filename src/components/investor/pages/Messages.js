@@ -2,58 +2,99 @@ import React, { useState, useEffect } from 'react';
 import { FaPaperPlane } from 'react-icons/fa';
 import axios from 'axios';
 
-const Messages = () => {
+// Main Chat Component
+const Messages = ({ userType }) => {
     const [messages, setMessages] = useState([]); // State to hold messages
     const [currentThread, setCurrentThread] = useState(null); // Current selected conversation
     const [newMessage, setNewMessage] = useState(''); // State to hold new message
-    const [staffMembers, setStaffMembers] = useState([]); // List of staff members the investor can chat with
+    const [userList, setUserList] = useState([]); // List of staff or investors the user can chat with
     const [loading, setLoading] = useState(false);
     const [searchTerm, setSearchTerm] = useState(''); // State for search input
 
-    // Fetch the staff members the investor is allowed to chat with
+    // Fetch the list of users (staff for investors, investors for staff)
     useEffect(() => {
-        const fetchStaff = async () => {
+        const fetchUsers = async () => {
             setLoading(true);
             try {
-                // Example: replace with actual API request to get staff related to the investor
-                const response = await axios.get('https://rem-farms.onrender.com/api/staff');
-                setStaffMembers(response.data);
+                const endpoint = userType === 'investor' ? '/api/staff' : '/api/investors';
+                const token = localStorage.getItem('token');
+                const response = await axios.get(`https://rem-farms.onrender.com${endpoint}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+
+                // Set user list based on user type
+                setUserList(userType === 'investor' ? response.data.staff : response.data.investors);
             } catch (error) {
-                console.error('Error fetching staff:', error);
+                console.error('Error fetching users:', error);
             } finally {
                 setLoading(false);
             }
         };
 
-        fetchStaff();
-    }, []);
+        fetchUsers();
+    }, [userType]);
 
-    // Fetching messages for the current thread (dummy data for now)
+    // Fetch messages for the current thread
     useEffect(() => {
         if (currentThread) {
             // Simulate fetching messages from an API
-            setMessages([
-                { sender: 'Staff', text: 'Hello! How can I assist you today?', time: '10:00 AM' },
-                { sender: 'You', text: 'I have a question regarding my investments.', time: '10:05 AM' },
-            ]);
+            const fetchMessages = async () => {
+                try {
+                    const token = localStorage.getItem('token');
+                    const response = await axios.get(`https://rem-farms.onrender.com/api/messages/${currentThread.USER_ID}`, {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    });
+
+                    setMessages(response.data.messages || []);
+                } catch (error) {
+                    console.error('Error fetching messages:', error);
+                }
+            };
+
+            fetchMessages();
         }
     }, [currentThread]);
 
-    // Send message function (Simulating sending a message)
-    const handleSendMessage = () => {
-        if (newMessage.trim()) {
-            setMessages([
-                ...messages,
-                { sender: 'You', text: newMessage, time: new Date().toLocaleTimeString() },
-            ]);
-            setNewMessage('');
+    // Send a message
+    const handleSendMessage = async () => {
+        if (newMessage.trim() && currentThread) {
+            try {
+                const token = localStorage.getItem('token');
+                const response = await axios.post(
+                    'https://rem-farms.onrender.com/api/messages',
+                    {
+                        receiverId: currentThread.USER_ID,
+                        messageText: newMessage,
+                    },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
+
+                if (response.data.success) {
+                    // Update local state with the new message
+                    setMessages([
+                        ...messages,
+                        { SENDER_ID: 'you', MESSAGE_TEXT: newMessage, CREATED_AT: new Date().toISOString() },
+                    ]);
+                    setNewMessage(''); // Clear input after sending
+                }
+            } catch (error) {
+                console.error('Error sending message:', error);
+            }
         }
     };
 
-    // Filtered staff based on search term
-    const filteredStaff = staffMembers.filter(staff =>
-        staff.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        staff.role.toLowerCase().includes(searchTerm.toLowerCase())
+    // Filtered user list based on search term
+    const filteredUsers = userList.filter(user =>
+        user.USERNAME.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        user.EMAIL.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     return (
@@ -61,33 +102,34 @@ const Messages = () => {
             <h2 className="text-2xl font-semibold mb-4">Messages</h2>
 
             <div className="flex">
-                {/* Sidebar with list of staff members */}
+                {/* Sidebar with list of users */}
                 <div className="w-1/3 border-r-2 pr-4">
                     <h3 className="font-semibold mb-4">Conversations</h3>
 
                     {/* Search Bar */}
                     <input
                         type="text"
-                        placeholder="Search by name or service"
+                        placeholder="Search by name or email"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className="w-full p-2 border border-gray-300 rounded-lg mb-4"
                     />
 
                     {loading ? (
-                        <p>Loading staff members...</p>
+                        <p>Loading...</p>
                     ) : (
                         <ul>
-                            {filteredStaff.length === 0 ? (
-                                <li>No staff available to chat with.</li>
+                            {filteredUsers.length === 0 ? (
+                                <li>No users available to chat with.</li>
                             ) : (
-                                filteredStaff.map((staff) => (
+                                filteredUsers.map((user) => (
                                     <li
-                                        key={staff.id}
-                                        className={`p-2 cursor-pointer hover:bg-gray-200 rounded ${currentThread?.id === staff.id ? 'bg-gray-300' : ''}`}
-                                        onClick={() => setCurrentThread(staff)}
+                                        key={user.USER_ID}
+                                        className={`p-2 cursor-pointer hover:bg-gray-200 rounded ${currentThread?.USER_ID === user.USER_ID ? 'bg-gray-300' : ''
+                                            }`}
+                                        onClick={() => setCurrentThread(user)}
                                     >
-                                        {staff.name} ({staff.role})
+                                        {user.USERNAME} ({user.EMAIL})
                                     </li>
                                 ))
                             )}
@@ -99,17 +141,17 @@ const Messages = () => {
                 <div className="w-2/3 pl-4">
                     {currentThread ? (
                         <>
-                            <h3 className="font-semibold text-xl mb-4">Chat with {currentThread.name}</h3>
+                            <h3 className="font-semibold text-xl mb-4">Chat with {currentThread.USERNAME}</h3>
                             <div className="h-96 overflow-y-auto bg-gray-50 p-4 rounded-lg shadow-md">
                                 {messages.map((message, index) => (
                                     <div
                                         key={index}
-                                        className={`mb-4 ${message.sender === 'You' ? 'text-right' : ''}`}
+                                        className={`mb-4 ${message.SENDER_ID === 'you' ? 'text-right' : ''}`}
                                     >
-                                        <p className={`text-sm ${message.sender === 'You' ? 'bg-blue-500 text-white inline-block p-2 rounded-lg' : 'bg-gray-200 inline-block p-2 rounded-lg'}`}>
-                                            {message.text}
+                                        <p className={`text-sm ${message.SENDER_ID === 'you' ? 'bg-blue-500 text-white inline-block p-2 rounded-lg' : 'bg-gray-200 inline-block p-2 rounded-lg'}`}>
+                                            {message.MESSAGE_TEXT}
                                         </p>
-                                        <span className="text-xs text-gray-400 ml-2">{message.time}</span>
+                                        <span className="text-xs text-gray-400 ml-2">{new Date(message.CREATED_AT).toLocaleTimeString()}</span>
                                     </div>
                                 ))}
                             </div>
@@ -132,7 +174,7 @@ const Messages = () => {
                             </div>
                         </>
                     ) : (
-                        <p className="text-gray-500">Select a staff member to start chatting.</p>
+                        <p className="text-gray-500">Select a user to start chatting.</p>
                     )}
                 </div>
             </div>

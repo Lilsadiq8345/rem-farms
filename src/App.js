@@ -29,6 +29,8 @@ import AdminLogin from './components/admin/pages/AdminLogin';
 import AdminRegister from './components/admin/pages/AdminRegister';
 
 // Scroll utility function
+const userType = localStorage.getItem('userType'); // Determine user type dynamically ('investor' or 'staff')
+
 const scrollToSection = (sectionId) => {
   const section = document.getElementById(sectionId);
   if (section) {
@@ -66,7 +68,7 @@ const App = () => {
         <Route path="/products" element={<Products />} />
         <Route path="/commodities" element={<CommodityList />} />
         <Route path="/services" element={<Services />} />
-        <Route path="/messages" element={<Messages />} />
+        <Route path="/messages" render={() => <Messages userType={userType} />} />
         <Route path="/live-view" element={<LiveView />} />
         <Route path="/transactions" element={<Transactions />} />
         <Route path="/saved-calls" element={<SavedCalls />} />

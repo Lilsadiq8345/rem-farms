@@ -38,11 +38,11 @@ const Services = () => {
 
             // Post request to add the selected service to the cart
             await axios.post('https://rem-farms.onrender.com/api/cart', {
-                commodityId: service.SERVICE_ID,  // Use SERVICE_ID from schema
-                quantity: 1, // Assuming adding 1 to the cart; you can adjust this
+                commodityId: service.SERVICE_ID,
+                quantity: 1,
             }, {
                 headers: {
-                    Authorization: `Bearer ${token}`, // Send JWT for authentication
+                    Authorization: `Bearer ${token}`,
                 },
             });
             alert('Service added to cart successfully!');
@@ -62,11 +62,11 @@ const Services = () => {
 
             // Initiate a payment for the service
             const response = await axios.post('https://rem-farms.onrender.com/api/checkout', {
-                serviceId: service.SERVICE_ID,  // Use SERVICE_ID from schema
-                amount: service.PRICE,  // Ensure that service.PRICE holds the correct amount
+                serviceId: service.SERVICE_ID,
+                amount: service.PRICE,
             }, {
                 headers: {
-                    Authorization: `Bearer ${token}`, // Send JWT for authentication
+                    Authorization: `Bearer ${token}`,
                 },
             });
 
@@ -91,7 +91,7 @@ const Services = () => {
                         services.map((service) => (
                             <div key={service.SERVICE_ID} className="p-4 bg-gray-100 rounded-lg shadow-md flex flex-col items-center">
                                 <img
-                                    src={`/images/${service.IMAGE_URL || 'default-image.jpg'}`}  // Fallback to default image
+                                    src={service.IMAGE_URL ? `/images/${service.IMAGE_URL}` : '/images/default-image.jpg'}
                                     alt={service.NAME}
                                     className="w-full h-48 object-cover rounded mb-4"
                                 />
