@@ -208,20 +208,15 @@ app.get('/api/cart/count/:userId', verifyToken, async (req, res) => {
     }
 });
 
-// Fetch All Servicesapp.get('/api/services', async (req, res) => {
-try {
-    const [services] = await db.query('SELECT * FROM SERVICES WHERE STATUS = "active"');
-
-    // Ensure PRICE is a number
-    const formattedServices = services.map(service => ({
-        ...service,
-        PRICE: parseFloat(service.PRICE) // Force PRICE to be a number
-    }));
-
-    res.json({ success: true, services: formattedServices });
-} catch (err) {
-    res.status(500).json({ message: 'Database error', error: err.message });
-}
+// Fetch All Services
+app.get('/api/services', async (req, res) => {
+    try {
+        const [services] = await db.query('SELECT * FROM SERVICES WHERE STATUS = "active"');
+        res.json({ success: true, services });
+    } catch (err) {
+        res.status(500).json({ message: 'Database error', error: err.message });
+    }
+});
 
 // Initiate Payment
 app.post("/api/checkout", verifyToken, async (req, res) => {
@@ -294,61 +289,34 @@ app.post('/api/upload-avatar', verifyToken, (req, res) => {
         res.json({ success: true, message: 'Avatar uploaded successfully', filePath });
     });
 });
-// Fetch All Staff Members (For Investors)
-app.get('/api/staff', verifyToken, async (req, res) => {
-    try {
-        // Ensure the user is authorized (e.g., an investor)
-        if (req.userType !== 'investor') {
-            return res.status(403).json({ message: 'Unauthorized access' });
-        }
-
-        const [staffMembers] = await db.query('SELECT USER_ID, USERNAME, EMAIL FROM USERS WHERE USER_TYPE = "staff"');
-        res.json({ success: true, staff: staffMembers });
-    } catch (err) {
-        console.error('Error fetching staff members:', err);
-        res.status(500).json({ message: 'Database error', error: err.message });
-    }
-});
-
-// Fetch All Investors (For Staff)
-app.get('/api/investors', verifyToken, async (req, res) => {
-    try {
-        // Ensure the user is authorized (e.g., a staff member)
-        if (req.userType !== 'staff') {
-            return res.status(403).json({ message: 'Unauthorized access' });
-        }
-
-        const [investors] = await db.query('SELECT USER_ID, USERNAME, EMAIL FROM USERS WHERE USER_TYPE = "investor"');
-        res.json({ success: true, investors });
-    } catch (err) {
-        console.error('Error fetching investors:', err);
-        res.status(500).json({ message: 'Database error', error: err.message });
-    }
-});
-
-// Messaging Routes
 
 // Send or reply to a message (Investor <-> Staff)
 app.post('/api/messages', verifyToken, async (req, res) => {
     const { receiverId, messageText, parentMessageId } = req.body;
 
+    // Validate input
     if (!messageText || !receiverId) {
         return res.status(400).json({ message: 'Receiver ID and message text are required' });
     }
 
     try {
-        // Ensure the sender exists
+        // Ensure the sender is either an investor or a staff member
         const [sender] = await db.query('SELECT * FROM USERS WHERE USER_ID = ?', [req.userId]);
-        if (!sender.length) return res.status(404).json({ message: 'Sender not found' });
+        if (sender.length === 0) {
+            return res.status(400).json({ message: 'Sender not found' });
+        }
 
-        // Ensure the receiver exists
+        // Ensure the receiver is either an investor or staff
         const [receiver] = await db.query('SELECT * FROM USERS WHERE USER_ID = ?', [receiverId]);
-        if (!receiver.length) return res.status(404).json({ message: 'Receiver not found' });
+        if (receiver.length === 0) {
+            return res.status(400).json({ message: 'Receiver not found' });
+        }
 
         // Insert the message into the database
+        // If it's a reply, include the parent_message_id
         const [result] = await db.query(
             'INSERT INTO MESSAGES (SENDER_ID, RECEIVER_ID, MESSAGE_TEXT, PARENT_MESSAGE_ID) VALUES (?, ?, ?, ?)',
-            [req.userId, receiverId, messageText, parentMessageId || null]
+            [req.userId, receiverId, messageText, parentMessageId || null]  // Use null for non-replies
         );
 
         res.status(201).json({ success: true, message: 'Message sent successfully' });
@@ -374,7 +342,6 @@ app.get('/api/messages', verifyToken, async (req, res) => {
         res.status(500).json({ message: 'Database error', error: err.message });
     }
 });
-
 
 
 // Start server
