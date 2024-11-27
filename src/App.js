@@ -4,6 +4,7 @@ import Home from './components/investor/pages/Home';
 import InvestorDashboard from './components/investor/pages/InvestorDashboard';
 import InvestorLogin from './components/investor/pages/InvestorLogin';
 import InvestorRegister from './components/investor/pages/InvestorRegister';
+import PricingPlans from "./components/investor/pages/PricingPlans";
 import ScrollToTop from './components/investor/ui/ScrollToTop';
 import Settings from './components/investor/pages/Settings';
 import CommodityList from './components/investor/pages/CommodityList';
@@ -62,6 +63,7 @@ const App = () => {
         <Route path="/investor-dashboard" element={<InvestorDashboard />} />
         <Route path="/investor-login" element={<InvestorLogin />} />
         <Route path="/investor-register" element={<InvestorRegister />} />
+        <Route path="/" element={<PricingPlans />} />
         <Route path="/about" element={<About />} />
         <Route path="/faq" element={<Faq />} />
         <Route path="/contact" element={<ContactSection />} />

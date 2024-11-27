@@ -1,33 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../ui/Footer';
 import ScrollToTop from '../ui/ScrollToTop';
 import Modal from '../ui/Modal';
+import PricingPlans from '../pages/PricingPlans';
+import { motion } from "framer-motion";
 import './Home.css';
 
 const Home = ({ setCartItems }) => {
-  const [currentText, setCurrentText] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isMenuOpen, setMenuOpen] = useState(false);
 
-  const rotatingTexts = [
-    "Invest in Agriculture",
-    "Grow Your Wealth",
-    "Support Sustainable Farming",
-    "Secure Your Future"
-  ];
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentText((prev) => (prev + 1) % rotatingTexts.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [rotatingTexts.length]);
+
+
 
   const handleGetStartedClick = () => {
     setIsModalOpen(true);
   };
+
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -145,30 +137,107 @@ const Home = ({ setCartItems }) => {
       {/* Main Content */}
       <ScrollToTop />
       <Modal isOpen={isModalOpen} onClose={closeModal} />
-
       {/* Hero Section */}
-      <section
-        className="hero flex items-center justify-start p-4 sm:p-10 min-h-screen text-white relative"
-        id="home"
-        style={{
-          backgroundImage: 'url("/hero3.jpeg")',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-        }}
-      >
-        <div className="text-container bg-black bg-opacity-50 p-4 sm:p-6 rounded-lg max-w-xs sm:max-w-md lg:max-w-lg animate-fade-in-left">
-          <h2 className="text-lg sm:text-xl lg:text-2xl font-semibold mb-2">
-            {rotatingTexts[currentText]}
-          </h2>
-          <p className="text-xs sm:text-sm lg:text-base mb-4">
-            REM Farms is your gateway to profitable agricultural investments. Join us in supporting sustainable farming and making a real impact on food security and the environment.
-          </p>
+      <section className="bg-gradient-to-r from-green-200 to-blue-100 py-12 hero flex items-center justify-start mt-20 px-4 sm:px-10 mx-auto h-auto text-white" id="home">
+        <div className="container mx-auto flex flex-col lg:flex-row-reverse items-center justify-between text-center lg:text-left max-w-5xl">
+
+          {/* Image on the right */}
+          <motion.div
+            className="lg:w-1/2 w-full mb-8 lg:mb-0 flex justify-center"
+            initial={{ opacity: 0, x: 100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1 }}
+          >
+            <img
+              src="/hero3.jpeg"
+              alt="Rem-Farms"
+              className="mx-auto lg:mx-0 w-64 h-64 md:w-96 md:h-96 lg:w-[250px] lg:h-[250px] object-cover rounded-lg border-4 shadow-lg shadow-green-500/50"
+            />
+          </motion.div>
+
+          {/* Text on the left */}
+          <motion.div
+            className="lg:w-1/2 w-full text-left"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2 }}
+          >
+            <motion.h1
+              className="text-5xl font-extrabold text-green-800 mb-6"
+              initial={{ opacity: 0, y: -50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1 }}
+            >
+              Welcome to Rem-Farms
+            </motion.h1>
+            <motion.p
+              className="text-lg text-gray-600 max-w-2xl mb-8"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.2 }}
+            >
+              Empowering agriculture through technology. Join us to invest, grow, and transform farming for the future.
+            </motion.p>
+            <motion.button
+              className="bg-green-800 hover:bg-green-700 text-white py-2 px-6 rounded-lg text-lg"
+              onClick={handleGetStartedClick}
+            >
+              Get Started
+            </motion.button>
+          </motion.div>
         </div>
       </section>
 
+      {/* Features Section */}
+      <section className="bg-gradient-to-r from-green-200 to-blue-100 py-12 hero flex items-center justify-start  px-4 sm:px-10 mx-auto h-auto text-white">
+        <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+          <motion.div
+            className="p-6 bg-white shadow-md rounded-lg text-center"
+            whileHover={{ scale: 1.05 }}
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <h3 className="text-xl font-semibold text-green-700 mb-4">Marketplace</h3>
+            <p className="text-gray-600">
+              Buy and sell agricultural products on our trusted marketplace platform.
+            </p>
+          </motion.div>
+
+          <motion.div
+            className="p-6 bg-white shadow-md rounded-lg text-center"
+            whileHover={{ scale: 1.05 }}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <h3 className="text-xl font-semibold text-green-700 mb-4">Investments</h3>
+            <p className="text-gray-600">
+              Grow your financial future by investing in sustainable farming projects.
+            </p>
+          </motion.div>
+
+          <motion.div
+            className="p-6 bg-white shadow-md rounded-lg text-center"
+            whileHover={{ scale: 1.05 }}
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <h3 className="text-xl font-semibold text-green-700 mb-4">Support</h3>
+            <p className="text-gray-600">
+              Need assistance? We're here to help you every step of the way.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+
+
+
+
       {/* Organic Farming Section */}
-      <section className="organic-farming-section flex flex-col lg:flex-row items-center max-w-5xl mx-auto my-12 p-6 bg-white rounded-lg shadow-md">
+      < section className="organic-farming-section flex flex-col lg:flex-row items-center max-w-5xl mx-auto my-12 p-6 bg-white rounded-lg shadow-md" >
         <div className="flex-1 mb-6 lg:mb-0 lg:mr-6">
           <img
             src="/organic_farmer.jpeg"
@@ -201,9 +270,104 @@ const Home = ({ setCartItems }) => {
             Get Started
           </button>
         </div>
+      </section >
+
+      <section className="relative bg-green-800 text-white py-16 px-8">
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-50"
+          style={{ backgroundImage: "url('/hero3.jpeg')" }}
+        ></div>
+
+        <div className="relative z-10 max-w-7xl mx-auto text-center">
+          <h2 className="text-4xl font-bold">
+            What Sets Our <span className="text-green-300">Position</span> Apart
+          </h2>
+          <p className="mt-4 text-lg">
+            At rem-farms, we offer unique advantages that make our agri-investments stand out.
+            Explore the key benefits of partnering with us.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
+            <div className="flex items-center space-x-4">
+
+              <div>
+                <h3 className="text-xl font-semibold">Safe Haven Investment</h3>
+                <p className="mt-2 text-sm">
+                  Invest with peace of mind knowing your assets are in a secure and stable
+                  environment.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center space-x-4">
+
+              <div>
+                <h3 className="text-xl font-semibold">Uncorrelated Returns</h3>
+                <p className="mt-2 text-sm">
+                  Benefit from returns that are independent of traditional market fluctuations,
+                  providing stability.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center space-x-4">
+
+              <div>
+                <h3 className="text-xl font-semibold">Superior Inflation Hedge</h3>
+                <p className="mt-2 text-sm">
+                  Protect your investments against inflation with rem-farms assets that tend to
+                  increase in value over time.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center space-x-4">
+
+              <div>
+                <h3 className="text-xl font-semibold">Attractive Yields</h3>
+                <p className="mt-2 text-sm">
+                  Enjoy competitive yields from well-managed rem-farms investments, designed to
+                  maximize your returns.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="relative mt-12">
+            <img
+              src="/rem22.png"
+              alt="Farmer"
+              className="w-70 h-auto rounded-lg shadow-lg mx-auto"
+            />
+          </div>
+        </div>
       </section>
+
+
+      {/* Call-to-Action Section */}
+      < section className="py-20 bg-gradient-to-r from-green-600 to-green-400 text-white text-center" >
+        <motion.div
+          className="container mx-auto"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+        >
+          <h2 className="text-3xl font-bold mb-6">Join the Farming Revolution</h2>
+          <p className="text-lg mb-8 max-w-2xl mx-auto">
+            Be part of the rem-farms community and help transform agriculture for a better future.
+          </p>
+          <motion.button
+            className="px-6 py-3 bg-white text-green-600 font-semibold rounded-lg shadow-lg hover:bg-gray-100 transition-transform"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            Sign Up Now
+          </motion.button>
+        </motion.div>
+      </section >
+
       {/* Market Place Section */}
-      <section className="bloom-of-the-day my-12 mx-auto text-center max-w-5xl" id="products">
+      < section className="bloom-of-the-day my-12 mx-auto text-center max-w-5xl" id="products" >
         <h2 className="text-4xl font-semibold text-black mb-4">Market Place</h2>
         <p className="text-gray-600 mb-8 max-w-3xl mx-auto">
           There are many variations of passages of Lorem available but the majority have suffered alteration by
@@ -238,11 +402,12 @@ const Home = ({ setCartItems }) => {
             <Link to="/quality-farming" className="text-green-500 font-semibold">Discover More</Link>
           </div>
         </div>
-      </section>
+      </section >
 
+      <PricingPlans />
 
       {/* Explore Our Projects Section */}
-      <section className="explore-projects-section my-12 mx-auto text-center max-w-5xl">
+      < section className="explore-projects-section my-12 mx-auto text-center max-w-5xl" >
         <h2 className="text-4xl font-semibold text-black mb-4 font-chalkduster">Explore Our Projects</h2>
         <p className="text-gray-600 mb-8 max-w-3xl mx-auto">
           There are many variations of passages of Lorem Ipsum available but the majority have suffered alteration by injected humour or randomised words which don't look even slightly believable.
@@ -273,10 +438,10 @@ const Home = ({ setCartItems }) => {
             </Link>
           </div>
         </div>
-      </section>
+      </section >
 
       {/* Latest Updated News Section */}
-      <section className="latest-news-section my-12 mx-auto text-center max-w-6xl px-4">
+      < section className="latest-news-section my-12 mx-auto text-center max-w-6xl px-4" >
         <h2 className="text-4xl font-semibold text-black mb-4 font-italic">Latest Updated News</h2>
         <p className="text-gray-600 mb-8 max-w-3xl mx-auto">
           There are many variations of passages of Lorem Ipsum available but the majority have suffered alteration by injected humour or randomised words which don't look even slightly believable.
@@ -322,7 +487,7 @@ const Home = ({ setCartItems }) => {
             </div>
           </div>
         </div>
-      </section>
+      </section >
       <Footer />
     </>
   );
