@@ -344,27 +344,6 @@ const Home = ({ setCartItems }) => {
       </section>
 
 
-      {/* Call-to-Action Section */}
-      < section className="py-20 bg-gradient-to-r from-green-600 to-green-400 text-white text-center" >
-        <motion.div
-          className="container mx-auto"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-        >
-          <h2 className="text-3xl font-bold mb-6">Join the Farming Revolution</h2>
-          <p className="text-lg mb-8 max-w-2xl mx-auto">
-            Be part of the rem-farms community and help transform agriculture for a better future.
-          </p>
-          <motion.button
-            className="px-6 py-3 bg-white text-green-600 font-semibold rounded-lg shadow-lg hover:bg-gray-100 transition-transform"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            Sign Up Now
-          </motion.button>
-        </motion.div>
-      </section >
 
       {/* Market Place Section */}
       < section className="bloom-of-the-day my-12 mx-auto text-center max-w-5xl" id="products" >
