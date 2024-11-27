@@ -12,10 +12,6 @@ const Home = ({ setCartItems }) => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isMenuOpen, setMenuOpen] = useState(false);
 
-
-
-
-
   const handleGetStartedClick = () => {
     setIsModalOpen(true);
   };
@@ -139,22 +135,7 @@ const Home = ({ setCartItems }) => {
       <Modal isOpen={isModalOpen} onClose={closeModal} />
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-green-200 to-blue-100 py-12 hero flex items-center justify-start mt-20 px-4 sm:px-10 mx-auto h-auto text-white" id="home">
-        <div className="container mx-auto flex flex-col lg:flex-row-reverse items-center justify-between text-center lg:text-left max-w-5xl">
-
-          {/* Image on the right */}
-          <motion.div
-            className="lg:w-1/2 w-full mb-8 lg:mb-0 flex justify-center"
-            initial={{ opacity: 0, x: 100 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1 }}
-          >
-            <img
-              src="/hero3.jpeg"
-              alt="Rem-Farms"
-              className="mx-auto lg:mx-0 w-64 h-64 md:w-96 md:h-96 lg:w-[250px] lg:h-[250px] object-cover rounded-lg border-4 shadow-lg shadow-green-500/50"
-            />
-          </motion.div>
-
+        <div className="container mx-auto px-6 lg:px-12 flex flex-col lg:flex-row items-center lg:items-start">
           {/* Text on the left */}
           <motion.div
             className="lg:w-1/2 w-full text-left"
@@ -185,8 +166,23 @@ const Home = ({ setCartItems }) => {
               Get Started
             </motion.button>
           </motion.div>
+
+          {/* Image on the right */}
+          <motion.div
+            className="lg:w-1/2 w-full mb-8 lg:mb-0 flex justify-center"
+            initial={{ opacity: 0, x: 100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1 }}
+          >
+            <img
+              src="/hero3.jpeg"
+              alt="Rem-Farms"
+              className="mx-auto lg:mx-0 w-64 h-64 md:w-96 md:h-96 lg:w-[250px] lg:h-[250px] object-cover rounded-lg border-4 shadow-lg shadow-green-500/50"
+            />
+          </motion.div>
         </div>
       </section>
+
 
       {/* Features Section */}
       <section className="bg-gradient-to-r from-green-200 to-blue-100 py-12 hero flex items-center justify-start  px-4 sm:px-10 mx-auto h-auto text-white">
