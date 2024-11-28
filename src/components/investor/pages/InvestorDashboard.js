@@ -88,7 +88,7 @@ const InvestorDashboard = () => {
         {/* Sidebar */}
         <aside className={`${isSidebarOpen ? 'w-64' : 'w-20'} bg-green-800 text-white transition-all duration-300 flex flex-col`}>
           <div className="py-4 px-2 flex items-center justify-between">
-            <img src="/REM-FARM-LOGO.png" alt="Rem Farms" className="h-10 w-10 bg-white shadow-lg rounded" />
+            <img src="/REM-FARM.png" alt="Rem Farms" className="h-10 w-10 bg-white shadow-lg rounded" />
             {isSidebarOpen && <h1 className="text-xl font-bold hidden md:block">Investor Dashboard</h1>}
           </div>
 

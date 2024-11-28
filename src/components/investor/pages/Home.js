@@ -41,7 +41,7 @@ const Home = ({ setCartItems }) => {
       <header className="fixed top-0 left-0 right-0 flex items-center justify-between px-6 py-4 bg-white shadow-md z-50">
         <Link to="/home" onClick={handleHomeClick}>
           <div className="flex items-center">
-            <img src="/REM-FARM-LOGO.png" alt="REM Farms brand" className="w-10 h-10 md:w-20 md:h-20" />
+            <img src="/REM-FARM.png" alt="REM Farms brand" className="w-10 h-10 md:w-20 md:h-20" />
             <h1 className="text-xl md:text-3xl font-bold ml-2 text-green-800">Rem-Farms</h1>
           </div>
         </Link>
