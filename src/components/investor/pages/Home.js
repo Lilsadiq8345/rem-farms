@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Footer from '../ui/Footer';
 import ScrollToTop from '../ui/ScrollToTop';
 import Modal from '../ui/Modal';
@@ -12,10 +12,22 @@ const Home = ({ setCartItems }) => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isMenuOpen, setMenuOpen] = useState(false);
 
+  const [cart] = useState([]);
+  const [setLoginModalOpen] = useState(false);
+  const navigate = useNavigate();
+
   const handleGetStartedClick = () => {
     setIsModalOpen(true);
   };
 
+
+  const handleCheckout = () => {
+    if (!localStorage.getItem('user')) {
+      setLoginModalOpen(true);
+    } else {
+      navigate('/checkout');
+    }
+  };
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -59,6 +71,20 @@ const Home = ({ setCartItems }) => {
           <Link to="/about" className="hover:text-green-700 text-green-800">About Us</Link>
           <Link to="/contact" className="hover:text-green-700 text-green-800">Contact</Link>
         </nav>
+
+        {/* Cart Icon */}
+        <div className="flex items-center space-x-4">
+          <button onClick={handleCheckout} className="relative">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-4-8M17 13a4 4 0 11-8 0m8 0a4 4 0 11-8 0" />
+            </svg>
+            {cart.length > 0 && (
+              <span className="absolute top-0 right-0 inline-flex items-center justify-center w-4 h-4 text-xs font-bold text-white bg-red-500 rounded-full">
+                {cart.length}
+              </span>
+            )}
+          </button>
+        </div>
 
         {/* Global Dropdown and Search Section */}
         <div className="flex items-center space-x-4">
