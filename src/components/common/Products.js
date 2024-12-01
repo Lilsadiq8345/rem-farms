@@ -11,7 +11,7 @@ const Products = () => {
       < Navbar />
       {/* Bloom of the Day Section */}
       <section className="bloom-of-the-day my-12 mt-40 mb-40 mx-auto text-center max-w-5xl" id="products">
-        <h2 className="text-4xl font-semibold text-black mb-4">Bloom Of The Day</h2>
+        <h2 className="text-4xl font-semibold text-black mb-4">Market Place</h2>
         <p className="text-gray-600 mb-8 max-w-3xl mx-auto">
           There are many variations of passages of Lorem available, but the majority have suffered
           alteration by injected humour or randomised words that don't look even slightly believable.
