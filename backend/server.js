@@ -179,6 +179,7 @@ app.post('/api/commodities', verifyToken, async (req, res) => {
     }
 });
 
+
 // Add to Cart
 app.post("/api/cart", verifyToken, async (req, res) => {
     const { commodityId, quantity } = req.body;
@@ -193,6 +194,24 @@ app.post("/api/cart", verifyToken, async (req, res) => {
         res.status(500).json({ message: 'Database error', error: err });
     }
 });
+
+
+// Fetch all items in the cart for the logged-in user
+app.get('/api/cart', verifyToken, async (req, res) => {
+    try {
+        const [cartItems] = await db.query(
+            `SELECT c.*, cm.NAME AS commodityName, cm.PRICE AS commodityPrice, cm.IMAGE_URL AS commodityImage 
+             FROM CART_ITEMS c
+             JOIN COMMODITIES cm ON c.COMMODITY_ID = cm.COMMODITY_ID
+             WHERE c.USER_ID = ?`,
+            [req.userId]
+        );
+        res.json({ success: true, cartItems });
+    } catch (err) {
+        res.status(500).json({ message: 'Database error', error: err.message });
+    }
+});
+
 
 // Fetch Cart Count for User
 app.get('/api/cart/count/:userId', verifyToken, async (req, res) => {
