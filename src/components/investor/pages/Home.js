@@ -87,6 +87,9 @@ const Home = ({ setCartItems }) => {
               aria-label="Global options"
               className="flex items-center space-x-2 text-gray-700 hover:text-gray-900 focus:outline-none"
             >
+              <img src="/global.png" alt="UK Flag" className="w-5 h-5 mr-2" />
+
+
               <span>Global</span>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
                 <path
@@ -95,6 +98,7 @@ const Home = ({ setCartItems }) => {
                   clipRule="evenodd"
                 />
               </svg>
+
             </button>
 
             {isDropdownOpen && (
