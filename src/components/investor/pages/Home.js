@@ -140,7 +140,7 @@ const Home = ({ setCartItems }) => {
                       <img src="/uk.png" alt="UK Flag" className="w-5 h-5 mr-2" />
                       United Kingdom
                     </a>
-                    <a href="#nigeria" className="flex items-center px-4 py-2 hover:bg-gray-100">
+                    <a href="/nigeria" className="flex items-center px-4 py-2 hover:bg-gray-100">
                       <img src="/nigeria.png" alt="Nigeria Flag" className="w-5 h-5 mr-2" />
                       Nigeria
                     </a>
@@ -219,7 +219,7 @@ const Home = ({ setCartItems }) => {
                       <img src="/uk.png" alt="UK Flag" className="w-5 h-5 mr-2" />
                       United Kingdom
                     </a>
-                    <a href="#nigeria" className="flex items-center px-4 py-2 hover:bg-gray-100">
+                    <a href="/nigeria" className="flex items-center px-4 py-2 hover:bg-gray-100">
                       <img src="/nigeria.png" alt="Nigeria Flag" className="w-5 h-5 mr-2" />
                       Nigeria
                     </a>
