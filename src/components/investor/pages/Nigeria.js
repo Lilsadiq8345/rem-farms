@@ -329,10 +329,7 @@ const Nigeria = ({ setCartItems }) => {
             </div>
 
 
-            {/* Main Content */}
-            <main className="min-h-screen bg-gray-100 py-12">
-                {/* Include your steps and other content */}
-            </main>
+
 
             {/* Modal */}
             <Modal isOpen={isModalOpen} closeModal={closeModal}>
