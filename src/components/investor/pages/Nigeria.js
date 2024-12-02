@@ -254,7 +254,7 @@ const Nigeria = ({ setCartItems }) => {
                 </div>
                 <div className="bg-white p-6 rounded-lg shadow-md text-center">
                     <h3 className="text-lg font-bold text-gray-800">
-                        Free your Finances from Riba
+                        Free your Finances from Rem-farms
                     </h3>
                     <p className="text-gray-600 mt-2">
                         Rest easy knowing your investments will always be Shariah compliant.
@@ -267,7 +267,7 @@ const Nigeria = ({ setCartItems }) => {
                     </h3>
                     <p className="text-gray-600 mt-2">
                         Join a community of over 300,000 people across the world who are
-                        leaving Riba behind.
+                        leaving Rem-farms behind.
                     </p>
                 </div>
             </div>
