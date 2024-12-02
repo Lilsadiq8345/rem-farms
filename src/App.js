@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './components/investor/pages/Home';
 import Nigeria from './components/investor/pages/Nigeria';
+import Uk from './components/investor/pages/Uk';
 import InvestorDashboard from './components/investor/pages/InvestorDashboard';
 import InvestorLogin from './components/investor/pages/InvestorLogin';
 import InvestorRegister from './components/investor/pages/InvestorRegister';
@@ -62,6 +63,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/nigeria" element={<Nigeria />} />
+        <Route path="/uk" element={<Uk />} />
         <Route path="/investor-dashboard" element={<InvestorDashboard />} />
         <Route path="/investor-login" element={<InvestorLogin />} />
         <Route path="/investor-register" element={<InvestorRegister />} />
