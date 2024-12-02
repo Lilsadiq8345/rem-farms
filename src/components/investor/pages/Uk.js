@@ -145,14 +145,14 @@ const Uk = ({ setCartItems }) => {
 
                                 {isDropdownOpen && (
                                     <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 shadow-lg rounded-lg">
-                                        <a href="#uk" className="flex items-center px-4 py-2 hover:bg-gray-100">
+                                        <Link to="#uk" className="flex items-center px-4 py-2 hover:bg-gray-100">
                                             <img src="/uk.png" alt="UK Flag" className="w-5 h-5 mr-2" />
                                             United Kingdom
-                                        </a>
-                                        <a href="/nigeria" className="flex items-center px-4 py-2 hover:bg-gray-100">
+                                        </Link>
+                                        <Link to="/nigeria" className="flex items-center px-4 py-2 hover:bg-gray-100">
                                             <img src="/nigeria.png" alt="Nigeria Flag" className="w-5 h-5 mr-2" />
                                             Nigeria
-                                        </a>
+                                        </Link>
                                     </div>
                                 )}
                             </div>
@@ -224,14 +224,14 @@ const Uk = ({ setCartItems }) => {
 
                                 {isDropdownOpen && (
                                     <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 shadow-lg rounded-lg">
-                                        <a href="#uk" className="flex items-center px-4 py-2 hover:bg-gray-100">
+                                        <Link to="/uk" className="flex items-center px-4 py-2 hover:bg-gray-100">
                                             <img src="/uk.png" alt="UK Flag" className="w-5 h-5 mr-2" />
                                             United Kingdom
-                                        </a>
-                                        <a href="/nigeria" className="flex items-center px-4 py-2 hover:bg-gray-100">
+                                        </Link>
+                                        <Link to="/nigeria" className="flex items-center px-4 py-2 hover:bg-gray-100">
                                             <img src="/nigeria.png" alt="Nigeria Flag" className="w-5 h-5 mr-2" />
                                             Nigeria
-                                        </a>
+                                        </Link>
                                     </div>
                                 )}
                             </div>
