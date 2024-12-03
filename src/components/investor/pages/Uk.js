@@ -13,9 +13,9 @@ const Uk = ({ setCartItems }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
 
-    const closeModal = () => {
-        // Logic to close the modal
-    };
+
+    // Function to close the modal
+    const closeModal = () => setIsModalOpen(false);
 
 
     const handleGetStartedClick = () => setIsModalOpen(true);
@@ -40,7 +40,7 @@ const Uk = ({ setCartItems }) => {
                 whileHover={{ scale: 1.05 }}
                 initial={{ opacity: 0, x: 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8 }}
+                transition={{ duration: 0.6 }}
             >
                 <section className="bg-gradient-to-r from-green-200 to-blue-100 py-12 hero flex items-center justify-start mt-20 px-4 sm:px-10 mx-auto h-auto text-white" id="home">
                     <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center">
@@ -50,9 +50,12 @@ const Uk = ({ setCartItems }) => {
                                 Join a community of forward-thinking investors and farmers committed to sustainable
                                 and profitable ventures. We connect you with innovative projects that promote sustainability and ensure food security.
                             </p>
-                            <button className="bg-green-800 hover:bg-green-700 text-white  px-6 py-3 rounded-md font-semibold">
+                            <button className="bg-green-800 hover:bg-green-700 text-white  px-6 py-3 rounded-md font-semibold" onClick={handleGetStartedClick}>
                                 Get Started
+
+
                             </button>
+
                         </div>
                         <div className="md:w-1/2 flex justify-center">
                             <img src="/REM-FARM.png" alt="Farmer" className="rounded-md shadow-lg w-40 h-40" />
@@ -106,57 +109,7 @@ const Uk = ({ setCartItems }) => {
                         </motion.div>
                     </div>
                 </section>
-            </motion.div>
-
-
-
-
-            {/* Organic Farming Section */}
-            <motion.div
-                className="p-6 bg-white shadow-md rounded-lg text-center"
-                whileHover={{ scale: 1.05 }}
-                initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8 }}
-            >
-                < section className="organic-farming-section flex flex-col lg:flex-row items-center max-w-5xl mx-auto my-12 p-6 bg-white rounded-lg shadow-md" >
-
-                    <div className="flex-1 mb-6 lg:mb-0 lg:mr-6">
-                        <img
-                            src="/organic_farmer.jpeg"
-                            alt="Organic product"
-                            className="w-full rounded-lg object-cover"
-                        />
-                    </div>
-                    <div className="flex-1 text-left">
-                        <h2 className="text-4xl font-chalkduster text-green-700 mb-4">
-                            Agriculture & Organic Product Farm
-                        </h2>
-                        <p className="text-gray-600 mb-4 text-lg">
-                            There are many variations of passages of ipsum available but the majority have suffered alteration in some form by injected humor or random word which don’t look even.
-                        </p>
-                        <ul className="list-none space-y-2 mb-6">
-                            <li className="flex items-center">
-                                <span className="text-green-500 mr-2">✔️</span> Guaranteed Organic Product
-                            </li>
-                            <li className="flex items-center">
-                                <span className="text-green-500 mr-2">✔️</span> Intensive subsistence agriculture
-                            </li>
-                            <li className="flex items-center">
-                                <span className="text-green-500 mr-2">✔️</span> Mediterranean crops are very important
-                            </li>
-                        </ul>
-                        <button
-                            className="bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600"
-                            onClick={handleGetStartedClick}
-                        >
-                            Get Started
-                        </button>
-                    </div>
-
-                </section >
-            </motion.div>
-
+            </motion.div >
 
             <motion.div
                 className="p-6 bg-white shadow-md rounded-lg text-center"

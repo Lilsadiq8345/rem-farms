@@ -12,10 +12,9 @@ import './Home.css';
 const Home = ({ setCartItems }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const closeModal = () => {
-    // Logic to close the modal
-  };
 
+  // Function to close the modal
+  const closeModal = () => setIsModalOpen(false);
 
   const handleGetStartedClick = () => setIsModalOpen(true);
 
@@ -161,12 +160,6 @@ const Home = ({ setCartItems }) => {
                 <span className="text-green-500 mr-2">✔️</span> Mediterranean crops are very important
               </li>
             </ul>
-            <button
-              className="bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600"
-              onClick={handleGetStartedClick}
-            >
-              Get Started
-            </button>
           </div>
 
         </section >

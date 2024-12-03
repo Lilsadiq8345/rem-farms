@@ -10,9 +10,10 @@ import './Home.css';
 const Nigeria = ({ setCartItems }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const closeModal = () => {
-        // Logic to close the modal
-    };
+
+    // Function to close the modal
+    const closeModal = () => setIsModalOpen(false);
+
 
     const handleGetStartedClick = () => setIsModalOpen(true);
 
@@ -56,6 +57,7 @@ const Nigeria = ({ setCartItems }) => {
     return (
         <>
             < ScrollToTop />
+            <Modal isOpen={isModalOpen} onClose={closeModal} />
             <Navbar />
 
             {/* Hero Section */}
@@ -94,8 +96,8 @@ const Nigeria = ({ setCartItems }) => {
                     <div className="lg:w-1/2 w-full flex justify-center">
                         <div className="relative">
                             <img
-                                src="/hero-phone.png" // Replace with the actual image path
-                                alt="Financial App"
+                                src="/REM-FARM.png" // Replace with the actual image path
+                                alt="rem farm"
                                 className="w-[250px] sm:w-[300px] md:w-[350px] shadow-xl"
                             />
                             <div className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 bg-green-100 w-[300px] h-[50px] rounded-full blur-md"></div>
@@ -205,12 +207,6 @@ const Nigeria = ({ setCartItems }) => {
                 </div>
             </motion.div>
             <PricingPlans />
-
-
-            {/* Modal */}
-            <Modal isOpen={isModalOpen} closeModal={closeModal}>
-                <PricingPlans />
-            </Modal>
 
             <Footer />
         </>
