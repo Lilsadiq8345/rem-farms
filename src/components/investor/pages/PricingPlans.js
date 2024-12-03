@@ -10,7 +10,7 @@ const PricingPlans = () => {
     const handleAddToCart = (plan) => {
         const quantity = 1; // Set the default quantity to 1
         addToCart(plan.commodityId, quantity); // Add to cart using the context function
-        console.log(`Added ${plan.price} plan to Cart`);
+        console.log(`Added ${plan} plan to Cart`);
     };
 
     const handleBuyNow = (planType) => {
@@ -20,12 +20,12 @@ const PricingPlans = () => {
 
     // Pricing plans data
     const pricingPlans = [
-        { price: "$50", commodityId: 1, image: "/product.jpeg" },
-        { price: "$1,000", commodityId: 2, image: "/product2.jpeg" },
-        { price: "$3,000", commodityId: 3, image: "/product2.jpeg" },
-        { price: "$5,000", commodityId: 4, image: "/product2.jpeg" },
-        { price: "$7,000", commodityId: 5, image: "/product.jpeg" },
-        { price: "$10,000", commodityId: 6, image: "/product.jpeg" },
+        { commodityId: 1, image: "/product.jpeg" },
+        { commodityId: 2, image: "/product2.jpeg" },
+        { commodityId: 3, image: "/product2.jpeg" },
+        { commodityId: 4, image: "/product2.jpeg" },
+        { commodityId: 5, image: "/product.jpeg" },
+        { commodityId: 6, image: "/product.jpeg" },
     ];
 
     return (
@@ -52,8 +52,8 @@ const PricingPlans = () => {
                                 key={index}
                                 className="bg-white text-green-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
                             >
-                                <img src={plan.image} alt={`${plan.price} plan`} className="w-16 h-16 mx-auto mb-4" />
-                                <h3 className="text-xl font-bold mb-2">{plan.price}</h3>
+                                <img src={plan.image} alt={`${plan} plan`} className="w-16 h-16 mx-auto mb-4" />
+
 
                                 <div className="flex flex-col space-y-4">
                                     <button
@@ -63,7 +63,7 @@ const PricingPlans = () => {
                                         Add to Cart
                                     </button>
                                     <button
-                                        onClick={() => handleBuyNow(plan.price)}
+                                        onClick={() => handleBuyNow(plan)}
                                         className="bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded-lg transition-transform duration-300 transform hover:scale-105"
                                     >
                                         Buy Now
