@@ -293,7 +293,7 @@ const Uk = ({ setCartItems }) => {
                         </button>
                     </div>
                     <div className="md:w-1/2 flex justify-center">
-                        <img src="path_to_image" alt="Farmer" className="rounded-md shadow-lg" />
+                        <img src="/REM-FARM.png" alt="Farmer" className="rounded-md shadow-lg w-40 h-40" />
                     </div>
                 </div>
             </section>
@@ -403,102 +403,30 @@ const Uk = ({ setCartItems }) => {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8 }}
             >
-                <section className="relative bg-green-800 text-white py-16 px-8">
-                    <div
-                        className="absolute inset-0 bg-cover bg-center opacity-50"
-                        style={{ backgroundImage: "url('/hero3.jpeg')" }}
-                    ></div>
+                <section className="bg-gradient-to-r from-green-200 to-blue-100 py-12 hero flex items-center justify-start mt-20 px-4 sm:px-10 mx-auto h-auto text-green">
 
-                    <div className="relative z-10 max-w-7xl mx-auto text-center">
-                        <h2 className="text-4xl font-bold">
-                            What Sets Our <span className="text-green-300">Position</span> Apart
-                        </h2>
-                        <p className="mt-4 text-lg">
-                            At rem-farms, we offer unique advantages that make our agri-investments stand out.
-                            Explore the key benefits of partnering with us.
-                        </p>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
-                            <div className="flex items-center space-x-4">
-
-                                <div>
-                                    <h3 className="text-xl font-semibold">Safe Haven Investment</h3>
-                                    <p className="mt-2 text-sm">
-                                        Invest with peace of mind knowing your assets are in a secure and stable
-                                        environment.
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div className="flex items-center space-x-4">
-
-                                <div>
-                                    <h3 className="text-xl font-semibold">Uncorrelated Returns</h3>
-                                    <p className="mt-2 text-sm">
-                                        Benefit from returns that are independent of traditional market fluctuations,
-                                        providing stability.
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div className="flex items-center space-x-4">
-
-                                <div>
-                                    <h3 className="text-xl font-semibold">Superior Inflation Hedge</h3>
-                                    <p className="mt-2 text-sm">
-                                        Protect your investments against inflation with rem-farms assets that tend to
-                                        increase in value over time.
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div className="flex items-center space-x-4">
-
-                                <div>
-                                    <h3 className="text-xl font-semibold">Attractive Yields</h3>
-                                    <p className="mt-2 text-sm">
-                                        Enjoy competitive yields from well-managed rem-farms investments, designed to
-                                        maximize your returns.
-                                    </p>
-                                </div>
-                            </div>
+                    <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-6 items-center">
+                        <div>
+                            <h2 className="text-3xl font-bold mb-6 text-green-800">Sustainable Agriculture Practices</h2>
+                            <p className="mb-6">Promoting environmentally-friendly farming methods for long-term ecological balance.</p>
+                            <ul className="space-y-4">
+                                {points.map((point, index) => (
+                                    <li key={index} className="flex items-start">
+                                        <span className="bg-green text-green p-2 rounded-full mr-4">✔</span>
+                                        <div>
+                                            <h4 className="font-semibold">{point.title}</h4>
+                                            <p className="text-sm">{point.description}</p>
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
-
-                        <div className="relative mt-12">
-                            <img
-                                src="/rem22.png"
-                                alt="Farmer"
-                                className="w-70 h-auto rounded-lg shadow-lg mx-auto"
-                            />
+                        <div className="flex justify-center">
+                            <img src="/hero4.jpeg" alt="Agriculture" className="rounded-md shadow-lg w-80 h-80" />
                         </div>
                     </div>
                 </section>
             </motion.div>
-
-
-
-            <section className="bg-green text-green py-12 px-6">
-                <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-6 items-center">
-                    <div>
-                        <h2 className="text-3xl font-bold mb-6 text-green">Sustainable Agriculture Practices</h2>
-                        <p className="mb-6">Promoting environmentally-friendly farming methods for long-term ecological balance.</p>
-                        <ul className="space-y-4">
-                            {points.map((point, index) => (
-                                <li key={index} className="flex items-start">
-                                    <span className="bg-green text-white p-2 rounded-full mr-4">✔</span>
-                                    <div>
-                                        <h4 className="font-semibold">{point.title}</h4>
-                                        <p className="text-sm">{point.description}</p>
-                                    </div>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                    <div className="flex justify-center">
-                        <img src="path_to_image" alt="Agriculture" className="rounded-md shadow-lg" />
-                    </div>
-                </div>
-            </section>
 
 
             {/* Market Place Section */}

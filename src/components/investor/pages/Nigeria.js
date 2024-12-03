@@ -335,6 +335,7 @@ const Nigeria = ({ setCartItems }) => {
                     </div>
 
                     {/* Image on the right */}
+
                     <div className="lg:w-1/2 w-full flex justify-center">
                         <div className="relative">
                             <img
@@ -349,96 +350,105 @@ const Nigeria = ({ setCartItems }) => {
             </section>
 
             {/* Features Section */}
-            <div className="bg-white py-16">
-                <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-6 lg:px-12">
-                    <div className="bg-green-50 p-8 rounded-lg shadow-md text-center">
-                        <h3 className="text-xl font-bold text-green-800">Build Real Wealth</h3>
-                        <p className="text-gray-700 mt-4">
-                            Get access to professional-grade investments. Beat inflation with a
-                            diversified portfolio of stocks, gold, and sukuk, managed by
-                            investment experts.
-                        </p>
-                    </div>
-                    <div className="bg-green-50 p-8 rounded-lg shadow-md text-center">
-                        <h3 className="text-xl font-bold text-green-800">
-                            Free Your Finances from Rem-farms
-                        </h3>
-                        <p className="text-gray-700 mt-4">
-                            Rest easy knowing your investments will always be Shariah compliant.
-                            Create long-term wealth without sacrificing your faith and values.
-                        </p>
-                    </div>
-                    <div className="bg-green-50 p-8 rounded-lg shadow-md text-center">
-                        <h3 className="text-xl font-bold text-green-800">
-                            A 300,000+ Strong Community
-                        </h3>
-                        <p className="text-gray-700 mt-4">
-                            Join a community of over 300,000 people across the world who are
-                            leaving Rem-farms behind.
-                        </p>
+            <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1.2 }}
+            >
+                <div className="bg-white py-16">
+                    <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-6 lg:px-12">
+                        <div className="bg-green-50 p-8 rounded-lg shadow-md text-center">
+                            <h3 className="text-xl font-bold text-green-800">Build Real Wealth</h3>
+                            <p className="text-gray-700 mt-4">
+                                Get access to professional-grade investments. Beat inflation with a
+                                diversified portfolio of stocks, gold, and sukuk, managed by
+                                investment experts.
+                            </p>
+                        </div>
+                        <div className="bg-green-50 p-8 rounded-lg shadow-md text-center">
+                            <h3 className="text-xl font-bold text-green-800">
+                                Free Your Finances from Rem-farms
+                            </h3>
+                            <p className="text-gray-700 mt-4">
+                                Rest easy knowing your investments will always be Shariah compliant.
+                                Create long-term wealth without sacrificing your faith and values.
+                            </p>
+                        </div>
+                        <div className="bg-green-50 p-8 rounded-lg shadow-md text-center">
+                            <h3 className="text-xl font-bold text-green-800">
+                                A 300,000+ Strong Community
+                            </h3>
+                            <p className="text-gray-700 mt-4">
+                                Join a community of over 300,000 people across the world who are
+                                leaving Rem-farms behind.
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
-
+            </motion.div>
 
 
             {/* FAQ Section */}
-
-            <div className="bg-gray-50 py-16 px-6">
-                <div className="text-center mb-12">
-                    <h2 className="text-3xl font-bold text-gray-800">How it works</h2>
-                    <p className="text-gray-600 mt-2 max-w-2xl mx-auto">
-                        At <span className="font-bold">rem-farms</span>, we make investing
-                        simple and accessible for everyone. Whether you're a seasoned
-                        investor or just starting, our platform empowers you to take control
-                        of your financial future. Follow these four simple steps to get
-                        started on your journey.
-                    </p>
-                </div>
-                <div className="flex flex-col md:flex-row items-center justify-between max-w-6xl mx-auto">
-                    <div className="w-full md:w-1/2 flex justify-center">
-                        <img
-                            src="/assets/portfolio-mockup.png"
-                            alt="Select your portfolio"
-                            className="w-64 md:w-80 shadow-md"
-                        />
+            <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1.2 }}
+            >
+                <div className="bg-gray-50 py-16 px-6">
+                    <div className="text-center mb-12">
+                        <h2 className="text-3xl font-bold text-gray-800">How it works</h2>
+                        <p className="text-gray-600 mt-2 max-w-2xl mx-auto">
+                            At <span className="font-bold">rem-farms</span>, we make investing
+                            simple and accessible for everyone. Whether you're a seasoned
+                            investor or just starting, our platform empowers you to take control
+                            of your financial future. Follow these four simple steps to get
+                            started on your journey.
+                        </p>
                     </div>
-                    <div className="w-full md:w-1/2 mt-10 md:mt-0 space-y-6">
-                        {steps.map((step, index) => (
-                            <div
-                                key={index}
-                                className="bg-white p-6 rounded-lg shadow-md cursor-pointer"
-                                onClick={() => toggleFAQ(index)}
-                            >
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center">
-                                        <div
-                                            className={`h-10 w-10 flex justify-center items-center rounded-full ${step.iconColor}`}
-                                        ></div>
-                                        <div className="ml-4">
-                                            <h3 className="text-lg font-bold text-gray-800">
-                                                {step.title}
-                                            </h3>
-                                            <p className="text-gray-600">{step.description}</p>
+                    <div className="flex flex-col md:flex-row items-center justify-between max-w-6xl mx-auto">
+                        <div className="w-full md:w-1/2 flex justify-center">
+                            <img
+                                src="/assets/portfolio-mockup.png"
+                                alt="Select your portfolio"
+                                className="w-64 md:w-80 shadow-md"
+                            />
+                        </div>
+                        <div className="w-full md:w-1/2 mt-10 md:mt-0 space-y-6">
+                            {steps.map((step, index) => (
+                                <div
+                                    key={index}
+                                    className="bg-white p-6 rounded-lg shadow-md cursor-pointer"
+                                    onClick={() => toggleFAQ(index)}
+                                >
+                                    <div className="flex items-center justify-between">
+                                        <div className="flex items-center">
+                                            <div
+                                                className={`h-10 w-10 flex justify-center items-center rounded-full ${step.iconColor}`}
+                                            ></div>
+                                            <div className="ml-4">
+                                                <h3 className="text-lg font-bold text-gray-800">
+                                                    {step.title}
+                                                </h3>
+                                                <p className="text-gray-600">{step.description}</p>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            {activeIndex === index ? (
+                                                <span className="text-gray-600 text-xl">-</span>
+                                            ) : (
+                                                <span className="text-gray-600 text-xl">+</span>
+                                            )}
                                         </div>
                                     </div>
-                                    <div>
-                                        {activeIndex === index ? (
-                                            <span className="text-gray-600 text-xl">-</span>
-                                        ) : (
-                                            <span className="text-gray-600 text-xl">+</span>
-                                        )}
-                                    </div>
+                                    {activeIndex === index && (
+                                        <div className="mt-4 text-gray-500">{step.details}</div>
+                                    )}
                                 </div>
-                                {activeIndex === index && (
-                                    <div className="mt-4 text-gray-500">{step.details}</div>
-                                )}
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
                 </div>
-            </div>
-
+            </motion.div>
             <PricingPlans />
 
 
