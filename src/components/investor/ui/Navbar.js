@@ -4,12 +4,9 @@ import { FaShoppingCart } from 'react-icons/fa';
 import { useCart } from '../../context/CartContext'; // Ensure correct import
 
 const NavBar = ({ toggleCartPanel }) => {
-
-
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isMenuOpen, setMenuOpen] = useState(false);
   const { getCartCount } = useCart(); // Get the cart count from context
-
 
   const location = useLocation(); // Get the current location
 
@@ -54,7 +51,7 @@ const NavBar = ({ toggleCartPanel }) => {
           <button onClick={toggleCartPanel} className="text-green-800">
             <FaShoppingCart size={24} />
             {getCartCount() > 0 && (
-              <span className="absolute -top-2 -right-2 bg-blue-500 text-white text-xs rounded-full px-1">
+              <span className="absolute top-[-8px] left-[18px] bg-blue-500 text-white text-xs rounded-full px-1">
                 {getCartCount()}
               </span>
             )}
@@ -98,8 +95,9 @@ const NavBar = ({ toggleCartPanel }) => {
       <div className="md:hidden">
         <button
           onClick={toggleMenu}
-          className="text-gray-700 hover:text-gray-900 focus:outline-none"
           aria-label="Toggle menu"
+          aria-expanded={isMenuOpen ? 'true' : 'false'}
+          className="text-gray-700 hover:text-gray-900 focus:outline-none"
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
@@ -132,7 +130,7 @@ const NavBar = ({ toggleCartPanel }) => {
             <button onClick={toggleCartPanel} className="text-green-800">
               <FaShoppingCart size={24} />
               {getCartCount() > 0 && (
-                <span className="bg-blue-500 text-white text-xs rounded-full px-1 ml-1">
+                <span className="absolute top-[-8px] left-[18px] bg-blue-500 text-white text-xs rounded-full px-1">
                   {getCartCount()}
                 </span>
               )}
@@ -158,7 +156,7 @@ const NavBar = ({ toggleCartPanel }) => {
             </button>
 
             {isDropdownOpen && (
-              <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 shadow-lg rounded-lg">
+              <div className="absolute left-0 mt-2 w-40 bg-white border border-gray-200 shadow-lg rounded-lg">
                 <Link to="/uk" className="flex items-center px-4 py-2 hover:bg-gray-100">
                   <img src="/uk.png" alt="UK Flag" className="w-5 h-5 mr-2" />
                   United Kingdom
