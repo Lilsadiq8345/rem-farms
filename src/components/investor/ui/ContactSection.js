@@ -17,7 +17,7 @@ const ContactSection = () => {
         {/* ContactSection Information */}
         <div id="contact">
           <img
-            src="./REM-FARM-LOGO.png"
+            src="./REM-FARM.png"
             alt="Rem-Farms-Logo"
             className="mb-12 h-12 bg-white shadow-ld rounded"
           />
