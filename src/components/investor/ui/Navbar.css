@@ -211,4 +211,9 @@ header {
   .mobile-menu-container ul li a:hover {
     color: #007acc;
   }
+
+  .cart-icon,
+  .cart-dropdown {
+    display: block;
+  }
 }

@@ -13,6 +13,8 @@ const nodemailer = require('nodemailer');
 const Paystack = require('paystack-node');
 const dotenv = require('dotenv');
 
+
+
 dotenv.config();
 
 // Environment Variables
@@ -179,9 +181,8 @@ app.post('/api/commodities', verifyToken, async (req, res) => {
     }
 });
 
-
-// Add to Cart
-app.post("/api/cart", verifyToken, async (req, res) => {
+// Add items to the cart for logged-in users
+app.post('/api/cart', verifyToken, async (req, res) => {
     const { commodityId, quantity } = req.body;
 
     try {
@@ -189,39 +190,40 @@ app.post("/api/cart", verifyToken, async (req, res) => {
             'INSERT INTO CART_ITEMS (USER_ID, COMMODITY_ID, QUANTITY) VALUES (?, ?, ?)',
             [req.userId, commodityId, quantity]
         );
-        res.json({ message: 'Commodity added to cart successfully!' });
+        res.json({ message: 'Item added to cart successfully!' });
     } catch (err) {
         res.status(500).json({ message: 'Database error', error: err });
     }
 });
 
+// Sync localStorage cart to database upon login
+app.post('/api/cart/sync', verifyToken, async (req, res) => {
+    const { cart } = req.body;
 
-// Fetch all items in the cart for the logged-in user
+    try {
+        for (const item of cart) {
+            await db.query(
+                'INSERT INTO CART_ITEMS (USER_ID, COMMODITY_ID, QUANTITY) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE QUANTITY = QUANTITY + VALUES(QUANTITY)',
+                [req.userId, item.commodityId, item.quantity]
+            );
+        }
+        res.json({ message: 'Cart synced successfully!' });
+    } catch (err) {
+        res.status(500).json({ message: 'Database error', error: err });
+    }
+});
+
+// Fetch all cart items for logged-in users
 app.get('/api/cart', verifyToken, async (req, res) => {
     try {
         const [cartItems] = await db.query(
-            `SELECT c.*, cm.NAME AS commodityName, cm.PRICE AS commodityPrice, cm.IMAGE_URL AS commodityImage 
+            `SELECT c.*, cm.NAME AS commodityName, cm.PRICE AS commodityPrice, cm.IMAGE_URL AS commodityImage
              FROM CART_ITEMS c
              JOIN COMMODITIES cm ON c.COMMODITY_ID = cm.COMMODITY_ID
              WHERE c.USER_ID = ?`,
             [req.userId]
         );
-        res.json({ success: true, cartItems });
-    } catch (err) {
-        res.status(500).json({ message: 'Database error', error: err.message });
-    }
-});
-
-
-// Fetch Cart Count for User
-app.get('/api/cart/count/:userId', verifyToken, async (req, res) => {
-    const userId = req.params.userId;
-    try {
-        const [cartItems] = await db.query(
-            'SELECT COUNT(*) AS count FROM CART_ITEMS WHERE USER_ID = ?',
-            [userId]
-        );
-        res.json(cartItems[0].count); // Return the count of cart items
+        res.json(cartItems);
     } catch (err) {
         res.status(500).json({ message: 'Database error', error: err });
     }

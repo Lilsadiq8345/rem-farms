@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { CartProvider } from './components/context/CartContext'; // Import the CartProvider
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <React.StrictMode>
     {/* Wrap App with CartProvider to provide global cart state */}
@@ -15,7 +16,5 @@ root.render(
   </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+// Log web vitals for performance measurement or analytics
 reportWebVitals();

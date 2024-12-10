@@ -13,6 +13,7 @@ import CommodityList from './components/investor/pages/CommodityList';
 import Services from './components/investor/pages/Services';
 import LiveView from './components/investor/pages/LiveView';
 import Messages from './components/investor/pages/Messages';
+import CartDropdown from './components/investor/pages/CartDropdown';
 import Transactions from './components/investor/pages/Transactions';
 import SavedCalls from './components/investor/pages/SavedCalls';
 import About from './components/investor/ui/About';
@@ -71,6 +72,7 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/faq" element={<Faq />} />
         <Route path="/contact" element={<ContactSection />} />
+        <Route path="/cart" element={<CartDropdown />} />
         <Route path="/products" element={<Products />} />
         <Route path="/commodities" element={<CommodityList />} />
         <Route path="/services" element={<Services />} />
