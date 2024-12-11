@@ -69,6 +69,8 @@
 }
 
 /* Responsive adjustments for different screen sizes */
+
+/* Small screens (max-width: 480px) */
 @media (max-width: 480px) {
   .hero h1 {
     font-size: 1.8rem; /* Smaller font size for small screens */
@@ -89,6 +91,7 @@
   }
 }
 
+/* Medium screens (min-width: 481px to 768px) */
 @media (min-width: 481px) and (max-width: 768px) {
   .hero h1 {
     font-size: 2rem; /* Slightly smaller on medium screens */
@@ -109,6 +112,7 @@
   }
 }
 
+/* Large screens (min-width: 769px to 1024px) */
 @media (min-width: 769px) and (max-width: 1024px) {
   .hero h1 {
     font-size: 2.2rem; /* Adjust for tablets and small laptops */
@@ -129,6 +133,7 @@
   }
 }
 
+/* Extra Large screens (min-width: 1025px to 1366px) */
 @media (min-width: 1025px) and (max-width: 1366px) {
   .hero h1 {
     font-size: 2.5rem; /* Adjust for larger tablets and laptops */
@@ -144,11 +149,12 @@
 
   .hero .text-container {
     left: 12%;
-    top: 35%;
+    top: 35%; /* Adjust position for larger screens */
     font-size: 1.3rem; /* Increase text size for readability */
   }
 }
 
+/* Large Desktops (min-width: 1367px) */
 @media (min-width: 1367px) {
   .hero h1 {
     font-size: 3rem; /* Larger font size for desktop screens */
@@ -164,7 +170,7 @@
 
   .hero .text-container {
     left: 15%;
-    top: 35%;
+    top: 35%; /* Adjust text container positioning */
     font-size: 1.4rem; /* Adjust text size for large screens */
   }
 }

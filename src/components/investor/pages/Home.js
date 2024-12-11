@@ -27,17 +27,17 @@ const Home = ({ setCartItems }) => {
       < ScrollToTop />
       <Modal isOpen={isModalOpen} onClose={closeModal} />
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-green-200 to-blue-100 py-12 hero flex items-center justify-start mt-20 px-4 sm:px-10 mx-auto h-auto text-white" id="home">
-        <div className="container mx-auto px-6 lg:px-12 flex flex-col lg:flex-row items-center lg:items-start">
+      <section className="bg-gradient-to-r from-green-200 to-blue-100 py-12 hero flex items-center justify-start mt-20 px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 mx-auto h-auto text-white" id="home">
+        <div className="container mx-auto px-6 lg:px-12 flex flex-col lg:flex-row items-center lg:items-start space-y-6 lg:space-y-0">
           {/* Text on the left */}
           <motion.div
-            className="lg:w-1/2 w-full text-left"
+            className="lg:w-1/2 md:w-3/4 sm:w-full w-full text-left px-4 sm:px-6 md:px-8"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2 }}
           >
             <motion.h1
-              className="text-5xl font-extrabold text-green-800 mb-6"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-green-800 mb-4 sm:mb-5 md:mb-6"
               initial={{ opacity: 0, y: -50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1 }}
@@ -62,7 +62,7 @@ const Home = ({ setCartItems }) => {
 
           {/* Image on the right */}
           <motion.div
-            className="lg:w-1/2 w-full mb-8 lg:mb-0 flex justify-center"
+            className="lg:w-1/2 md:w-3/4 sm:w-full w-full mb-6 sm:mb-8 lg:mb-0 flex justify-center"
             initial={{ opacity: 0, x: 100 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1 }}
@@ -81,7 +81,7 @@ const Home = ({ setCartItems }) => {
       <section className="bg-gradient-to-r from-green-200 to-blue-100 py-12 hero flex items-center justify-start  px-4 sm:px-10 mx-auto h-auto text-white">
         <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
           <motion.div
-            className="p-6 bg-white shadow-md rounded-lg text-center"
+            className="p-4 sm:p-6 md:p-8 bg-white shadow-md rounded-lg text-center mx-4 sm:mx-6 md:mx-8 lg:mx-12"
             whileHover={{ scale: 1.05 }}
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -94,7 +94,7 @@ const Home = ({ setCartItems }) => {
           </motion.div>
 
           <motion.div
-            className="p-6 bg-white shadow-md rounded-lg text-center"
+            className="p-4 sm:p-6 md:p-8 bg-white shadow-md rounded-lg text-center mx-4 sm:mx-6 md:mx-8 lg:mx-12"
             whileHover={{ scale: 1.05 }}
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -107,7 +107,7 @@ const Home = ({ setCartItems }) => {
           </motion.div>
 
           <motion.div
-            className="p-6 bg-white shadow-md rounded-lg text-center"
+            className="p-4 sm:p-6 md:p-8 bg-white shadow-md rounded-lg text-center mx-4 sm:mx-6 md:mx-8 lg:mx-12"
             whileHover={{ scale: 1.05 }}
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -127,7 +127,7 @@ const Home = ({ setCartItems }) => {
 
       {/* Organic Farming Section */}
       <motion.div
-        className="p-6 bg-white shadow-md rounded-lg text-center"
+        className="p-6 bg-white shadow-md rounded-lg text-center sm:px-8 sm:py-8 md:px-12 md:py-12 lg:px-16 lg:py-16"
         whileHover={{ scale: 1.05 }}
         initial={{ opacity: 0, x: 50 }}
         whileInView={{ opacity: 1, x: 0 }}
@@ -167,7 +167,7 @@ const Home = ({ setCartItems }) => {
 
 
       <motion.div
-        className="p-6 bg-white shadow-md rounded-lg text-center"
+        className="p-6 bg-white shadow-md rounded-lg text-center sm:p-8 md:p-10 lg:p-12 xl:p-16"
         whileHover={{ scale: 1.05 }}
         initial={{ opacity: 0, x: 50 }}
         whileInView={{ opacity: 1, x: 0 }}
@@ -248,7 +248,7 @@ const Home = ({ setCartItems }) => {
 
       {/* Market Place Section */}
       <motion.div
-        className="p-6 bg-white shadow-md rounded-lg text-center"
+        className="p-6 md:p-10 lg:p-12 bg-white shadow-md rounded-lg text-center"
         whileHover={{ scale: 1.05 }}
         initial={{ opacity: 0, x: 50 }}
         whileInView={{ opacity: 1, x: 0 }}
@@ -296,7 +296,7 @@ const Home = ({ setCartItems }) => {
 
       {/* Explore Our Projects Section */}
       <motion.div
-        className="p-6 bg-white shadow-md rounded-lg text-center"
+        className="p-6 md:p-10 lg:p-12 bg-white shadow-md rounded-lg text-center"
         whileHover={{ scale: 1.05 }}
         initial={{ opacity: 0, x: 50 }}
         whileInView={{ opacity: 1, x: 0 }}
@@ -338,7 +338,7 @@ const Home = ({ setCartItems }) => {
 
       {/* Latest Updated News Section */}
       <motion.div
-        className="p-6 bg-white shadow-md rounded-lg text-center"
+        className="p-6 md:p-8 lg:p-10 bg-white shadow-md rounded-lg text-center"
         whileHover={{ scale: 1.05 }}
         initial={{ opacity: 0, x: 50 }}
         whileInView={{ opacity: 1, x: 0 }}

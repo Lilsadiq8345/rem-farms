@@ -30,7 +30,7 @@ const PricingPlans = () => {
 
     return (
         <motion.div
-            className="p-6 bg-white shadow-md rounded-lg text-center"
+            className="p-6 md:p-8 lg:p-10 bg-white shadow-md rounded-lg text-center"
             whileHover={{ scale: 1.05 }}
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}

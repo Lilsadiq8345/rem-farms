@@ -26,11 +26,11 @@ const ScrollToTop = () => {
   }, []);
 
   return (
-    <div className="fixed bottom-4 right-4">
+    <div className="fixed bottom-4 right-4 z-50">
       {isVisible && (
         <button
           onClick={scrollToTop}
-          className="bg-green-500 text-white p-3 rounded-full shadow-lg hover:bg-green-600 focus:outline-none transition duration-300"
+          className="bg-green-500 text-white p-3 rounded-full shadow-lg hover:bg-green-600 focus:outline-none transition duration-300 md:p-4 lg:p-5"
         >
           ⬆️
         </button>
@@ -40,3 +40,4 @@ const ScrollToTop = () => {
 };
 
 export default ScrollToTop;
+

@@ -45,8 +45,7 @@ const NavBar = () => {
 
   return (
     <header className="fixed top-0 left-0 right-0 bg-white shadow-md z-50">
-      <div className="container mx-auto flex items-center justify-between px-4 py-4">
-        {/* Logo */}
+      <div className="w-full container mx-auto flex items-center justify-between px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 py-4"> {/* Logo */}
         <Link to="/" onClick={handleHomeClick} className="flex items-center">
           <img src="/REM-FARM.png" alt="REM Farms logo" className="w-10 h-10 md:w-20 md:h-20" />
           <h1 className="text-xl md:text-3xl font-bold ml-2 text-green-800">Rem-Farms</h1>

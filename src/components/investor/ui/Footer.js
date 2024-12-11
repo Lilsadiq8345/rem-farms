@@ -1,13 +1,13 @@
+// Footer.js
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faTwitter, faInstagram, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
-  // Smooth scroll function
   const handleScroll = () => {
     window.scrollTo({
-      top: 0, // Scroll to the top of the page
+      top: 0,
       behavior: 'smooth',
     });
   };
@@ -20,7 +20,7 @@ const Footer = () => {
           <img
             src="./REM-FARM.png"
             alt="Rem-Farms-Logo"
-            className="mb-12 h-12 bg-white shadow-ld rounded"
+            className="mb-12 h-12 bg-white shadow-lg rounded lg:h-16"
           />
           <p className="mb-2">UK, United Kingdom</p>
           <p className="mb-2">📞 123-456-7890</p>
@@ -48,7 +48,7 @@ const Footer = () => {
             <li>
               <Link
                 to="/home"
-                onClick={handleScroll}  // Trigger scroll to top
+                onClick={handleScroll}
                 className="hover:text-gray-300 cursor-pointer"
               >
                 Home
@@ -75,7 +75,7 @@ const Footer = () => {
               <Link
                 to="/faq"
                 className="hover:text-gray-300"
-                onClick={handleScroll}  // Trigger scroll to top
+                onClick={handleScroll}
               >
                 FAQ Pages
               </Link>
@@ -87,13 +87,13 @@ const Footer = () => {
         <div>
           <h4 className="text-lg font-semibold mb-4">Newsletter</h4>
           <p className="mb-4">Subscribe to receive inspiration, ideas & news in your inbox</p>
-          <form className="flex">
+          <form className="flex flex-col sm:flex-row">
             <input
               type="email"
               placeholder="Your email"
-              className="p-2 w-full md:w-auto rounded-l-md border-none focus:outline-none text-black"
+              className="p-2 w-full sm:w-auto rounded-md border-none focus:outline-none text-black mb-2 sm:mb-0 sm:rounded-l-md"
             />
-            <button className="bg-green-500 px-4 py-2 rounded-r-md text-white hover:bg-green-600">
+            <button className="bg-green-500 px-4 py-2 rounded-md sm:rounded-r-md text-white hover:bg-green-600">
               Subscribe
             </button>
           </form>
