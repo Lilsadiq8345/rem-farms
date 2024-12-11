@@ -142,6 +142,54 @@ const NavBar = () => {
 
         {/* Mobile Menu Toggle */}
         <div className="md:hidden flex items-center space-x-4">
+          {/* Cart Button for Mobile */}
+          <button
+            onClick={() => setCartOpen(!isCartOpen)}
+            className="flex items-center space-x-2 text-green-800 hover:text-green-700"
+          >
+            <FaShoppingCart size={20} />
+            {getCartCount() > 0 && (
+              <span className="bg-blue-500 text-white text-xs rounded-full px-1">
+                {getCartCount()}
+              </span>
+            )}
+          </button>
+          {/* Mobile Cart Dropdown */}
+          {isCartOpen && (
+            <div className="mt-2 w-full bg-white border-t border-gray-200 shadow-lg rounded-lg p-4 z-50">
+              <h2 className="text-lg font-semibold text-gray-800">Cart Items</h2>
+              <ul className="divide-y divide-gray-200 max-h-60 overflow-y-auto">
+                {cart.length > 0 ? (
+                  cart.map((item) => (
+                    <li key={item.id} className="flex justify-between items-center py-2">
+                      <div className="flex items-center space-x-2">
+                        <img src={item.image} alt={item.name} className="w-10 h-10 object-cover rounded-md" />
+                        <span className="text-sm text-gray-700">{item.name}</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <span className="text-sm font-semibold text-gray-800">${item.price}</span>
+                        <button
+                          onClick={() => removeFromCart(item.id)}
+                          className="text-red-500 hover:text-red-700"
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    </li>
+                  ))
+                ) : (
+                  <p className="text-gray-500 text-center py-4">Your cart is empty.</p>
+                )}
+              </ul>
+              {cart.length > 0 && (
+                <div className="mt-4 flex justify-between items-center">
+                  <button onClick={handleCheckout} className="bg-green-800 text-white px-4 py-2 rounded-md hover:bg-green-700">
+                    Checkout
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
           {/* Global Dropdown in Mobile */}
           <div className="relative dropdown-container">
             <button
@@ -177,6 +225,7 @@ const NavBar = () => {
         </div>
       </div>
 
+
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="md:hidden bg-white border-t border-gray-200">
@@ -193,9 +242,12 @@ const NavBar = () => {
             <Link to="/contact" className="hover:text-green-700 text-green-800">
               Contact
             </Link>
+
           </nav>
+
         </div>
       )}
+
     </header>
   );
 };
