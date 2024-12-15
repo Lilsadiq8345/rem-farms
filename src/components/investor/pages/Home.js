@@ -28,7 +28,7 @@ const Home = ({ setCartItems }) => {
       <Modal isOpen={isModalOpen} onClose={closeModal} />
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-green-200 to-blue-100 py-12 hero flex items-center justify-start mt-20 px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 mx-auto h-auto text-white" id="home">
-        <div className="container mx-auto px-6 lg:px-12 flex flex-col lg:flex-row items-center lg:items-start space-y-6 lg:space-y-0">
+        <div className="container mx-auto mt-20 px-6 lg:px-12 flex flex-col lg:flex-row items-center lg:items-start space-y-6 lg:space-y-0">
           {/* Text on the left */}
           <motion.div
             className="lg:w-1/2 md:w-3/4 sm:w-full w-full text-left px-4 sm:px-6 md:px-8"
@@ -78,7 +78,7 @@ const Home = ({ setCartItems }) => {
 
 
       {/* Features Section */}
-      <section className="bg-gradient-to-r from-green-200 to-blue-100 py-12 hero flex items-center justify-start  px-4 sm:px-10 mx-auto h-auto text-white">
+      <section className="bg-gradient-to-r from-green-200 to-blue-100 py-12 hero flex items-center justify-start px-4 sm:px-10 mx-auto h-auto text-white transform -translate-y-20">
         <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
           <motion.div
             className="p-4 sm:p-6 md:p-8 bg-white shadow-md rounded-lg text-center mx-4 sm:mx-6 md:mx-8 lg:mx-12"
@@ -120,21 +120,14 @@ const Home = ({ setCartItems }) => {
           </motion.div>
         </div>
       </section>
-
-
-
-
-
-      {/* Organic Farming Section */}
       <motion.div
-        className="p-6 bg-white shadow-md rounded-lg text-center sm:px-8 sm:py-8 md:px-12 md:py-12 lg:px-16 lg:py-16"
+        className="p-2 bg-white shadow-md rounded-lg text-center sm:px-8 sm:py-4 md:px-8 md:py-8 lg:px-12 lg:py-12 transform -translate-y-10"
         whileHover={{ scale: 1.05 }}
         initial={{ opacity: 0, x: 50 }}
         whileInView={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8 }}
       >
-        < section className="organic-farming-section flex flex-col lg:flex-row items-center max-w-5xl mx-auto my-12 p-6 bg-white rounded-lg shadow-md" >
-
+        <section className="organic-farming-section flex flex-col lg:flex-row items-center max-w-5xl mx-auto my-2 p-2 bg-white rounded-lg shadow-md">
           <div className="flex-1 mb-6 lg:mb-0 lg:mr-6">
             <img
               src="/organic_farmer.jpeg"
@@ -161,8 +154,7 @@ const Home = ({ setCartItems }) => {
               </li>
             </ul>
           </div>
-
-        </section >
+        </section>
       </motion.div>
 
 
