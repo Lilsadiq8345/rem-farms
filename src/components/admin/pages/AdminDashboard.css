@@ -1,0 +1,18 @@
+/* AdminDashboard.css */
+
+.active {
+    background-color: #2f855a; /* Dark green when active */
+  }
+  
+  .sidebar {
+    overflow-y: auto;
+  }
+  
+  .main-content {
+    padding: 16px;
+  }
+  
+  .dropdown-menu {
+    border: 1px solid #e2e8f0;
+  }
+  

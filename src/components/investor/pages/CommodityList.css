@@ -1,0 +1,39 @@
+/* src/components/common/CommodityList.css */
+/* Grid Layout Styling */
+.commodity-list {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.commodity-item {
+    background: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.commodity-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+h3 {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+p {
+    font-size: 1rem;
+    color: #555;
+}
+
+p:nth-of-type(4) {
+    font-weight: bold;
+    color: green;
+}
+
+p:last-child {
+    color: #888;
+}

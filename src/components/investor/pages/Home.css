@@ -1,0 +1,181 @@
+/* Global styles for hero section */
+.hero h1,
+.hero p,
+.hero h2 {
+  font-family: 'Lora', serif;
+}
+
+.hero h1 {
+  font-style: italic;
+  font-weight: 700;
+}
+
+.hero p {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.hero h2 {
+  font-style: italic;
+  font-weight: 600;
+}
+
+/* Font sizes and line heights adjusted for responsiveness */
+.hero h1 {
+  font-size: 2.5rem; /* Adjust based on your design preference */
+  line-height: 1.2;
+}
+
+.hero p {
+  font-size: 1.25rem;
+  line-height: 1.6;
+}
+
+.hero h2 {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+}
+
+/* Keyframe animation for pop-up */
+@keyframes pop-up {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Initial elements (Welcome text and description) pop-up animation */
+.animate-pop-up-initial {
+  animation: pop-up 0.8s ease-out forwards;
+}
+
+/* Delayed pop-up for rotating text */
+.animate-pop-up-delayed {
+  animation: pop-up 0.8s ease-out forwards;
+  animation-delay: 1s; /* Adjust delay as needed */
+}
+
+/* Position text container on the left */
+.hero .text-container {
+  position: absolute;
+  left: 5%;
+  top: 25%;
+  color: white;
+  max-width: 80%; /* Ensures text doesn't stretch too far on large screens */
+}
+
+/* Responsive adjustments for different screen sizes */
+
+/* Small screens (max-width: 480px) */
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 1.8rem; /* Smaller font size for small screens */
+  }
+
+  .hero p {
+    font-size: 1rem; /* Adjust paragraph font size */
+  }
+
+  .hero h2 {
+    font-size: 1.2rem; /* Adjust heading size */
+  }
+
+  .hero .text-container {
+    left: 5%;
+    top: 20%; /* Adjust top position for small screens */
+    font-size: 0.9rem; /* Smaller text for small screens */
+  }
+}
+
+/* Medium screens (min-width: 481px to 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .hero h1 {
+    font-size: 2rem; /* Slightly smaller on medium screens */
+  }
+
+  .hero p {
+    font-size: 1.125rem; /* Adjust paragraph size */
+  }
+
+  .hero h2 {
+    font-size: 1.4rem;
+  }
+
+  .hero .text-container {
+    left: 8%;
+    top: 25%; /* Adjust the position for tablets */
+    font-size: 1.1rem; /* Adjust text size */
+  }
+}
+
+/* Large screens (min-width: 769px to 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .hero h1 {
+    font-size: 2.2rem; /* Adjust for tablets and small laptops */
+  }
+
+  .hero p {
+    font-size: 1.2rem; /* Increase font size for readability */
+  }
+
+  .hero h2 {
+    font-size: 1.4rem;
+  }
+
+  .hero .text-container {
+    left: 10%;
+    top: 30%; /* Adjust position for tablets and small screens */
+    font-size: 1.2rem; /* Increase font size */
+  }
+}
+
+/* Extra Large screens (min-width: 1025px to 1366px) */
+@media (min-width: 1025px) and (max-width: 1366px) {
+  .hero h1 {
+    font-size: 2.5rem; /* Adjust for larger tablets and laptops */
+  }
+
+  .hero p {
+    font-size: 1.25rem; /* Larger font for readability */
+  }
+
+  .hero h2 {
+    font-size: 1.5rem;
+  }
+
+  .hero .text-container {
+    left: 12%;
+    top: 35%; /* Adjust position for larger screens */
+    font-size: 1.3rem; /* Increase text size for readability */
+  }
+}
+
+/* Large Desktops (min-width: 1367px) */
+@media (min-width: 1367px) {
+  .hero h1 {
+    font-size: 3rem; /* Larger font size for desktop screens */
+  }
+
+  .hero p {
+    font-size: 1.5rem; /* Increase font size for readability on large screens */
+  }
+
+  .hero h2 {
+    font-size: 1.75rem;
+  }
+
+  .hero .text-container {
+    left: 15%;
+    top: 35%; /* Adjust text container positioning */
+    font-size: 1.4rem; /* Adjust text size for large screens */
+  }
+}
+
+/* Font family for chalkduster style */
+.font-chalkduster {
+  font-family: 'Chalkduster', sans-serif;
+}
