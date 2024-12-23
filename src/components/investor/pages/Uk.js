@@ -52,65 +52,14 @@ const Uk = ({ setCartItems }) => {
                             </p>
                             <button className="bg-green-800 hover:bg-green-700 text-white  px-6 py-3 rounded-md font-semibold" onClick={handleGetStartedClick}>
                                 Get Started
-
-
                             </button>
-
                         </div>
                         <div className="md:w-1/2 flex justify-center">
                             <img src="/REM-FARM.png" alt="Farmer" className="rounded-md shadow-lg w-40 h-40" />
                         </div>
                     </div>
                 </section>
-
-
-                {/* Features Section */}
-                <section className="bg-gradient-to-r from-green-200 to-blue-100 py-12 hero flex items-center justify-start  px-4 sm:px-10 mx-auto h-auto text-white">
-                    <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
-                        <motion.div
-                            className="p-6 bg-white shadow-md rounded-lg text-center"
-                            whileHover={{ scale: 1.05 }}
-                            initial={{ opacity: 0, x: -50 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8 }}
-                        >
-                            <h3 className="text-xl font-semibold text-green-700 mb-4">Farm Selection & Entity Creation</h3>
-                            <p className="text-gray-600">
-                                We diligently identify high-potential farms with proven productivity and market relevance.
-                            </p>
-                        </motion.div>
-
-
-
-                        <motion.div
-                            className="p-6 bg-white shadow-md rounded-lg text-center"
-                            whileHover={{ scale: 1.05 }}
-                            initial={{ opacity: 0, x: 50 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8 }}
-                        >
-                            <h3 className="text-xl font-semibold text-green-700 mb-4">Farm Management - Produce Goods & Sell</h3>
-                            <p className="text-gray-600">
-                                Our skilled farm managers oversee every stage of cultivation, from planting to harvesting.
-                            </p>
-                        </motion.div>
-
-                        <motion.div
-                            className="p-6 bg-white shadow-md rounded-lg text-center"
-                            whileHover={{ scale: 1.05 }}
-                            initial={{ opacity: 0, x: 50 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8 }}
-                        >
-                            <h3 className="text-xl font-semibold text-green-700 mb-4">Distributions - Withdraw or Reinvest</h3>
-                            <p className="text-gray-600">
-                                Once products are sold, profits are distributed or reinvested into new cycles for maximum returns.
-                            </p>
-                        </motion.div>
-                    </div>
-                </section>
             </motion.div >
-
             <motion.div
                 className="p-6 bg-white shadow-md rounded-lg text-center"
                 whileHover={{ scale: 1.05 }}
@@ -118,29 +67,26 @@ const Uk = ({ setCartItems }) => {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8 }}
             >
-                <section className="bg-gradient-to-r from-green-200 to-blue-100 py-12 hero flex items-center justify-start mt-20 px-4 sm:px-10 mx-auto h-auto text-green">
-
-                    <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-6 items-center">
-                        <div>
-                            <h2 className="text-3xl font-bold mb-6 text-green-800">Sustainable Agriculture Practices</h2>
-                            <p className="mb-6">Promoting environmentally-friendly farming methods for long-term ecological balance.</p>
-                            <ul className="space-y-4">
-                                {points.map((point, index) => (
-                                    <li key={index} className="flex items-start">
-                                        <span className="bg-green text-green p-2 rounded-full mr-4">✔</span>
-                                        <div>
-                                            <h4 className="font-semibold">{point.title}</h4>
-                                            <p className="text-sm">{point.description}</p>
-                                        </div>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                        <div className="flex justify-center">
-                            <img src="/hero4.jpeg" alt="Agriculture" className="rounded-md shadow-lg w-80 h-80" />
-                        </div>
+                <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-6 items-center ">
+                    <div>
+                        <h2 className="text-3xl font-bold mb-6 text-green-800">Sustainable Agriculture Practices</h2>
+                        <p className="mb-6">Promoting environmentally-friendly farming methods for long-term ecological balance.</p>
+                        <ul className="space-y-4">
+                            {points.map((point, index) => (
+                                <li key={index} className="flex items-start">
+                                    <span className="bg-green text-green p-2 rounded-full mr-4">✔</span>
+                                    <div>
+                                        <h4 className="font-semibold">{point.title}</h4>
+                                        <p className="text-sm">{point.description}</p>
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
                     </div>
-                </section>
+                    <div className="flex justify-center">
+                        <img src="/hero4.jpeg" alt="Agriculture" className="rounded-md shadow-lg w-80 h-80" />
+                    </div>
+                </div>
             </motion.div>
 
 
