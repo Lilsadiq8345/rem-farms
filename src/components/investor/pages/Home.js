@@ -107,14 +107,14 @@ const Home = ({ setCartItems }) => {
 
       {/* Market Place Section */}
       < motion.div
-        className="p-6 md:p-10 lg:p-12 bg-white shadow-md rounded-lg text-center"
+        className="p-2 md:p-10 lg:p-12 bg-white shadow-md rounded-lg text-center mt-2"
         whileHover={{ scale: 1.05 }
         }
         initial={{ opacity: 0, x: 50 }}
         whileInView={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8 }}
       >
-        < section className="bloom-of-the-day my-12 mx-auto text-center max-w-5xl" id="products" >
+        < section className="bloom-of-the-day my-8 mx-auto text-center max-w-5xl mt-4" id="products" >
           <h2 className="text-4xl font-semibold text-black mb-4">Market Place</h2>
           <p className="text-gray-600 mb-8 max-w-3xl mx-auto">
             There are many variations of passages of Lorem available but the majority have suffered alteration by
