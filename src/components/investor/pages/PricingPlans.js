@@ -30,46 +30,67 @@ const PricingPlans = () => {
 
     return (
         <motion.div
-            className="p-6 md:p-8 lg:p-10 bg-white shadow-md rounded-lg text-center"
-            whileHover={{ scale: 1.05 }}
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
+            className="p-6 md:p-8 lg:p-10 shadow-md rounded-lg text-center"
+            whileHover={{ scale: 1.02 }} // Smaller hover scale effect
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }} // Smaller duration for subtle animation
         >
             <section className="bg-green-800 text-white py-16">
                 <div className="max-w-7xl mx-auto px-6 text-center">
-                    <h2 className="text-4xl font-bold mb-4">
+                    <motion.h2
+                        className="text-4xl font-bold mb-4"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8 }}
+                    >
                         Choose the Best Offered <span className="text-green-300">From Rem-Farms</span>
-                    </h2>
-                    <p className="text-lg mb-12">
+                    </motion.h2>
+                    <motion.p
+                        className="text-lg mb-12"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1 }}
+                    >
                         Gain unparalleled access to farmland investments, carefully vetted through rigorous due diligence to ensure optimal returns.
-                    </p>
+                    </motion.p>
 
                     {/* Pricing Cards */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                         {pricingPlans.map((plan, index) => (
-                            <div
+                            <motion.div
                                 key={index}
-                                className="bg-white text-green-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
+                                className=" text-green-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, delay: 0.2 * index }} // Delayed animation for each card
                             >
-                                <img src={plan.image} alt={`${plan} plan`} className="w-16 h-16 mx-auto mb-4" />
-
+                                <motion.img
+                                    src={plan.image}
+                                    alt={`${plan} plan`}
+                                    className="w-16 h-16 mx-auto mb-4"
+                                    initial={{ opacity: 0, y: -10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.6 }}
+                                />
 
                                 <div className="flex flex-col space-y-4">
-                                    <button
+                                    <motion.button
                                         onClick={() => handleAddToCart(plan)} // Pass the plan to add to cart
                                         className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg transition-transform duration-300 transform hover:scale-105"
+                                        whileHover={{ scale: 1.03 }} // Subtle hover effect
                                     >
                                         Add to Cart
-                                    </button>
-                                    <button
+                                    </motion.button>
+                                    <motion.button
                                         onClick={() => handleBuyNow(plan)}
                                         className="bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded-lg transition-transform duration-300 transform hover:scale-105"
+                                        whileHover={{ scale: 1.03 }} // Subtle hover effect
                                     >
                                         Buy Now
-                                    </button>
+                                    </motion.button>
                                 </div>
-                            </div>
+                            </motion.div>
                         ))}
                     </div>
                 </div>
