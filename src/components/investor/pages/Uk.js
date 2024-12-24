@@ -35,7 +35,7 @@ const Uk = ({ setCartItems }) => {
             {/* Main Content */}
             <ScrollToTop show={showScrollToTop} /> {/* Pass the state to ScrollToTop */}
             <Modal isOpen={isModalOpen} onClose={closeModal} />
-            <div className="relative bg-gradient-to-r from-green-700 to-green-900 text-white overflow-x-hidden">
+            <div className="relative bg-gradient-to-r from-green-700 to-green-900 text-white overflow-x-hidden" id="uk">
                 {/* Hero Section */}
                 <div className="container mx-auto mt-10 flex flex-col lg:flex-row items-center py-20 px-6 lg:px-20">
                     {/* Text Content */}
