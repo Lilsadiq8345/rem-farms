@@ -28,7 +28,7 @@ const PricingPlans = () => {
     ];
 
     return (
-        <div className="p-6 md:p-8 lg:p-10 shadow-md rounded-lg text-center">
+        <div className="p-6 md:p-8 lg:p-10 rounded-lg text-center">
             <section className="bg-green-800 text-white py-16">
                 <div className="max-w-7xl mx-auto px-6 text-center">
                     <h2 className="text-4xl font-bold mb-4">
