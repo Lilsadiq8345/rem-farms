@@ -216,7 +216,7 @@ const Home = ({ setCartItems }) => {
             transition={{ duration: 1 }}
           >
             <img
-              src="./product3.jpeg"
+              src="./product3.jpg"
               alt="Fresh Produce"
               className="w-full h-40 object-cover rounded-lg mb-4"
             />

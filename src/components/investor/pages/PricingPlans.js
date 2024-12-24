@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { useCart } from '../../context/CartContext'; // Correct the import path for CartContext
 
 const PricingPlans = () => {
@@ -29,73 +28,49 @@ const PricingPlans = () => {
     ];
 
     return (
-        <motion.div
-            className="p-6 md:p-8 lg:p-10 shadow-md rounded-lg text-center"
-            whileHover={{ scale: 1.02 }} // Smaller hover scale effect
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }} // Smaller duration for subtle animation
-        >
+        <div className="p-6 md:p-8 lg:p-10 shadow-md rounded-lg text-center">
             <section className="bg-green-800 text-white py-16">
                 <div className="max-w-7xl mx-auto px-6 text-center">
-                    <motion.h2
-                        className="text-4xl font-bold mb-4"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
-                    >
+                    <h2 className="text-4xl font-bold mb-4">
                         Choose the Best Offered <span className="text-green-300">From Rem-Farms</span>
-                    </motion.h2>
-                    <motion.p
-                        className="text-lg mb-12"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 1 }}
-                    >
+                    </h2>
+                    <p className="text-lg mb-12">
                         Gain unparalleled access to farmland investments, carefully vetted through rigorous due diligence to ensure optimal returns.
-                    </motion.p>
+                    </p>
 
                     {/* Pricing Cards */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                         {pricingPlans.map((plan, index) => (
-                            <motion.div
+                            <div
                                 key={index}
-                                className=" text-green-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.6, delay: 0.2 * index }} // Delayed animation for each card
+                                className="text-green-800 p-6 rounded-lg shadow-lg transition-shadow duration-300 transform hover:scale-105 hover:shadow-xl hover:translate-y-2"
                             >
-                                <motion.img
+                                <img
                                     src={plan.image}
                                     alt={`${plan} plan`}
-                                    className="w-16 h-16 mx-auto mb-4"
-                                    initial={{ opacity: 0, y: -10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.6 }}
+                                    className="w-16 h-16 mx-auto mb-4 transition-all duration-300 transform hover:scale-110"
                                 />
 
                                 <div className="flex flex-col space-y-4">
-                                    <motion.button
+                                    <button
                                         onClick={() => handleAddToCart(plan)} // Pass the plan to add to cart
-                                        className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg transition-transform duration-300 transform hover:scale-105"
-                                        whileHover={{ scale: 1.03 }} // Subtle hover effect
+                                        className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg transition-transform duration-300 transform hover:scale-105 hover:translate-x-2"
                                     >
                                         Add to Cart
-                                    </motion.button>
-                                    <motion.button
+                                    </button>
+                                    <button
                                         onClick={() => handleBuyNow(plan)}
-                                        className="bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded-lg transition-transform duration-300 transform hover:scale-105"
-                                        whileHover={{ scale: 1.03 }} // Subtle hover effect
+                                        className="bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded-lg transition-transform duration-300 transform hover:scale-105 hover:translate-x-2"
                                     >
                                         Buy Now
-                                    </motion.button>
+                                    </button>
                                 </div>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>
             </section>
-        </motion.div>
+        </div>
     );
 };
 
