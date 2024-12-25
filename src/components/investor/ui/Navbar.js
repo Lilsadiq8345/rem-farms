@@ -60,9 +60,12 @@ const NavBar = () => {
           >
             Home
           </a>
-          <Link to="/products" className="hover:text-green-700 text-green-800">Markets</Link>
-          <Link to="/about" className="hover:text-green-700 text-green-800">About Us</Link>
-          <Link to="/contact" className="hover:text-green-700 text-green-800">Contact</Link>
+          <Link to="/products" className="hover:text-green-700 text-green-800"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Markets</Link>
+          <Link to="/about" className="hover:text-green-700 text-green-800"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>About Us</Link>
+          <Link to="/contact" className="hover:text-green-700 text-green-800"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Contact</Link>
         </nav>
 
         {/* Desktop Actions */}
@@ -236,13 +239,16 @@ const NavBar = () => {
             <Link to="/" onClick={handleHomeClick} className="text-green-800 hover:text-green-700">
               Home
             </Link>
-            <Link to="/products" className="hover:text-green-700 text-green-800">
+            <Link to="/products" className="hover:text-green-700 text-green-800"
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
               Markets
             </Link>
-            <Link to="/about" className="hover:text-green-700 text-green-800">
+            <Link to="/about" className="hover:text-green-700 text-green-800"
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
               About Us
             </Link>
-            <Link to="/contact" className="hover:text-green-700 text-green-800">
+            <Link to="/contact" className="hover:text-green-700 text-green-800"
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
               Contact
             </Link>
 

@@ -13,38 +13,11 @@ const About = () => {
       {/* Hero Section */}
       <section
         id="about"
-        className="mt-20 py-12 px-6 max-w-7xl mx-auto text-center bg-gradient-to-r from-green-700 to-teal-500 text-white rounded-lg shadow-lg lg:flex lg:items-center lg:gap-10"
+        className="mt-20 py-12 px-6 max-w-7xl mx-auto text-center bg-white rounded-lg shadow-lg lg:flex lg:items-center lg:gap-10"
       >
-        <div className="lg:w-1/2">
-          <motion.h1
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 font-poppins"
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-          >
-            Welcome to REM Farms
-          </motion.h1>
-          <motion.p
-            className="text-lg sm:text-xl font-light leading-relaxed font-poppins"
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-          >
-            At REM Farms, we bring agriculture and technology together, enabling sustainable farming and profitable investment opportunities for everyone.
-          </motion.p>
-        </div>
-        <motion.img
-          src="/farm.jpeg"
-          alt="Farming Illustration"
-          className="mt-8 lg:mt-0 lg:w-1/2 rounded-lg shadow-md"
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 1 }}
-        />
-      </section>
 
-      {/* About Section */}
-      <section className="py-20 bg-white">
+        {/* About Section */}
+
         <motion.div
           className="container mx-auto text-center px-4"
           initial={{ opacity: 0, x: -50 }}

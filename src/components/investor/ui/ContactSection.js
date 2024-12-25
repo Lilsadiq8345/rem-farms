@@ -9,7 +9,7 @@ const ContactSection = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-green-800 to-green-500 text-white mt-10 py-24">
+      <section className="bg-gradient-to-r from-green-800 to-green-500 text-white mt-10 py-24" id="contact">
         <div className="max-w-7xl mx-auto px-6 text-center">
           <h1 className="text-5xl font-extrabold leading-tight mb-6">Let’s Stay Connected</h1>
           <p className="text-lg font-medium max-w-2xl mx-auto">
