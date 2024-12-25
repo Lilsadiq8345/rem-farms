@@ -1,94 +1,110 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebook, faTwitter, faInstagram, faLinkedin } from '@fortawesome/free-brands-svg-icons';
+import Footer from './Footer';
 import Navbar from './Navbar';
 
 const ContactSection = () => {
-  const handleHomeClick = (e) => {
-    e.preventDefault(); // Prevent default anchor behavior
-    window.scrollTo({ top: 0, behavior: 'smooth' }); // Smooth scroll to top
-  };
-
   return (
-    <section className="bg-green-900 mt-40 text-white py-10">
+    <div className="flex flex-col min-h-screen overflow-x-hidden">
+      {/* Navbar */}
       <Navbar />
-      <div className="max-w-7xl mx-auto px-4 md:px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
 
-        {/* ContactSection Information */}
-        <div id="contact">
-          <img
-            src="./REM-FARM.png"
-            alt="Rem-Farms-Logo"
-            className="mb-12 h-12 bg-white shadow-ld rounded"
-          />
-          <p className="mb-2">UK, United Kingdom</p>
-          <p className="mb-2">📞 123-456-7890</p>
-          <p className="mb-4">✉️ rem-farms.com</p>
-          <div className="flex space-x-4">
-            <a href="https://facebook.com" aria-label="Facebook" className="text-white hover:text-gray-300">
-              <FontAwesomeIcon icon={faFacebook} size="lg" />
-            </a>
-            <a href="https://twitter.com" aria-label="Twitter" className="text-white hover:text-gray-300">
-              <FontAwesomeIcon icon={faTwitter} size="lg" />
-            </a>
-            <a href="https://instagram.com" aria-label="Instagram" className="text-white hover:text-gray-300">
-              <FontAwesomeIcon icon={faInstagram} size="lg" />
-            </a>
-            <a href="https://linkedin.com" aria-label="LinkedIn" className="text-white hover:text-gray-300">
-              <FontAwesomeIcon icon={faLinkedin} size="lg" />
-            </a>
+      {/* Hero Section */}
+      <section className="bg-gradient-to-r from-green-800 to-green-500 text-white mt-10 py-24">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+          <h1 className="text-5xl font-extrabold leading-tight mb-6">Let’s Stay Connected</h1>
+          <p className="text-lg font-medium max-w-2xl mx-auto">
+            Reach out to us and explore our world of innovative farming solutions that shape the future of agriculture.
+          </p>
+        </div>
+      </section>
+
+      {/* Contact Details Section */}
+      <section className="bg-gray-50 py-20">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+          {/* CEO Contact */}
+          <div className="bg-white rounded-lg p-8 shadow-lg hover:shadow-xl transition-shadow">
+            <h3 className="text-2xl font-semibold text-gray-800 mb-4">CEO Contact</h3>
+            <p className="text-gray-600 mb-2">John Doe</p>
+            <p className="text-gray-600 mb-2">Phone: <span className="text-green-700">+1 123-456-7890</span></p>
+            <p className="text-gray-600 mb-2">Email: <span className="text-green-700">ceo@rem-farms.com</span></p>
+            <p className="text-gray-600">123 Green Lane, London, UK</p>
+          </div>
+
+          {/* General Contact */}
+          <div className="bg-white rounded-lg p-8 shadow-lg hover:shadow-xl transition-shadow">
+            <h3 className="text-2xl font-semibold text-gray-800 mb-4">General Inquiries</h3>
+            <p className="text-gray-600 mb-2">Phone: <span className="text-green-700">+1 987-654-3210</span></p>
+            <p className="text-gray-600 mb-2">Email: <span className="text-green-700">info@rem-farms.com</span></p>
+            <p className="text-gray-600 mb-2">Support: <span className="text-green-700">support@rem-farms.com</span></p>
+            <p className="text-gray-600">456 Farm Street, Manchester, UK</p>
+          </div>
+
+          {/* Manager Contact */}
+          <div className="bg-white rounded-lg p-8 shadow-lg hover:shadow-xl transition-shadow">
+            <h3 className="text-2xl font-semibold text-gray-800 mb-4">Manager Inquiries</h3>
+            <p className="text-gray-600 mb-2">Phone: <span className="text-green-700">+1 234-567-8901</span></p>
+            <p className="text-gray-600 mb-2">Email: <span className="text-green-700">manager@rem-farms.com</span></p>
+            <p className="text-gray-600 mb-2">Support: <span className="text-green-700">manager-support@rem-farms.com</span></p>
+            <p className="text-gray-600">789 Harvest Lane, Birmingham, UK</p>
           </div>
         </div>
+      </section>
 
-        {/* Quick Links */}
-        <div>
-          <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
-          <ul className="space-y-2">
-            <li>
-              <a
-                href="/#home"
-                onClick={handleHomeClick}
-                className="hover:text-gray-300 cursor-pointer"
-              >
-                Home
-              </a>
-            </li>
-            <li><a href="/common" className="hover:text-gray-300">About Company</a></li>
-          </ul>
+      {/* Highlight Section */}
+      <section className="bg-white py-20">
+        <div className="max-w-6xl mx-auto px-6 text-center">
+          <h2 className="text-3xl font-semibold text-gray-800 mb-6">Why Choose Us?</h2>
+          <p className="text-lg text-gray-600 mb-10 max-w-3xl mx-auto">
+            At Rem-Farms, we bring innovation, sustainability, and passion to agriculture. Our mission is to empower farmers
+            and communities with cutting-edge solutions that improve efficiency and productivity.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="bg-green-100 p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+              <h3 className="text-xl font-semibold text-green-800 mb-4">Innovative Solutions</h3>
+              <p className="text-gray-600">
+                We deliver advanced farming technology tailored to meet the needs of modern agriculture.
+              </p>
+            </div>
+            <div className="bg-green-100 p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+              <h3 className="text-xl font-semibold text-green-800 mb-4">Sustainability</h3>
+              <p className="text-gray-600">
+                Our practices prioritize environmental care and the long-term well-being of the planet.
+              </p>
+            </div>
+            <div className="bg-green-100 p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+              <h3 className="text-xl font-semibold text-green-800 mb-4">Dedicated Support</h3>
+              <p className="text-gray-600">
+                Our team is always ready to assist, ensuring your farming journey is smooth and successful.
+              </p>
+            </div>
+          </div>
         </div>
+      </section>
 
-        {/* Our Mission Links */}
-        <div>
-          <h4 className="text-lg font-semibold mb-4">Our Mission</h4>
-          <ul className="space-y-2">
-            <li><a href="/contact" className="hover:text-gray-300">Contacts</a></li>
-            <li><a href="/privacy-policy" className="hover:text-gray-300">Privacy Policy</a></li>
-            <li><a href="/common" className="hover:text-gray-300">FAQ Pages</a></li>
-          </ul>
+      {/* Map Section */}
+      <section className="bg-gray-50 py-20">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+          <h2 className="text-3xl font-semibold text-gray-800 mb-6">Our Location</h2>
+          <div className="w-full h-80 bg-gray-300 rounded-lg overflow-hidden">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=..."
+              width="100%"
+              height="100%"
+              frameBorder="0"
+              style={{ border: 0 }}
+              allowFullScreen=""
+              aria-hidden="false"
+              tabIndex="0"
+              title="Google Maps location" // Added title for accessibility
+            ></iframe>
+          </div>
+          <p className="text-gray-600 mt-4">123 Green Lane, London, UK</p>
         </div>
+      </section>
 
-        {/* Newsletter Subscription */}
-        <div>
-          <h4 className="text-lg font-semibold mb-4">Newsletter</h4>
-          <p className="mb-4">Subscribe to receive inspiration, ideas & news in your inbox</p>
-          <form className="flex">
-            <input
-              type="email"
-              placeholder="Your email"
-              className="p-2 w-full md:w-auto rounded-l-md border-none focus:outline-none text-black"
-            />
-            <button className="bg-green-500 px-4 py-2 rounded-r-md text-white hover:bg-green-600">
-              Subscribe
-            </button>
-          </form>
-        </div>
-      </div>
-
-      {/* Copyright */}
-      <div className="border-t border-gray-700 mt-8 pt-4 text-center text-sm text-gray-400">
-        &copy; 2024 Rem-Farms. All Rights Reserved.
-      </div>
-    </section>
+      {/* Footer */}
+      <Footer />
+    </div>
   );
 };
 
