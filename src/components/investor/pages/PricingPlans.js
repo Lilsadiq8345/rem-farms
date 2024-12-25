@@ -48,7 +48,7 @@ const PricingPlans = () => {
                                 <img
                                     src={plan.image}
                                     alt={`${plan} plan`}
-                                    className="w-16 h-16 mx-auto mb-4 transition-all duration-300 transform hover:scale-110"
+                                    className="w-30 h-30 mx-auto mb-4 transition-all duration-300 transform hover:scale-110"
                                 />
 
                                 <div className="flex flex-col space-y-4">
