@@ -121,66 +121,6 @@ const Home = ({ setCartItems }) => {
                     </motion.div>
                 </div>
 
-                {/* Features Section */}
-                <div className="bg-white text-gray-800 py-20">
-                    <div className="container mx-auto text-center px-6 lg:px-20">
-                        <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-10">Why Choose Rem-Farms?</h2>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
-                            {[
-                                { title: 'Sustainable Practices', icon: '🌱', description: 'We focus on eco-friendly and sustainable farming solutions.' },
-                                { title: 'Effortless Investments', icon: '💼', description: 'Simplifying investment opportunities for all types of investors.' },
-                                { title: 'Global Community', icon: '🌍', description: 'Connecting farmers and investors from all corners of the globe.' },
-                            ].map((feature, index) => (
-                                <motion.div
-                                    key={index}
-                                    className="p-8 bg-gray-100 rounded-lg shadow-xl hover:shadow-2xl transition-all transform hover:scale-105"
-                                    whileHover={{ scale: 1.05 }}
-                                >
-                                    <div className="text-5xl mb-4 text-green-700">{feature.icon}</div>
-                                    <h3 className="text-xl font-semibold text-gray-900 mb-2">{feature.title}</h3>
-                                    <p className="text-gray-600">{feature.description}</p>
-                                </motion.div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-
-                {/* Our Vision Section */}
-                <section className="py-16 bg-gray-50 text-green-600">
-                    <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 items-center px-6">
-                        {/* Left Column */}
-                        <div>
-                            <h2 className="text-3xl font-bold mb-6 text-green-800">Sustainable Agriculture Practices</h2>
-                            <p className="mb-6 text-black">Promoting environmentally-friendly farming methods for long-term ecological balance.</p>
-                            <ul className="space-y-4 text-black">
-                                {[
-                                    { title: 'Expert Investment Team', description: 'Our team ensures your investments are in capable hands.' },
-                                    { title: 'Disciplined Investment Philosophy', description: 'We adhere to sustainable and profitable ventures.' },
-                                    { title: 'Proprietary Sourcing Technology', description: 'Utilizing advanced technology for exclusive opportunities.' },
-                                    { title: 'Crop Rotation and Diversity', description: 'We implement practices to boost crop yields sustainably.' },
-                                ].map((point, index) => (
-                                    <li key={index} className="flex items-start">
-                                        <span className=" text-black p-2 rounded-full mr-4">✔</span>
-                                        <div>
-                                            <h4 className="font-semibold">{point.title}</h4>
-                                            <p className="text-sm">{point.description}</p>
-                                        </div>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-
-                        {/* Right Column with Image */}
-                        <div className="flex justify-center">
-                            <img
-                                src="/hero4.jpeg"
-                                alt="Agriculture"
-                                className="rounded-md shadow-lg w-80 h-80 object-cover"
-                            />
-                        </div>
-                    </div>
-                </section>
-
                 {/* How it Works Section */}
                 <div className="bg-gray-50 py-16 px-6">
                     <div className="text-center mb-12">
@@ -192,7 +132,7 @@ const Home = ({ setCartItems }) => {
                     <div className="flex flex-col md:flex-row items-center justify-between max-w-6xl mx-auto">
                         <div className="w-full md:w-1/2 flex justify-center">
                             <img
-                                src="/assets/portfolio-mockup.png"
+                                src="./set.png"
                                 alt="Select your portfolio"
                                 className="w-64 md:w-80 shadow-md"
                             />
@@ -228,98 +168,6 @@ const Home = ({ setCartItems }) => {
                         </div>
                     </div>
                 </div>
-
-
-                {/*Market Place Section*/}
-                <motion.section
-                    className="bloom-of-the-day my-8 mx-auto text-center max-w-5xl mt-4 bg-white"
-                    id="products"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 1 }}
-                >
-                    <motion.h2
-                        className="text-4xl font-semibold text-black mb-4"
-                        initial={{ opacity: 0, y: 50 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 1 }}
-                    >
-                        Market Place
-                    </motion.h2>
-                    <motion.p
-                        className="text-gray-600 mb-8 max-w-3xl mx-auto"
-                        initial={{ opacity: 0, y: 50 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 1.2 }}
-                    >
-                        Explore our diverse range of premium products that cater to all your farming needs.
-                    </motion.p>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                        <motion.div
-                            className="bg-white rounded-lg shadow-lg p-6 text-left hover:shadow-xl transition-shadow duration-300"
-                            initial={{ opacity: 0, x: -100 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 1 }}
-                        >
-                            <img
-                                src="./product.jpeg"
-                                alt="Products"
-                                className="w-full h-40 object-cover rounded-lg mb-4"
-                            />
-                            <h3 className="text-xl font-bold mb-2">Best Products</h3>
-                            <p className="text-gray-600 mb-4">
-                                Premium quality products, specially crafted for your agricultural needs.
-                            </p>
-                            <Link to="/discover-more" className="text-green-500 font-semibold"
-                                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-                                Discover More
-                            </Link>
-                        </motion.div>
-
-                        <motion.div
-                            className="bg-white rounded-lg shadow-lg p-6 text-left hover:shadow-xl transition-shadow duration-300"
-                            initial={{ opacity: 0, x: -100 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 1.2 }}
-                        >
-                            <img
-                                src="./product2.jpeg"
-                                alt="Dairy Products"
-                                className="w-full h-40 object-cover rounded-lg mb-4"
-                            />
-                            <h3 className="text-xl font-bold mb-2">Popular Dairy Products</h3>
-                            <p className="text-gray-600 mb-4">
-                                Explore our rich, fresh dairy products sourced from the best local farms.
-                            </p>
-                            <Link to="/discover-more" className="text-green-500 font-semibold"
-                                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-                                Discover More
-                            </Link>
-                        </motion.div>
-
-                        <motion.div
-                            className="bg-white rounded-lg shadow-lg p-6 text-left hover:shadow-xl transition-shadow duration-300"
-                            initial={{ opacity: 0, x: 100 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 1 }}
-                        >
-                            <img
-                                src="./product3.jpg"
-                                alt="Fresh Produce"
-                                className="w-full h-40 object-cover rounded-lg mb-4"
-                            />
-                            <h3 className="text-xl font-bold mb-2">Fresh Produce</h3>
-                            <p className="text-gray-600 mb-4">
-                                Fresh and organic produce delivered right from farm to your doorstep.
-                            </p>
-                            <Link to="/discover-more" className="text-green-500 font-semibold"
-                                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-                                Discover More
-                            </Link>
-                        </motion.div>
-                    </div>
-                </motion.section>
 
                 {/* Pricing Plans Section */}
                 <PricingPlans />

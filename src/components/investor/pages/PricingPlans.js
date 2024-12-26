@@ -28,14 +28,17 @@ const PricingPlans = () => {
     ];
 
     return (
-        <div className="p-6 md:p-8 lg:p-10 rounded-lg text-center">
+        <div className="p-6 md:p-8 lg:p-10 rounded-lg text-center" id="products">
             <section className="bg-green-800 text-white py-16">
                 <div className="max-w-7xl mx-auto px-6 text-center">
+                    <h2 className="text-4xl font-bold mb-4">
+                        Market Place
+                    </h2>
                     <h2 className="text-4xl font-bold mb-4">
                         Choose the Best Offered <span className="text-green-300">From Rem-Farms</span>
                     </h2>
                     <p className="text-lg mb-12">
-                        Gain unparalleled access to farmland investments, carefully vetted through rigorous due diligence to ensure optimal returns.
+                        Explore our diverse range of premium products that cater to all your farming needs
                     </p>
 
                     {/* Pricing Cards */}

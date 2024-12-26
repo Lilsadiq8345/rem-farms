@@ -33,61 +33,72 @@ const About = () => {
           </p>
         </motion.div>
       </section>
-
-      {/* Mission Section */}
-      <section className="py-20 bg-green-50">
-        <div className="container mx-auto px-6 lg:flex lg:gap-12 lg:items-center">
+      {/* Our Vision Section */}
+      <section className="py-16 bg-gray-50 text-green-600">
+        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 items-center px-6">
+          {/* Left Column */}
           <motion.div
-            className="lg:w-1/2"
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 1 }}
           >
-            <h3 className="text-3xl font-bold text-green-800 mb-6">Our Mission</h3>
-            <p className="text-gray-600 text-lg mb-4">
-              To empower individuals and communities through innovative agricultural investments that create sustainable growth and shared prosperity.
-            </p>
-            <p className="text-gray-600 text-lg">
-              We envision a future where technology bridges the gap between investors and farmers, fostering collaboration and profitability for all.
-            </p>
+            <h2 className="text-3xl font-bold mb-6 text-green-800">Our Mission</h2>
+            <p className="mb-6 text-black">Promoting environmentally-friendly farming methods for long-term ecological balance.</p>
+            <ul className="space-y-4 text-black">
+              {[
+                { title: 'Expert Investment Team', description: 'Our team ensures your investments are in capable hands.' },
+                { title: 'Disciplined Investment Philosophy', description: 'We adhere to sustainable and profitable ventures.' },
+                { title: 'Proprietary Sourcing Technology', description: 'Utilizing advanced technology for exclusive opportunities.' },
+                { title: 'Crop Rotation and Diversity', description: 'We implement practices to boost crop yields sustainably.' },
+              ].map((point, index) => (
+                <li key={index} className="flex items-start">
+                  <span className=" text-black p-2 rounded-full mr-4">✔</span>
+                  <div>
+                    <h4 className="font-semibold">{point.title}</h4>
+                    <p className="text-sm">{point.description}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
           </motion.div>
-          <motion.img
-            src="/mission.jpeg"
-            alt="Mission Illustration"
-            className="mt-8 lg:mt-0 lg:w-1/2 rounded-lg shadow-md"
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1 }}
-          />
-        </div>
-      </section>
 
-      {/* Values Section */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto text-center px-6">
-          <h3 className="text-3xl font-bold text-green-800 mb-8">Our Core Values</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="p-6 bg-green-100 rounded-lg shadow-lg">
-              <h4 className="text-xl font-bold text-green-800 mb-4">Transparency</h4>
-              <p className="text-gray-600">
-                We prioritize honesty and openness in all our dealings to build trust and long-lasting relationships.
-              </p>
-            </div>
-            <div className="p-6 bg-green-100 rounded-lg shadow-lg">
-              <h4 className="text-xl font-bold text-green-800 mb-4">Sustainability</h4>
-              <p className="text-gray-600">
-                We are committed to sustainable farming practices that benefit the environment and communities.
-              </p>
-            </div>
-            <div className="p-6 bg-green-100 rounded-lg shadow-lg">
-              <h4 className="text-xl font-bold text-green-800 mb-4">Innovation</h4>
-              <p className="text-gray-600">
-                Our platform leverages the latest technology to deliver value to investors and farmers alike.
-              </p>
-            </div>
+          {/* Right Column with Image */}
+          <div className="flex justify-center">
+            <motion.img
+              src="/hero4.jpeg"
+              alt="Agriculture"
+              className="rounded-md shadow-lg w-80 h-80 object-cover"
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1 }}
+            />
           </div>
         </div>
       </section>
+
+      {/* Features Section */}
+      <div className="bg-white text-gray-800 py-20">
+        <div className="container mx-auto text-center px-6 lg:px-20">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-10">Why Choose Rem-Farms?</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+            {[
+              { title: 'Sustainable Practices', icon: '🌱', description: 'We focus on eco-friendly and sustainable farming solutions.' },
+              { title: 'Effortless Investments', icon: '💼', description: 'Simplifying investment opportunities for all types of investors.' },
+              { title: 'Global Community', icon: '🌍', description: 'Connecting farmers and investors from all corners of the globe.' },
+            ].map((feature, index) => (
+              <motion.div
+                key={index}
+                className="p-8 bg-gray-100 rounded-lg shadow-xl hover:shadow-2xl transition-all transform hover:scale-105"
+                whileHover={{ scale: 1.05 }}
+              >
+                <div className="text-5xl mb-4 text-green-700">{feature.icon}</div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">{feature.title}</h3>
+                <p className="text-gray-600">{feature.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
       {/* Footer */}
       <Footer />
     </>
