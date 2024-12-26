@@ -25,7 +25,8 @@ const Products = () => {
             <p className="text-gray-600 mb-4">
               There are so many variations of passages available, but the majority have suffered some form of alteration.
             </p>
-            <Link to="/best-products" className="text-green-500 font-semibold">
+            <Link to="/discover-more" className="text-green-500 font-semibold"
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
               Discover More
             </Link>
           </div>
@@ -37,7 +38,8 @@ const Products = () => {
             <p className="text-gray-600 mb-4">
               There are many variations of passages available, but most have suffered alteration in some form.
             </p>
-            <Link to="/dairy-products" className="text-green-500 font-semibold">
+            <Link to="/discover-more" className="text-green-500 font-semibold"
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
               Discover More
             </Link>
           </div>
@@ -49,7 +51,8 @@ const Products = () => {
             <p className="text-gray-600 mb-4">
               There are many variations of passages available, but most have suffered some alteration.
             </p>
-            <Link to="/quality-farming" className="text-green-500 font-semibold">
+            <Link to="/discover-more" className="text-green-500 font-semibold"
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
               Discover More
             </Link>
           </div>

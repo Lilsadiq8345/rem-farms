@@ -271,7 +271,8 @@ const Home = ({ setCartItems }) => {
                             <p className="text-gray-600 mb-4">
                                 Premium quality products, specially crafted for your agricultural needs.
                             </p>
-                            <Link to="/best-products" className="text-green-500 font-semibold">
+                            <Link to="/discover-more" className="text-green-500 font-semibold"
+                                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
                                 Discover More
                             </Link>
                         </motion.div>
@@ -291,7 +292,8 @@ const Home = ({ setCartItems }) => {
                             <p className="text-gray-600 mb-4">
                                 Explore our rich, fresh dairy products sourced from the best local farms.
                             </p>
-                            <Link to="/dairy-products" className="text-green-500 font-semibold">
+                            <Link to="/discover-more" className="text-green-500 font-semibold"
+                                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
                                 Discover More
                             </Link>
                         </motion.div>
@@ -311,7 +313,8 @@ const Home = ({ setCartItems }) => {
                             <p className="text-gray-600 mb-4">
                                 Fresh and organic produce delivered right from farm to your doorstep.
                             </p>
-                            <Link to="/fresh-produce" className="text-green-500 font-semibold">
+                            <Link to="/discover-more" className="text-green-500 font-semibold"
+                                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
                                 Discover More
                             </Link>
                         </motion.div>
