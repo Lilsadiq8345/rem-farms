@@ -81,26 +81,6 @@ const ContactSection = () => {
         </div>
       </section>
 
-      {/* Map Section */}
-      <section className="bg-gray-50 py-20">
-        <div className="max-w-7xl mx-auto px-6 text-center">
-          <h2 className="text-3xl font-semibold text-gray-800 mb-6">Our Location</h2>
-          <div className="w-full h-80 bg-gray-300 rounded-lg overflow-hidden">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=..."
-              width="100%"
-              height="100%"
-              frameBorder="0"
-              style={{ border: 0 }}
-              allowFullScreen=""
-              aria-hidden="false"
-              tabIndex="0"
-              title="Google Maps location" // Added title for accessibility
-            ></iframe>
-          </div>
-          <p className="text-gray-600 mt-4">123 Green Lane, London, UK</p>
-        </div>
-      </section>
 
       {/* Footer */}
       <Footer />
