@@ -5,7 +5,6 @@ import Footer from '../ui/Footer';
 import ScrollToTop from '../ui/ScrollToTop';
 import Modal from '../ui/Modal';
 import Navbar from '../ui/Navbar';
-import ContactSection from '../ui/ContactSection';
 import './Home.css';
 import PricingPlans from './PricingPlans';
 
