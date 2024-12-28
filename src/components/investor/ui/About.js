@@ -16,7 +16,6 @@ const About = () => {
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 1 }}
         >
-          <h2 className="text-4xl font-bold text-green-800 mb-8">About Us</h2>
           <p className="text-gray-600 text-lg max-w-4xl mx-auto mb-6">
             REM Farms is a leading platform in agricultural innovation. By providing tools for investors to contribute to farming projects, we ensure a seamless connection between agriculture and technology.
           </p>
