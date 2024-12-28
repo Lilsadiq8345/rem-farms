@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Footer from '../ui/Footer';
+import About from '../ui/About';
 import ScrollToTop from '../ui/ScrollToTop';
 import Modal from '../ui/Modal';
 import Navbar from '../ui/Navbar';
@@ -24,6 +25,8 @@ const Home = ({ setCartItems }) => {
             setShowScrollToTop(false);
         }
     };
+
+
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
@@ -169,7 +172,11 @@ const Home = ({ setCartItems }) => {
                     </div>
                 </div>
 
-                {/* Pricing Plans Section */}
+                {/* About Us Section */}
+                <About />
+
+                {/* Pricing Plans Section / Products */}
+
                 <PricingPlans />
 
                 {/*Explore Our Projects Section*/}

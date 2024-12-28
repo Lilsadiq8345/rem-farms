@@ -20,6 +20,12 @@ const NavBar = () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
+  const handleScroll = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -60,12 +66,12 @@ const NavBar = () => {
           >
             Home
           </a>
-          <Link to="/products" className="hover:text-green-700 text-green-800"
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Markets</Link>
-          <Link to="/about" className="hover:text-green-700 text-green-800"
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>About Us</Link>
-          <Link to="/contact" className="hover:text-green-700 text-green-800"
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Contact</Link>
+          <Link to="/" className="hover:text-green-700 text-green-800"
+            onClick={() => handleScroll("products")}>Markets</Link>
+          <Link to="/" className="hover:text-green-700 text-green-800"
+            onClick={() => handleScroll("about")}>About Us</Link>
+          <Link to="/" className="hover:text-green-700 text-green-800"
+            onClick={() => handleScroll("contact")}>Contact</Link>
         </nav>
 
         {/* Desktop Actions */}
@@ -239,16 +245,16 @@ const NavBar = () => {
             <Link to="/" onClick={handleHomeClick} className="text-green-800 hover:text-green-700">
               Home
             </Link>
-            <Link to="/products" className="hover:text-green-700 text-green-800"
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+            <Link to="/" className="hover:text-green-700 text-green-800"
+              onClick={() => handleScroll("products")}>
               Markets
             </Link>
-            <Link to="/about" className="hover:text-green-700 text-green-800"
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+            <Link to="/" className="hover:text-green-700 text-green-800"
+              onClick={() => handleScroll("about")}>
               About Us
             </Link>
             <Link to="/contact" className="hover:text-green-700 text-green-800"
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+              onClick={() => handleScroll("contact")}>
               Contact
             </Link>
 

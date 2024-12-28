@@ -1,23 +1,15 @@
 import React from 'react';
-import Footer from './Footer';
-import Navbar from './Navbar';
 import { motion } from 'framer-motion';
 import '../../../App.css';
 
 const About = () => {
   return (
     <>
-      {/* Navbar */}
-      <Navbar />
 
-      {/* Hero Section */}
+      {/* About Section */}
       <section
         id="about"
-        className="mt-20 py-12 px-6 max-w-7xl mx-auto text-center bg-white rounded-lg shadow-lg lg:flex lg:items-center lg:gap-10"
-      >
-
-        {/* About Section */}
-
+        className="mt-0 py-12 px-6 max-w-7xl mx-auto text-center bg-white rounded-lg shadow-lg lg:flex lg:items-center lg:gap-10">
         <motion.div
           className="container mx-auto text-center px-4"
           initial={{ opacity: 0, x: -50 }}
@@ -99,8 +91,6 @@ const About = () => {
           </div>
         </div>
       </div>
-      {/* Footer */}
-      <Footer />
     </>
   );
 };

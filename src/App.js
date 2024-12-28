@@ -19,7 +19,6 @@ import SavedCalls from './components/investor/pages/SavedCalls';
 import About from './components/investor/ui/About';
 import Faq from './components/investor/ui/Faq';
 import ContactSection from './components/investor/ui/ContactSection';
-import Products from './components/common/Products';
 import DiscoverMore from './components/common/DiscoverMore';
 
 // Import Staff Components
@@ -74,7 +73,6 @@ const App = () => {
         <Route path="/faq" element={<Faq />} />
         <Route path="/contact" element={<ContactSection />} />
         <Route path="/cart" element={<CartDropdown />} />
-        <Route path="/products" element={<Products />} />
         <Route path="/discover-more" element={<DiscoverMore />} />
         <Route path="/commodities" element={<CommodityList />} />
         <Route path="/services" element={<Services />} />
