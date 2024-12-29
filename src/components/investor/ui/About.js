@@ -66,30 +66,6 @@ const About = () => {
           </div>
         </div>
       </section>
-
-      {/* Features Section */}
-      <div className="bg-white text-gray-800 py-20">
-        <div className="container mx-auto text-center px-6 lg:px-20">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-10">Why Choose Rem-Farms?</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
-            {[
-              { title: 'Sustainable Practices', icon: '🌱', description: 'We focus on eco-friendly and sustainable farming solutions.' },
-              { title: 'Effortless Investments', icon: '💼', description: 'Simplifying investment opportunities for all types of investors.' },
-              { title: 'Global Community', icon: '🌍', description: 'Connecting farmers and investors from all corners of the globe.' },
-            ].map((feature, index) => (
-              <motion.div
-                key={index}
-                className="p-8 bg-gray-100 rounded-lg shadow-xl hover:shadow-2xl transition-all transform hover:scale-105"
-                whileHover={{ scale: 1.05 }}
-              >
-                <div className="text-5xl mb-4 text-green-700">{feature.icon}</div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">{feature.title}</h3>
-                <p className="text-gray-600">{feature.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </div>
     </>
   );
 };
