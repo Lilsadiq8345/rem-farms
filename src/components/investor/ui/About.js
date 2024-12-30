@@ -17,6 +17,8 @@ const About = () => {
           transition={{ duration: 1 }}
         >
           <p className="text-gray-600 text-lg max-w-4xl mx-auto mb-6">
+            <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 font-poppins text-green-600">About Us</h3>
+
             REM Farms is a leading platform in agricultural innovation. By providing tools for investors to contribute to farming projects, we ensure a seamless connection between agriculture and technology.
           </p>
           <p className="text-gray-600 text-lg max-w-4xl mx-auto">
