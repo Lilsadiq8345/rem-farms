@@ -35,6 +35,32 @@ const Footer = () => {
     <footer className="bg-green-900 text-white py-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
 
+        {/* Logo and Contact Info */}
+        <div id="contact" className="space-y-6">
+          <img
+            src="./REM-FARM.png"
+            alt="Rem-Farms-Logo"
+            className="mb-4 h-8 bg-white shadow-lg rounded-md"
+          />
+          <p className="text-sm mb-2">UK, United Kingdom</p>
+          <p className="text-sm mb-2">📞 123-456-7890</p>
+          <p className="text-sm mb-4">✉️ rem-farms.com</p>
+          <div className="flex space-x-4">
+            <a href="https://facebook.com" aria-label="Facebook" className="text-white hover:text-gray-300">
+              <FontAwesomeIcon icon={faFacebook} size="lg" />
+            </a>
+            <a href="https://twitter.com" aria-label="Twitter" className="text-white hover:text-gray-300">
+              <FontAwesomeIcon icon={faTwitter} size="lg" />
+            </a>
+            <a href="https://instagram.com" aria-label="Instagram" className="text-white hover:text-gray-300">
+              <FontAwesomeIcon icon={faInstagram} size="lg" />
+            </a>
+            <a href="https://linkedin.com" aria-label="LinkedIn" className="text-white hover:text-gray-300">
+              <FontAwesomeIcon icon={faLinkedin} size="lg" />
+            </a>
+          </div>
+        </div>
+
         {/* Contact Form */}
         <div className="space-y-4">
           <h4 className="text-lg font-semibold mb-4">Get in Touch</h4>
@@ -69,32 +95,6 @@ const Footer = () => {
               Send Message
             </button>
           </form>
-        </div>
-
-        {/* Logo and Contact Info */}
-        <div id="contact" className="space-y-6">
-          <img
-            src="./REM-FARM.png"
-            alt="Rem-Farms-Logo"
-            className="mb-4 h-16 bg-white shadow-lg rounded-md"
-          />
-          <p className="text-sm mb-2">UK, United Kingdom</p>
-          <p className="text-sm mb-2">📞 123-456-7890</p>
-          <p className="text-sm mb-4">✉️ rem-farms.com</p>
-          <div className="flex space-x-4">
-            <a href="https://facebook.com" aria-label="Facebook" className="text-white hover:text-gray-300">
-              <FontAwesomeIcon icon={faFacebook} size="lg" />
-            </a>
-            <a href="https://twitter.com" aria-label="Twitter" className="text-white hover:text-gray-300">
-              <FontAwesomeIcon icon={faTwitter} size="lg" />
-            </a>
-            <a href="https://instagram.com" aria-label="Instagram" className="text-white hover:text-gray-300">
-              <FontAwesomeIcon icon={faInstagram} size="lg" />
-            </a>
-            <a href="https://linkedin.com" aria-label="LinkedIn" className="text-white hover:text-gray-300">
-              <FontAwesomeIcon icon={faLinkedin} size="lg" />
-            </a>
-          </div>
         </div>
 
         {/* Quick Links */}
