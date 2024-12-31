@@ -89,8 +89,11 @@ const Home = ({ setCartItems }) => {
                         transition={{ duration: 0.8 }}
                     >
                         <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight mb-4">
-                            Revolutionizing Agriculture with <span className="text-yellow-400">Rem-Farms</span>
+                            Revolutionizing Agriculture with
+                            <span className="text-yellow-400 block sm:inline-block">Rem-Farms</span>
                         </h1>
+
+
                         <p className="text-lg sm:text-xl mb-6 max-w-xl mx-auto lg:mx-0">
                             Empowering farmers and investors through cutting-edge technology for sustainable and profitable growth.
                         </p>
