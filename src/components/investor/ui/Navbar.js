@@ -244,33 +244,34 @@ const NavBar = () => {
         </div>
       </div>
 
-
       {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="md:hidden bg-white border-t border-gray-200">
-          <nav className="flex flex-col p-4 space-y-2">
-            <Link to="/" onClick={handleHomeClick} className="text-green-800 hover:text-green-700">
-              Home
-            </Link>
-            <Link to="/" className="hover:text-green-700 text-green-800"
-              onClick={() => handleScroll("products")}>
-              Markets
-            </Link>
-            <Link to="/" className="hover:text-green-700 text-green-800"
-              onClick={() => handleScroll("about")}>
-              About Us
-            </Link>
-            <Link to="/contact" className="hover:text-green-700 text-green-800"
-              onClick={() => handleScroll("contact")}>
-              Contact
-            </Link>
+      {
+        isMenuOpen && (
+          <div className="md:hidden bg-white border-t border-gray-200">
+            <nav className="flex flex-col p-4 space-y-2">
+              <Link to="/" onClick={handleHomeClick} className="text-green-800 hover:text-green-700">
+                Home
+              </Link>
+              <Link to="/" className="hover:text-green-700 text-green-800"
+                onClick={() => handleScroll("products")}>
+                Markets
+              </Link>
+              <Link to="/" className="hover:text-green-700 text-green-800"
+                onClick={() => handleScroll("about")}>
+                About Us
+              </Link>
+              <Link to="/contact" className="hover:text-green-700 text-green-800"
+                onClick={() => handleScroll("contact")}>
+                Contact
+              </Link>
 
-          </nav>
+            </nav>
 
-        </div>
-      )}
+          </div>
+        )
+      }
 
-    </header>
+    </header >
   );
 };
 

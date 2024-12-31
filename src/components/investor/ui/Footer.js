@@ -62,7 +62,7 @@ const Footer = () => {
           <h4 className="text-lg font-semibold mb-4">Our Mission</h4>
           <ul className="space-y-2">
             <li>
-              <Link to="/contact" className="hover:text-gray-300">
+              <Link to="/" className="hover:text-gray-300" onClick={() => handleScroll("contact")}>
                 Contacts
               </Link>
             </li>

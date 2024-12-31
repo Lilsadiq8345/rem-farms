@@ -44,11 +44,7 @@ const About = () => {
         whileInView={{ opacity: 1, x: 0 }}
         transition={{ duration: 1 }}
       >
-        <img
-          src="hero3.jpeg"
-          alt="About Us Illustration"
-          className="rounded-md shadow-lg w-80 h-80 object-cover"
-        />
+
 
 
       </motion.div>
