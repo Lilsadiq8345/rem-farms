@@ -6,7 +6,6 @@ import About from '../ui/About';
 import ScrollToTop from '../ui/ScrollToTop';
 import Modal from '../ui/Modal';
 import Navbar from '../ui/Navbar';
-import ContactSection from '../ui/ContactSection';
 import OurMissionSection from '../ui/OurMissionSection';
 import './Home.css';
 import PricingPlans from './PricingPlans';
@@ -177,9 +176,6 @@ const Home = ({ setCartItems }) => {
                     </div>
                 </div>
 
-
-                {/* Contacts Section  */}
-                <ContactSection />
                 {/* Pricing Plans Section / Products */}
 
                 <PricingPlans />
