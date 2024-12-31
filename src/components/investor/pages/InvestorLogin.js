@@ -50,7 +50,7 @@ const InvestorLogin = ({ onLogin }) => {
         id="investor-login"
         className="flex items-center justify-center min-h-screen"
         style={{
-          backgroundImage: `url('./REM-FARM-LOGO.png')`,
+          backgroundImage: `url('./REM-FARM.png')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',

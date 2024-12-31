@@ -1,74 +1,58 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import '../../../App.css';
+import { Link } from 'react-router-dom';
 
 const About = () => {
   return (
-    <>
+    <section
+      id="about"
+      className="py-12 px-6 max-w-7xl mx-auto bg-gray-50 rounded-lg shadow-lg lg:flex lg:items-center lg:gap-10"
+    >
+      {/* Left Section */}
+      <motion.div
+        className="text-center lg:text-left lg:w-1/2"
+        initial={{ opacity: 0, x: -50 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ duration: 1 }}
+      >
+        <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-green-700">
+          About Us
+        </h2>
+        <p className="text-gray-700 text-lg leading-relaxed mb-4">
+          At <span className="font-semibold">REM Farms</span>, we bridge the
+          gap between technology and agriculture to create opportunities that
+          benefit farmers, investors, and the environment. We are committed to
+          empowering communities and ensuring a sustainable future through
+          innovation and collaboration.
+        </p>
+        <p className="text-gray-700 text-lg leading-relaxed mb-6">
+          Our platform connects investors with cutting-edge farming projects,
+          offering a secure and rewarding investment opportunity. At the same
+          time, we provide farmers with the tools and resources needed to
+          enhance productivity and adopt sustainable practices.
+        </p>
+        <Link to=""
+          className="inline-block bg-green-600 text-white py-2 px-6 rounded-lg shadow-lg hover:bg-green-700 transition-all"
+        > Learn More</Link>
+      </motion.div>
 
-      {/* About Section */}
-      <section
-        id="about"
-        className="mt-0 py-12 px-6 max-w-7xl mx-auto text-center bg-white rounded-lg shadow-lg lg:flex lg:items-center lg:gap-10">
-        <motion.div
-          className="container mx-auto text-center px-4"
-          initial={{ opacity: 0, x: -50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1 }}
-        >
-          <p className="text-gray-600 text-lg max-w-4xl mx-auto mb-6">
-            <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 font-poppins text-green-600">About Us</h3>
+      {/* Right Section */}
+      <motion.div
+        className="mt-8 lg:mt-0 lg:w-1/2 flex justify-center"
+        initial={{ opacity: 0, x: 50 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ duration: 1 }}
+      >
+        <img
+          src="hero3.jpeg"
+          alt="About Us Illustration"
+          className="rounded-md shadow-lg w-80 h-80 object-cover"
+        />
 
-            REM Farms is a leading platform in agricultural innovation. By providing tools for investors to contribute to farming projects, we ensure a seamless connection between agriculture and technology.
-          </p>
-          <p className="text-gray-600 text-lg max-w-4xl mx-auto">
-            With our platform, farmers gain access to much-needed resources, and investors receive returns on their investments while supporting sustainable agriculture.
-          </p>
-        </motion.div>
-      </section>
-      {/* Our Vision Section */}
-      <section className="py-16 bg-gray-50 text-green-600">
-        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 items-center px-6">
-          {/* Left Column */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1 }}
-          >
-            <h2 className="text-3xl font-bold mb-6 text-green-800">Our Mission</h2>
-            <p className="mb-6 text-black">Promoting environmentally-friendly farming methods for long-term ecological balance.</p>
-            <ul className="space-y-4 text-black">
-              {[
-                { title: 'Expert Investment Team', description: 'Our team ensures your investments are in capable hands.' },
-                { title: 'Disciplined Investment Philosophy', description: 'We adhere to sustainable and profitable ventures.' },
-                { title: 'Proprietary Sourcing Technology', description: 'Utilizing advanced technology for exclusive opportunities.' },
-                { title: 'Crop Rotation and Diversity', description: 'We implement practices to boost crop yields sustainably.' },
-              ].map((point, index) => (
-                <li key={index} className="flex items-start">
-                  <span className=" text-black p-2 rounded-full mr-4">✔</span>
-                  <div>
-                    <h4 className="font-semibold">{point.title}</h4>
-                    <p className="text-sm">{point.description}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
 
-          {/* Right Column with Image */}
-          <div className="flex justify-center">
-            <motion.img
-              src="/hero4.jpeg"
-              alt="Agriculture"
-              className="rounded-md shadow-lg w-80 h-80 object-cover"
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1 }}
-            />
-          </div>
-        </div>
-      </section>
-    </>
+      </motion.div>
+    </section>
   );
 };
 
