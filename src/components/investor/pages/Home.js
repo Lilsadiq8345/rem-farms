@@ -6,6 +6,7 @@ import About from '../ui/About';
 import ScrollToTop from '../ui/ScrollToTop';
 import Modal from '../ui/Modal';
 import Navbar from '../ui/Navbar';
+import ContactSection from '../ui/ContactSection';
 import './Home.css';
 import PricingPlans from './PricingPlans';
 
@@ -173,44 +174,11 @@ const Home = ({ setCartItems }) => {
                 </div>
 
 
+                {/* Contacts Section  */}
+                <ContactSection />
                 {/* Pricing Plans Section / Products */}
 
                 <PricingPlans />
-
-                {/* Contact Section */}
-                <section className="bg-gradient-to-r from-green-800 to-green-500 text-white mt-10 py-24" id="contact">
-                    <div className="max-w-7xl mx-auto px-6 text-center">
-                        <p className="text-lg font-medium max-w-2xl mx-auto">
-                            Reach out to us and explore our world of innovative farming solutions that shape the future of agriculture.
-                        </p>
-                    </div>
-                </section>
-
-                {/* Contact Details Section */}
-                <section className="bg-gray-50 py-20">
-                    <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-                        {/* CEO Contact */}
-                        <div className="bg-white rounded-lg p-8 shadow-lg hover:shadow-xl transition-shadow">
-                            <h3 className="text-2xl font-semibold text-gray-800 mb-4">CEO Contact</h3>
-                            <p className="text-gray-600 mb-2">Phone: <span className="text-green-700">+1 123-456-7890</span></p>
-                            <p className="text-gray-600">123 Green Lane, London, UK</p>
-                        </div>
-
-                        {/* General Contact */}
-                        <div className="bg-white rounded-lg p-8 shadow-lg hover:shadow-xl transition-shadow">
-                            <h3 className="text-2xl font-semibold text-gray-800 mb-4">General Inquiries</h3>
-                            <p className="text-gray-600 mb-2">Phone: <span className="text-green-700">+1 987-654-3210</span></p>
-                            <p className="text-gray-600">456 Farm Street, Manchester, UK</p>
-                        </div>
-
-                        {/* Manager Contact */}
-                        <div className="bg-white rounded-lg p-8 shadow-lg hover:shadow-xl transition-shadow">
-                            <h3 className="text-2xl font-semibold text-gray-800 mb-4">Manager Inquiries</h3>
-                            <p className="text-gray-600 mb-2">Phone: <span className="text-green-700">+1 234-567-8901</span></p>
-                            <p className="text-gray-600">789 Harvest Lane, Birmingham, UK</p>
-                        </div>
-                    </div>
-                </section>
 
                 {/* Highlight Section */}
                 <section className="bg-white py-20">
