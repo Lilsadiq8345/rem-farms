@@ -260,7 +260,7 @@ const NavBar = () => {
                 onClick={() => handleScroll("about")}>
                 About Us
               </Link>
-              <Link to="/contact" className="hover:text-green-700 text-green-800"
+              <Link to="/" className="hover:text-green-700 text-green-800"
                 onClick={() => handleScroll("contact")}>
                 Contact
               </Link>

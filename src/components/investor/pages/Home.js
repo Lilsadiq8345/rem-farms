@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Footer from '../ui/Footer';
-import About from '../ui/About';
 import ScrollToTop from '../ui/ScrollToTop';
 import Modal from '../ui/Modal';
 import Navbar from '../ui/Navbar';
-import OurMissionSection from '../ui/OurMissionSection';
 import './Home.css';
 import PricingPlans from './PricingPlans';
 
@@ -177,7 +174,6 @@ const Home = ({ setCartItems }) => {
                 </div>
 
                 {/* Pricing Plans Section / Products */}
-
                 <PricingPlans />
 
                 {/* Highlight Section */}
@@ -210,93 +206,6 @@ const Home = ({ setCartItems }) => {
                         </div>
                     </div>
                 </section>
-
-                <OurMissionSection />
-                {/*Explore Our Projects Section*/}
-                < section className="explore-projects-section my-4 mx-auto text-center max-w-5xl" >
-                    <motion.h2
-                        className="text-4xl font-semibold text-black"
-                        initial={{ opacity: 0, y: 50 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 1 }}
-                    >
-                        Explore Our Projects
-                    </motion.h2>
-                    <motion.p
-                        className="text-gray-600 mb-8 max-w-3xl mx-auto"
-                        initial={{ opacity: 0, y: 50 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 1.2 }}
-                    >
-                        Discover how Rem-Farms is revolutionizing agriculture with innovative projects.
-                    </motion.p>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                        <motion.div
-                            className="bg-white rounded-lg shadow-lg p-6 text-left hover:shadow-xl transition-shadow duration-300"
-                            initial={{ opacity: 0, x: 100 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 1 }}
-                        >
-                            <img
-                                src="./images1.jpeg"
-                                alt="Project 1"
-                                className="w-full h-40 object-cover rounded-lg mb-4"
-                            />
-                            <h3 className="text-xl font-bold mb-2">Sustainable Agriculture</h3>
-                            <p className="text-gray-600 mb-4">
-                                Aiming for a greener future through sustainable farming practices.
-                            </p>
-                            <Link to="/sustainable-agriculture" className="text-green-500 font-semibold">
-                                Learn More
-                            </Link>
-                        </motion.div>
-
-                        <motion.div
-                            className="bg-white rounded-lg shadow-lg p-6 text-left hover:shadow-xl transition-shadow duration-300"
-                            initial={{ opacity: 0, x: 100 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 1 }}
-                        >
-                            <img
-                                src="./images2.jpeg"
-                                alt="Project 2"
-                                className="w-full h-40 object-cover rounded-lg mb-4"
-                            />
-                            <h3 className="text-xl font-bold mb-2">Innovative Technologies</h3>
-                            <p className="text-gray-600 mb-4">
-                                Implementing modern technologies to boost farming productivity.
-                            </p>
-                            <Link to="/innovative-technologies" className="text-green-500 font-semibold">
-                                Learn More
-                            </Link>
-                        </motion.div>
-
-                        <motion.div
-                            className="bg-white rounded-lg shadow-lg p-6 text-left hover:shadow-xl transition-shadow duration-300"
-                            initial={{ opacity: 0, x: 100 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 1 }}
-                        >
-                            <img
-                                src="./images3.jpeg"
-                                alt="Project 3"
-                                className="w-full h-40 object-cover rounded-lg mb-4"
-                            />
-                            <h3 className="text-xl font-bold mb-2">Organic Farming</h3>
-                            <p className="text-gray-600 mb-4">
-                                Focused on providing high-quality organic products from farm to table.
-                            </p>
-                            <Link to="/organic-farming" className="text-green-500 font-semibold">
-                                Learn More
-                            </Link>
-                        </motion.div>
-                    </div>
-                </section >
-
-                {/* About Us Section */}
-                <About />
-
 
                 {/* Footer Section */}
                 <Footer />

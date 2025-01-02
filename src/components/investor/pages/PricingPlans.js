@@ -20,9 +20,9 @@ const PricingPlans = () => {
 
     // Pricing plans data
     const pricingPlans = [
-        { commodityId: 1, image: "/product.jpeg" },
-        { commodityId: 2, image: "/product2.jpeg" },
-        { commodityId: 3, image: "/product2.jpeg" },
+        { commodityId: 1, image: "/images1.jpeg" },
+        { commodityId: 2, image: "/images2.jpeg" },
+        { commodityId: 3, image: "/images3.jpeg" },
         { commodityId: 4, image: "/product2.jpeg" },
         { commodityId: 5, image: "/product.jpeg" },
         { commodityId: 6, image: "/product.jpeg" },
